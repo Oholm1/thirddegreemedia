@@ -1,0 +1,21 @@
+body {
+  font-family: 'Courier New', monospace;
+  background-color: #0f0f0f;
+  color: #e0e0e0;
+  margin: 0;
+  padding: 0;
+}
+
+header, footer {
+  background-color: #1a1a1a;
+  padding: 20px;
+  text-align: center;
+}
+
+main {
+  padding: 40px;
+}
+
+h1, h2 {
+  color: #ff6600;
+}
