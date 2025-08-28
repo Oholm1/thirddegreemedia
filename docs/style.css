@@ -34,6 +34,16 @@ p {
 em {
   color: #66ccff;
 }
+a {
+  color: #66ccff;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+a:hover {
+  color: #ffcc00;
+  text-decoration: underline;
+}
 
 strong {
   color: #ffcc00;
