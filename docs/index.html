@@ -45,5 +45,14 @@
   <footer>
     <p>&copy; 2025 Third Degree Media</p>
   </footer>
+<!-- Fun Hit Counter -->
+<div id="hit-counter" style="font-family:monospace; color:#ff6600;"></div>
+<script>
+  let hits = localStorage.getItem('funHitCount');
+  hits = hits ? parseInt(hits) + 1 : 1;
+  localStorage.setItem('funHitCount', hits);
+  document.getElementById('hit-counter').textContent = "👁️‍🗨️ Mythic Hits: " + hits;
+</script>
+
 </body>
 </html>
