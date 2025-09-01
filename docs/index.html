@@ -46,13 +46,31 @@
     <p>&copy; 2025 Third Degree Media</p>
   </footer>
 
-<!-- Fun Hit Counter -->
+<!-- Mythic Persistent Hit Counter -->
 <div id="hit-counter" style="font-family:monospace; color:#ff6600;"></div>
+
 <script>
-  let hits = localStorage.getItem('funHitCount');
-  hits = hits ? parseInt(hits) + 1 : 1;
-  localStorage.setItem('funHitCount', hits);
-  document.getElementById('hit-counter').textContent = "👁️‍🗨️ Mythic Hits: " + hits;
+// Trigger GitHub Action to increment hit count
+fetch("https://api.github.com/repos/Oholm1/thirddegreemedia/dispatches", {
+  method: "POST",
+  headers: {
+    "Authorization": "Bearer YOUR_GITHUB_TOKEN",  // Replace with your actual token
+    "Accept": "application/vnd.github.everest-preview+json",
+    "Content-Type": "application/json"
+  },
+  body: JSON.stringify({
+    event_type: "increment_hit",
+    client_payload: {
+      page: "homepage"
+    }
+  })
+});
+
+// Fetch and display the current hit count
+fetch("hits.json")
+  .then(res => res.json())
+  .then(data => {
+    document.getElementById("hit-counter").textContent = "👁️‍🗨️ Mythic Hits: " + data.homepage;
+  });
 </script>
-</body>
-</html>
+
