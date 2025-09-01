@@ -1,0 +1,25 @@
+name: Update Hit Counter
+
+on:
+  repository_dispatch:
+    types: [increment_hit]
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Update hits
+        run: |
+          PAGE="${{ github.event.client_payload.page }}"
+          FILE="docs/hits.json"
+          COUNT=$(jq ".\"$PAGE\"" $FILE)
+          NEW_COUNT=$((COUNT + 1))
+          jq ".\"$PAGE\" = $NEW_COUNT" $FILE > tmp.json && mv tmp.json $FILE
+      - name: Commit changes
+        run: |
+          git config user.name "GitHub Action"
+          git config user.email "action@github.com"
+          git add docs/hits.json
+          git commit -m "Increment hit for $PAGE"
+          git push
