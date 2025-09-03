@@ -10,7 +10,7 @@
   --maxw: 70ch;
 }
 
-/* Dark / Light auto support if user prefers */
+/* Light-mode fallback if user prefers */
 @media (prefers-color-scheme: light) {
   :root {
     --ink: #111;
@@ -24,8 +24,10 @@
 
 body {
   font-family: monospace;
-  background-color: var(--paper);
   color: var(--ink);
+  background-color: var(--paper);
+  background-image: radial-gradient(rgba(255,255,255,.02) 1px, transparent 1px);
+  background-size: 20px 20px;
   padding: 40px;
   line-height: 1.6;
   max-width: var(--maxw);
@@ -50,15 +52,20 @@ section {
   border: 1px dashed #444;
   background-color: #1a1a1a;
   border-radius: 8px;
+  transition: box-shadow .3s ease;
 }
 
-p {
-  margin: 10px 0;
+section:hover {
+  box-shadow: 0 0 10px rgba(255,102,0,.3);
 }
 
-em {
-  color: var(--accent);
+@media (prefers-reduced-motion: reduce) {
+  section { transition: none; }
 }
+
+p { margin: 10px 0; }
+
+em { color: var(--accent); }
 
 a {
   color: var(--accent);
@@ -66,16 +73,13 @@ a {
   font-weight: bold;
   text-underline-offset: 2px;
 }
-
 a:hover {
   color: var(--accent-hover);
   text-decoration: underline;
   text-underline-offset: 4px;
 }
 
-strong {
-  color: var(--accent-hover);
-}
+strong { color: var(--accent-hover); }
 
 /* Callout boxes for “rituals” or special notes */
 .callout {
