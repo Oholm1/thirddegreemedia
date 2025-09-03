@@ -105,3 +105,8 @@ footer p {
   color: var(--muted);
   text-align: center;
 }
+/* Subtle small-text style */
+.small {
+  font-size: 0.9em;
+  color: var(--muted);
+}
