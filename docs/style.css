@@ -110,3 +110,16 @@ footer p {
   font-size: 0.9em;
   color: var(--muted);
 }
+.donate-button {
+  display: inline-block;
+  padding: 0.6rem 1rem;
+  background: var(--highlight);
+  color: #fff !important;
+  border-radius: 8px;
+  font-weight: bold;
+  text-decoration: none;
+  transition: background 0.3s ease;
+}
+.donate-button:hover {
+  background: var(--accent-hover);
+}
