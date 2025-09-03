@@ -1,20 +1,45 @@
 /* 🜥 Glyph #044: Sovereign Styles Activated */
 
+:root {
+  --ink: #eee;
+  --paper: #111;
+  --accent: #66ccff;
+  --accent-hover: #ffcc00;
+  --highlight: #ff6600;
+  --muted: #888;
+  --maxw: 70ch;
+}
+
+/* Dark / Light auto support if user prefers */
+@media (prefers-color-scheme: light) {
+  :root {
+    --ink: #111;
+    --paper: #fafafa;
+    --highlight: #ff6600;
+    --accent: #0055cc;
+    --accent-hover: #cc5500;
+    --muted: #555;
+  }
+}
+
 body {
   font-family: monospace;
-  background-color: #111;
-  color: #eee;
+  background-color: var(--paper);
+  color: var(--ink);
   padding: 40px;
   line-height: 1.6;
+  max-width: var(--maxw);
+  margin: auto;
 }
 
 h1, h2 {
-  color: #ff6600;
+  color: var(--highlight);
   text-shadow: 1px 1px 2px #000;
+  line-height: 1.25;
 }
 
 header, footer {
-  border-bottom: 2px solid #ff6600;
+  border-bottom: 2px solid var(--highlight);
   padding-bottom: 10px;
   margin-bottom: 30px;
 }
@@ -32,25 +57,47 @@ p {
 }
 
 em {
-  color: #66ccff;
+  color: var(--accent);
 }
+
 a {
-  color: #66ccff;
+  color: var(--accent);
   text-decoration: none;
   font-weight: bold;
+  text-underline-offset: 2px;
 }
 
 a:hover {
-  color: #ffcc00;
+  color: var(--accent-hover);
   text-decoration: underline;
+  text-underline-offset: 4px;
 }
 
 strong {
-  color: #ffcc00;
+  color: var(--accent-hover);
 }
 
+/* Callout boxes for “rituals” or special notes */
+.callout {
+  border: 1px solid rgba(127,127,127,.3);
+  padding: .9rem 1rem;
+  border-radius: 8px;
+  background: rgba(127,127,127,.06);
+  margin: 1.5rem 0;
+}
+.callout h3 { margin-top: 0 }
+
+/* Horizontal rule with glyphic flair */
+hr {
+  border: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(127,127,127,.25), transparent);
+  margin: 2rem 0;
+}
+
+/* Footer */
 footer p {
   font-size: 0.9em;
-  color: #888;
+  color: var(--muted);
   text-align: center;
 }
