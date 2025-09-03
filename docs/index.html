@@ -1,6 +1,7 @@
-<!DOCTYPE html>
+<!doctype html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="utf-8">
   <title>Third Degree Media — Sovereign Tech & Absurd Lore</title>
 
   <!-- 🜧 Glyph #046: SEO Ritual Initiated -->
@@ -8,8 +9,17 @@
   <meta name="keywords" content="sovereign tech, off-grid media, mythic web, DNS rituals, goofy zone, Orrin Holmbeck">
   <meta name="author" content="Orrin D. Holmbeck">
 
+  <!-- Privacy/Security meta (works on static hosting) -->
+  <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; base-uri 'self'; form-action 'self'">
+  <meta name="referrer" content="no-referrer">
+  <meta http-equiv="X-Content-Type-Options" content="nosniff">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
   <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="/favicon.ico">
 </head>
+<body>
 
   <header>
     <h1>Third Degree Media</h1>
@@ -17,7 +27,7 @@
   </header>
 
   <main>
-    <section>
+    <section class="callout">
       <h2>Codex</h2>
       <p>Documenting infrastructure rituals, domain claims, and glyphic milestones.</p>
       <p><strong>Disclaimer:</strong> This site may cause spontaneous myth-making, ritual dancing, and mild confusion in DNS servers.</p>
@@ -25,14 +35,18 @@
     </section>
 
     <section>
-  <h2>Connect</h2>
-  <p>Follow the codex trail on <a href="https://mastodon.social/@daemonlogger" rel="me" target="_blank">Mastodon</a> — where the goofy meets the glyphic.</p>
-</section>
+      <h2>Connect</h2>
+      <p>
+        Follow the codex trail on
+        <a href="https://mastodon.social/@daemonlogger" rel="me noopener noreferrer" target="_blank">Mastodon</a>
+        — where the goofy meets the glyphic.
+      </p>
+    </section>
 
     <section>
       <h2>Goofy Zone</h2>
       <p>Welcome to the part of the site where logic takes a nap and the mythos gets weird.</p>
-      <p>Today’s ritual: Summon a sandwich using only HTML and sheer willpower.</p>
+      <p id="ritual"><em>Today’s ritual:</em> Summon a sandwich using only HTML and sheer willpower.</p>
     </section>
 
     <section>
@@ -40,37 +54,20 @@
       <p>Architected by Orrin D. Holmbeck—mythmaker, strategist, and sovereign steward of the off-grid web.</p>
       <p>When not codex-logging infrastructure rituals, Orrin can be found whispering to routers and bartering with squirrels.</p>
     </section>
+
+    <hr>
+
+    <footer>
+      <p>This site sets no cookies, loads no third-party scripts, and uses no analytics. The only logs are kept by the squirrels. 🐿️</p>
+      <p>© 2025 Third Degree Media</p>
+    </footer>
+
+    <!-- Removed: insecure client-side hit counter that exposed a GitHub token.
+         If you *really* want a counter:
+           • Use a privacy-friendly third party (e.g., GoatCounter) — still external.
+           • Or a serverless endpoint you control (Cloudflare Workers, Fly.io, etc.) that keeps the secret on the server.
+           • Or skip counters entirely (most privacy sites do). -->
   </main>
 
-  <footer>
-    <p>&copy; 2025 Third Degree Media</p>
-  </footer>
-
-<!-- Mythic Persistent Hit Counter -->
-<div id="hit-counter" style="font-family:monospace; color:#ff6600;"></div>
-
-<script>
-// Trigger GitHub Action to increment hit count
-fetch("https://api.github.com/repos/Oholm1/thirddegreemedia/dispatches", {
-  method: "POST",
-  headers: {
-    "Authorization": "Bearer YOUR_GITHUB_TOKEN",  // Replace with your actual token
-    "Accept": "application/vnd.github.everest-preview+json",
-    "Content-Type": "application/json"
-  },
-  body: JSON.stringify({
-    event_type: "increment_hit",
-    client_payload: {
-      page: "homepage"
-    }
-  })
-});
-
-// Fetch and display the current hit count
-fetch("hits.json")
-  .then(res => res.json())
-  .then(data => {
-    document.getElementById("hit-counter").textContent = "👁️‍🗨️ Mythic Hits: " + data.homepage;
-  });
-</script>
-
+</body>
+</html>
