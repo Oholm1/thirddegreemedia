@@ -123,9 +123,9 @@ footer p {
 .donate-button:hover {
   background: var(--accent-hover);
 }
-section.callout.mullvad {
-  background-color: #2A4D73 !important;
-  color: #F9EA59 !important;
+section.callout.mullvad h2 {
+  color: #F9EA59 !important; /* Mullvad yellow */
+  text-shadow: none;
   border-left: 4px solid #D0933A;
   padding: 20px;
   margin: 30px 0;
