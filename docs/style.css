@@ -137,3 +137,15 @@ section.callout.mullvad img {
   margin: 10px 0;
 }
 
+/* 🜲 Glyph #045: First Principles Styling */
+section.first-principles {
+  background-color: #222;
+  border-left: 4px solid var(--accent);
+  padding: 20px;
+  font-style: italic;
+}
+
+section.first-principles h2 {
+  color: var(--accent-hover);
+  text-shadow: none;
+}
