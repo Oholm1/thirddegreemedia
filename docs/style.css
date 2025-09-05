@@ -123,3 +123,17 @@ footer p {
 .donate-button:hover {
   background: var(--accent-hover);
 }
+/* 🛡️ Sovereign Stack Styling */
+.callout.mullvad {
+  background-color: #2A4D73; /* Mullvad blue */
+  color: #F9EA59; /* Mullvad yellow */
+  border-left: 4px solid #D0933A; /* Accent */
+  padding: 20px;
+  margin: 30px 0;
+  font-family: 'Courier New', monospace;
+  box-shadow: 0 0 10px rgba(42, 77, 115, 0.5);
+}
+.callout.mullvad img {
+  width: 180px;
+  margin: 10px 0;
+}
