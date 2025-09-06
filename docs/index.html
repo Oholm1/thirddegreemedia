@@ -58,6 +58,14 @@
 <body data-trail="rainbow">
   <a class="skip-link" href="#main">Skip to content</a>
 
+  <!-- Hidden SVG symbol to reuse for the trail -->
+<svg width="0" height="0" style="position:absolute; left:-9999px; visibility:hidden" aria-hidden="true" focusable="false">
+  <symbol id="glyph-star" viewBox="0 0 24 24">
+    <!-- 5-point star; replace with your custom path anytime -->
+    <path d="M12 2l3.09 6.26 6.91.99-5 4.87 1.18 6.88L12 17.77 5.82 21l1.18-6.88-5-4.87 6.91-.99z"/>
+  </symbol>
+</svg>
+
   <header role="banner">
     <h1>Third Degree Media</h1>
     <p>Welcome to the sovereign node. The mythos begins here.</p>
@@ -164,6 +172,9 @@
   </noscript>
 
   <!-- Scripts -->
+  <!-- Scripts (order matters): anime.js first, then svg trail -->
+<script nonce="r4nd0m" defer src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+<script nonce="r4nd0m" defer src="js/svg-trail.js?v=1"></script>
   <script nonce="r4nd0m" defer src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
   <script nonce="r4nd0m" defer src="/js/trail-variants.js?v=1"></script>
   <script nonce="r4nd0m">document.getElementById('year').textContent = new Date().getFullYear();</script>
