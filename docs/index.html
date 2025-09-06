@@ -1,54 +1,76 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="msvalidate.01" content="263390F99CFC0E83F2AD8415511BA47E" />
+  <meta charset="utf-8" />
   <title>Third Degree Media™ — Sovereign Tech & Absurd Lore</title>
 
-  <!-- 🜧 Glyph #046: SEO Ritual Initiated -->
-  <meta name="description" content="Codex-logging sovereign tech rituals, off-grid infrastructure, and mythic absurdity.">
-  <meta name="keywords" content="sovereign tech, off-grid media, mythic web, DNS rituals, goofy zone, Orrin Holmbeck">
-  <meta name="author" content="Orrin D. Holmbeck">
+  <!-- Description for SEO & social -->
+  <meta name="description" content="Codex-logging sovereign tech rituals, off-grid infrastructure, and mythic absurdity." />
+  <meta name="author" content="Orrin D. Holmbeck" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#111" />
 
-  <!-- Privacy/Security meta (works on static hosting) -->
-  <meta http-equiv="Content-Security-Policy"
-        content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; base-uri 'self'; form-action 'self'">
-  <meta name="referrer" content="no-referrer">
-  <meta http-equiv="X-Content-Type-Options" content="nosniff">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-<!-- Tell bots to index/follow -->
-<meta name="robots" content="index,follow">
+  <!-- Verify (Bing) -->
+  <meta name="msvalidate.01" content="263390F99CFC0E83F2AD8415511BA47E" />
 
-<!-- Canonical URL -->
-<link rel="canonical" href="https://thirddegreemedia.com/">
+  <!-- Search engines -->
+  <meta name="robots" content="index,follow" />
+  <link rel="canonical" href="https://thirddegreemedia.com/" />
 
-<!-- Open Graph (social previews) -->
-<meta property="og:type" content="website">
-<meta property="og:site_name" content="Third Degree Media">
-<meta property="og:title" content="Third Degree Media — Sovereign Tech & Absurd Lore">
-<meta property="og:description" content="Codex-logging sovereign tech rituals, off-grid infrastructure, and mythic absurdity.">
-<meta property="og:url" content="https://thirddegreemedia.com/">
-<meta property="og:image" content="https://thirddegreemedia.com/og-image.jpg">
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Third Degree Media" />
+  <meta property="og:title" content="Third Degree Media — Sovereign Tech & Absurd Lore" />
+  <meta property="og:description" content="Codex-logging sovereign tech rituals, off-grid infrastructure, and mythic absurdity." />
+  <meta property="og:url" content="https://thirddegreemedia.com/" />
+  <meta property="og:image" content="https://thirddegreemedia.com/og-image.jpg" />
 
-<!-- Twitter Card (X) -->
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Third Degree Media — Sovereign Tech & Absurd Lore">
-<meta name="twitter:description" content="Codex-logging sovereign tech rituals, off-grid infrastructure, and mythic absurdity.">
-<meta name="twitter:image" content="https://thirddegreemedia.com/og-image.jpg">
+  <!-- Twitter Card (X) -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Third Degree Media — Sovereign Tech & Absurd Lore" />
+  <meta name="twitter:description" content="Codex-logging sovereign tech rituals, off-grid infrastructure, and mythic absurdity." />
+  <meta name="twitter:image" content="https://thirddegreemedia.com/og-image.jpg" />
 
-  <!-- Theme color for browser UI (mobile + desktop) -->
-  <meta name="theme-color" content="#111">
-  <link rel="stylesheet" href="style.css">
-  <link rel="icon" href="/favicon.ico">
+  <!-- SECURITY: modern CSP. NOTE: adjust nonce value at build time. Prefer self-hosting assets. -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; object-src 'none'; upgrade-insecure-requests; img-src 'self' data: https://upload.wikimedia.org; style-src 'self' 'unsafe-inline'; script-src 'self' https://cdnjs.cloudflare.com 'strict-dynamic' 'nonce-r4nd0m'; connect-src 'self'" />
+  <meta http-equiv="Referrer-Policy" content="no-referrer" />
+  <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+  <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=(), interest-cohort=()" />
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="/style.css" />
+  <link rel="icon" href="/favicon.ico" />
+
+  <!-- Optional: sitemap hint -->
+  <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
+
+  <!-- Structured data (Website + Person) -->
+  <script type="application/ld+json" nonce="r4nd0m">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Third Degree Media",
+    "url": "https://thirddegreemedia.com/",
+    "description": "Codex-logging sovereign tech rituals, off-grid infrastructure, and mythic absurdity.",
+    "publisher": {
+      "@type": "Person",
+      "name": "Orrin D. Holmbeck",
+      "sameAs": [
+        "https://mastodon.social/@daemonlogger"
+      ]
+    }
+  }
+  </script>
 </head>
 <body>
+  <a class="skip-link" href="#main">Skip to content</a>
 
-  <header>
+  <header role="banner">
     <h1>Third Degree Media</h1>
     <p>Welcome to the sovereign node. The mythos begins here.</p>
   </header>
 
-  <main>
+  <main id="main" role="main" tabindex="-1">
     <section class="callout mullvad">
       <h2>Codex</h2>
       <p>Documenting infrastructure rituals, domain claims, and glyphic milestones.</p>
@@ -56,150 +78,155 @@
       <p><em>Fun Fact:</em> This homepage was coded using a pinecone, a VPN tunnel, and the distant hum of a fax machine.</p>
     </section>
 
-    <section>
-      <h2>Connect</h2>
+    <section aria-labelledby="connect-heading">
+      <h2 id="connect-heading">Connect</h2>
       <p>
         Follow the codex trail on
         <a href="https://mastodon.social/@daemonlogger" rel="me noopener noreferrer" target="_blank">Mastodon</a>
         — where the goofy meets the glyphic.
       </p>
     </section>
-    <h3>Signal Channels</h3>
-<p>Encrypted whispers from the pines:</p>
-<ul>
-  <li>
-    <a href="https://wa.me/12189666727" target="_blank" rel="noopener noreferrer" title="Summon encrypted lore via WhatsApp">
-      WhatsApp
-    </a>
-  </li>
-  <li>
-    <a href="https://t.me/daemonlogger" target="_blank" rel="noopener noreferrer" title="Whisper glyphs through Telegram">
-      Telegram
-    </a>
-  </li>
-</ul>
 
-<!-- 🛡️ Sovereign Stack Endorsement: Mullvad VPN -->
-<section class="callout">
-  <h2>🛡️ Mullvad VPN — Cloak Your Signal in Pine-Scented Privacy</h2>
-  <img src="https://upload.wikimedia.org/wikipedia/commons/4/4e/Mullvad_logo.svg" alt="Mullvad VPN Logo">
-  <p><strong>Why Mullvad?</strong><br>
-  Because surveillance is boring, and being mapped by data brokers is a cosmic insult. Mullvad is the VPN for those who reject the algorithmic gaze. No email. No name. Just an account number and a tunnel to freedom.</p>
-
-  <p><strong>What Makes It Sovereign:</strong><br>
-  🌲 No personal info required — just generate an account number and go<br>
-  🔐 Open-source, privacy-first, and radically transparent<br>
-  🧭 Based in Sweden, outside the 5/9/14 Eyes surveillance alliances<br>
-  💸 Flat €5/month pricing since 2009 — no upsells, no nonsense</p>
-
-  <p><strong>How I Use It:</strong><br>
-  I route my traffic through Malmö like a digital ghost. It pairs perfectly with the Mullvad Browser for full-spectrum stealth. Whether I’m summoning lore, gaming across continents, or just browsing absurd rituals, Mullvad keeps my signal clean.</p>
-
-  <p><strong>Support Them:</strong><br>
-  If you value privacy, consider <a href="https://mullvad.net/en" target="_blank" rel="noopener noreferrer">visiting Mullvad’s site</a> and joining the resistance. No affiliate link. No tracking. Just a nod to the mythos.</p>
-</section>
-
-    <section>
-      <h2>Goofy Zone</h2>
-      <p>Welcome to the part of the site where logic takes a nap and the mythos gets weird.</p>
-      <p id="ritual"><em>Today’s ritual:</em> Summon a sandwich using only HTML and sheer willpower.</p>
+    <section aria-labelledby="signals-heading">
+      <h3 id="signals-heading">Signal Channels</h3>
+      <p>Encrypted whispers from the pines:</p>
+      <ul>
+        <li>
+          <a href="https://wa.me/12189666727" target="_blank" rel="noopener noreferrer" title="Summon encrypted lore via WhatsApp">WhatsApp</a>
+        </li>
+        <li>
+          <a href="https://t.me/daemonlogger" target="_blank" rel="noopener noreferrer" title="Whisper glyphs through Telegram">Telegram</a>
+        </li>
+      </ul>
     </section>
 
-<section>
-  <h2>About</h2>
-  <p>Architected by Orrin D. Holmbeck—mythmaker, strategist, and sovereign steward of the off-grid web.</p>
- 
-  <section>
-  <h2>First Principles</h2>
-  <p>I didn’t start with mythos. I started with confusion.</p>
-  <p>I wanted to learn how to code—simple as that. But every tutorial, every tool, every login came with a shadow: trackers, telemetry, surveillance defaults. So I started asking questions. Then I started building.</p>
-  <p>This site is the result of that journey. Not a manifesto. Not a movement. Just one person trying to understand the systems we live inside—and how to reclaim a little autonomy from them.</p>
-  <p>I learned privacy hygiene because I had to. I built infrastructure rituals because the defaults felt wrong. I wrapped it all in absurd lore because it made the work feel alive.</p>
-  <p>If you’re here to learn, question, or build—welcome. You don’t need to believe in pine-scented VPN tunnels or DNS ley lines. You just need to care about the signal.</p>
-  <p>This page is the quiet part. The rest of the site is loud on purpose.</p>
-   
-<p>We live in a digital landscape where companies like Google, Meta, and Amazon harvest staggering amounts of data—location, behavior, identity—often without meaningful consent. Surveillance capitalism isn’t just invasive; it’s structural. It’s baked into the defaults, hidden behind convenience, and monetized at scale.</p>
+    <!-- Sovereign Stack Endorsement: Mullvad VPN -->
+    <section class="callout" aria-labelledby="mullvad-heading">
+      <h2 id="mullvad-heading">🛡️ Mullvad VPN — Cloak Your Signal in Pine-Scented Privacy</h2>
+      <figure>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/4/4e/Mullvad_logo.svg" alt="Mullvad VPN logo" width="160" height="160" />
+        <figcaption class="sr-only">Mullvad VPN logo</figcaption>
+      </figure>
+      <p><strong>Why Mullvad?</strong><br>
+      Because surveillance is boring, and being mapped by data brokers is a cosmic insult. Mullvad is the VPN for those who reject the algorithmic gaze. No email. No name. Just an account number and a tunnel to freedom.</p>
 
-<p>Privacy isn’t a luxury—it’s a prerequisite for autonomy. That’s why this site rejects trackers, telemetry, and algorithmic profiling. It’s why I use open-source tools, self-hosted infrastructure, and encrypted channels. Not because it’s easy, but because it’s necessary.</p>
+      <p><strong>What Makes It Sovereign:</strong><br>
+      🌲 No personal info required — just generate an account number and go<br>
+      🔐 Open-source, privacy-first, and radically transparent<br>
+      🧭 Based in Sweden, outside the 5/9/14 Eyes surveillance alliances<br>
+      💸 Flat €5/month pricing since 2009 — no upsells, no nonsense</p>
 
-<p>Peer-to-peer sharing is part of that resistance. It’s how we reclaim distribution, decentralize control, and build networks that honor trust instead of extract it. Whether it’s music, knowledge, or infrastructure rituals, P2P is the backbone of digital sovereignty.</p>
+      <p><strong>How I Use It:</strong><br>
+      I route my traffic through Malmö like a digital ghost. It pairs perfectly with the Mullvad Browser for full-spectrum stealth. Whether I’m summoning lore, gaming across continents, or just browsing absurd rituals, Mullvad keeps my signal clean.</p>
 
-<p>This site is a node in that network. A quiet signal in the noise. A place to learn, question, and build without being watched.</p>
+      <p><strong>Support Them:</strong><br>
+      If you value privacy, consider <a href="https://mullvad.net/en" target="_blank" rel="noopener noreferrer">visiting Mullvad’s site</a> and joining the resistance. No affiliate link. No tracking. Just a nod to the mythos.</p>
+    </section>
 
-</section>
+    <section aria-labelledby="goofy-heading">
+      <h2 id="goofy-heading">Goofy Zone</h2>
+      <p>Welcome to the part of the site where logic takes a nap and the mythos gets weird.</p>
+      <p id="ritual" aria-live="polite"><em>Today’s ritual:</em> Summon a sandwich using only HTML and sheer willpower.</p>
+    </section>
 
-  <p>When not codex-logging infrastructure rituals, Orrin can be found whispering to routers and bartering with squirrels.</p>
-  <p>🜲 At Third Degree Media, privacy isn’t a feature—it’s a foundational ritual. This node rejects surveillance capitalism, algorithmic profiling, and the commodification of identity. No cookies. No trackers. No whispered secrets to data brokers. Just pure signal, cloaked in pine-scented anonymity.</p>
-  <p>We believe in:</p>
-  <ul>
-    <li>Radical transparency without personal exposure</li>
-    <li>Open-source tools that honor autonomy</li>
-    <li>Digital independence through infrastructure rituals and absurd lore</li>
-  </ul>
-  <p>Whether codex-logging router placements or mythologizing VPN tunnels, this site stands as a glyphic archive for those who value freedom over friction, and sovereignty over convenience.</p>
-</section>
+    <section aria-labelledby="about-heading">
+      <h2 id="about-heading">About</h2>
+      <p>Architected by Orrin D. Holmbeck—mythmaker, strategist, and sovereign steward of the off-grid web.</p>
 
-    <!-- 🜲 Donation Callout -->
-    <section class="callout">
-  <h2>☕🍺 Fuel the Codex</h2>
-  <p>
-    If you enjoy these sovereign rituals and goofy glyphs, you can keep the cabin lights glowing by 
-    <strong>buying me an IPA</strong> (my favorite 🍺) or a <strong>coffee</strong> (for long nights of coding ☕).
-  </p>
-  <p>
-    <a href="https://buymeacoffee.com/daemonlogger" target="_blank" rel="noopener" class="donate-button">
-      Buy me a beer or coffee →
-    </a>
-  </p>
-</section>
-    
+      <section aria-labelledby="principles-heading">
+        <h2 id="principles-heading">First Principles</h2>
+        <p>I didn’t start with mythos. I started with confusion.</p>
+        <p>I wanted to learn how to code—simple as that. But every tutorial, every tool, every login came with a shadow: trackers, telemetry, surveillance defaults. So I started asking questions. Then I started building.</p>
+        <p>This site is the result of that journey. Not a manifesto. Not a movement. Just one person trying to understand the systems we live inside—and how to reclaim a little autonomy from them.</p>
+        <p>I learned privacy hygiene because I had to. I built infrastructure rituals because the defaults felt wrong. I wrapped it all in absurd lore because it made the work feel alive.</p>
+        <p>If you’re here to learn, question, or build—welcome. You don’t need to believe in pine-scented VPN tunnels or DNS ley lines. You just need to care about the signal.</p>
+        <p>This page is the quiet part. The rest of the site is loud on purpose.</p>
+
+        <p>We live in a digital landscape where companies like Google, Meta, and Amazon harvest staggering amounts of data—location, behavior, identity—often without meaningful consent. Surveillance capitalism isn’t just invasive; it’s structural. It’s baked into the defaults, hidden behind convenience, and monetized at scale.</p>
+
+        <p>Privacy isn’t a luxury—it’s a prerequisite for autonomy. That’s why this site rejects trackers, telemetry, and algorithmic profiling. It’s why I use open-source tools, self-hosted infrastructure, and encrypted channels. Not because it’s easy, but because it’s necessary.</p>
+
+        <p>Peer-to-peer sharing is part of that resistance. It’s how we reclaim distribution, decentralize control, and build networks that honor trust instead of extract it. Whether it’s music, knowledge, or infrastructure rituals, P2P is the backbone of digital sovereignty.</p>
+
+        <p>This site is a node in that network. A quiet signal in the noise. A place to learn, question, and build without being watched.</p>
+      </section>
+
+      <p>When not codex-logging infrastructure rituals, Orrin can be found whispering to routers and bartering with squirrels.</p>
+      <p>🜲 At Third Degree Media, privacy isn’t a feature—it’s a foundational ritual. This node rejects surveillance capitalism, algorithmic profiling, and the commodification of identity. No cookies. No trackers. No whispered secrets to data brokers. Just pure signal, cloaked in pine-scented anonymity.</p>
+      <p>We believe in:</p>
+      <ul>
+        <li>Radical transparency without personal exposure</li>
+        <li>Open-source tools that honor autonomy</li>
+        <li>Digital independence through infrastructure rituals and absurd lore</li>
+      </ul>
+      <p>Whether codex-logging router placements or mythologizing VPN tunnels, this site stands as a glyphic archive for those who value freedom over friction, and sovereignty over convenience.</p>
+    </section>
+
+    <!-- Donation Callout -->
+    <section class="callout" aria-labelledby="fuel-heading">
+      <h2 id="fuel-heading">☕🍺 Fuel the Codex</h2>
+      <p>
+        If you enjoy these sovereign rituals and goofy glyphs, you can keep the cabin lights glowing by
+        <strong>buying me an IPA</strong> (my favorite 🍺) or a <strong>coffee</strong> (for long nights of coding ☕).
+      </p>
+      <p>
+        <a href="https://buymeacoffee.com/daemonlogger" target="_blank" rel="noopener" class="donate-button">Buy me a beer or coffee →</a>
+      </p>
+    </section>
+
     <div aria-hidden="true" style="margin:2rem 0">
-      <svg width="100%" height="12" viewBox="0 0 400 12" preserveAspectRatio="none">
+      <svg width="100%" height="12" viewBox="0 0 400 12" preserveAspectRatio="none" role="img" aria-label="Decorative wave">
         <path d="M0,6 C80,2 120,10 200,6 C280,2 320,10 400,6" fill="none" stroke="currentColor" stroke-opacity=".25"/>
       </svg>
     </div>
-
-
-    <footer>
-  <p>© 2025 Third Degree Media&trade;</p>
-  <p class="small">
-    🜲 This sovereign node sets <strong>no cookies</strong>, loads 
-    <strong>no trackers</strong>, and whispers <strong>no secrets</strong> to data brokers.  
-    The only logs are gnawed by the squirrels in the pines. 🐿️
-  </p>
-    </footer>
-<footer>
-  <p><a href="/privacy-policy.html">Privacy Policy</a></p>
-</footer>
-
-    <!-- Removed: insecure client-side hit counter that exposed a GitHub token.
-         If you *really* want a counter:
-           • Use a privacy-friendly third party (e.g., GoatCounter) — still external.
-           • Or a serverless endpoint you control (Cloudflare Workers, Fly.io, etc.) that keeps the secret on the server.
-           • Or skip counters entirely (most privacy sites do). -->
   </main>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
-<script>
-  document.addEventListener('mousemove', (e) => {
-    const trail = document.createElement('div');
-    trail.className = 'trail';
-    trail.style.left = `${e.clientX}px`;
-    trail.style.top = `${e.clientY}px`;
-    document.body.appendChild(trail);
 
-    anime({
-      targets: trail,
-      opacity: [1, 0],
-      scale: [1, 2],
-      duration: 500,
-      easing: 'easeOutExpo',
-      complete: () => trail.remove()
-    });
-  });
-</script>
+  <footer role="contentinfo">
+    <p>© <span id="year"></span> Third Degree Media™</p>
+    <p class="small">🜲 This sovereign node sets <strong>no cookies</strong>, loads <strong>no trackers</strong>, and whispers <strong>no secrets</strong> to data brokers. The only logs are gnawed by the squirrels in the pines. 🐿️</p>
+    <p><a href="/privacy-policy.html">Privacy Policy</a></p>
+  </footer>
 
+  <noscript><p style="padding:1rem">JavaScript is disabled. You’ll miss the sparkly mouse trail, but all content is fully accessible.</p></noscript>
 
+  <!-- Scripts: prefer self-hosted; using CDN here as example. Add SRI if you keep CDN. -->
+  <script nonce="r4nd0m" defer src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+  <script nonce="r4nd0m">
+    // Respect reduced motion
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+    // Copyright year
+    const y = document.getElementById('year');
+    if (y) y.textContent = new Date().getFullYear();
 
+    if (!prefersReduced) {
+      document.addEventListener('mousemove', (e) => {
+        const trail = document.createElement('div');
+        trail.className = 'trail';
+        trail.style.left = `${e.clientX}px`;
+        trail.style.top = `${e.clientY}px`;
+        document.body.appendChild(trail);
+
+        if (window.anime) {
+          window.anime({
+            targets: trail,
+            opacity: [1, 0],
+            scale: [1, 2],
+            duration: 500,
+            easing: 'easeOutExpo',
+            complete: () => trail.remove()
+          });
+        } else {
+          // Fallback without anime.js
+          trail.style.transition = 'opacity 0.5s ease-out, transform 0.5s ease-out';
+          requestAnimationFrame(() => {
+            trail.style.opacity = '0';
+            trail.style.transform = 'scale(2)';
+          });
+          setTimeout(() => trail.remove(), 550);
+        }
+      });
+    }
+  </script>
 </body>
 </html>
