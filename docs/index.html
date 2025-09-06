@@ -167,6 +167,47 @@
   <script nonce="r4nd0m" defer src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
   <script nonce="r4nd0m" defer src="/js/trail-variants.js?v=1"></script>
   <script nonce="r4nd0m">document.getElementById('year').textContent = new Date().getFullYear();</script>
-</body>
+<script nonce="r4nd0m">
+(() => {
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const hasAnime = () => typeof window.anime === 'function';
+  const POOL = Array.from({length: 120}, () => {
+    const d = document.createElement('div');
+    Object.assign(d.style, {
+      position:'fixed', width:'12px', height:'12px', borderRadius:'50%',
+      pointerEvents:'none', zIndex:9999, transform:'translate(-50%,-50%)',
+      willChange:'transform,opacity', opacity:'0'
+    });
+    d.className = 'trail';
+    document.body.appendChild(d);
+    return d;
+  });
+  let i = 0, hue = 0, pending = false, last;
+  const next = () => POOL[i++ % POOL.length];
+  function anim(el, scale=2, dur=520) {
+    if (hasAnime()) {
+      anime({ targets: el, opacity:[1,0], scale:[1, scale], duration: dur, easing:'easeOutExpo',
+        complete: () => el.style.opacity='0' });
+    } else {
+      el.style.transition = 'opacity .5s ease, transform .5s ease';
+      requestAnimationFrame(()=>{ el.style.opacity=0; el.style.transform += ` scale(${scale})`;});
+      setTimeout(()=> el.style.opacity='0', dur);
+    }
+  }
+  addEventListener('mousemove', e => {
+    last = e; if (pending) return; pending = true;
+    requestAnimationFrame(() => {
+      const el = next(); hue = (hue+3)%360;
+      el.style.background = `hsl(${hue} 100% 60%)`;
+      el.style.boxShadow = '0 0 12px hsla(0,0%,100%,.15)';
+      el.style.left = last.clientX+'px'; el.style.top = last.clientY+'px';
+      el.style.opacity='1'; anim(el);
+      pending = false;
+    });
+  }, { passive:true });
+})();
+</script>
+
+</body> 
 </html>
 
