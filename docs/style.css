@@ -177,4 +177,44 @@
   window.addEventListener('click', onClick, { passive: true });
 })();
 
+/* 📱 Mobile-friendly adjustments */
+@media (max-width: 600px) {
+  body {
+    padding: 20px;         /* less edge padding on tiny screens */
+    font-size: 1rem;       /* make text comfy, not too tiny */
+    line-height: 1.7;
+  }
+
+  header, footer {
+    text-align: center;    /* center header/footer on small screens */
+  }
+
+  h1, h2 {
+    word-break: break-word; /* prevent long words from overflowing */
+  }
+
+  img {
+    max-width: 100%;       /* scale down big images */
+    height: auto;
+  }
+
+  a {
+    display: inline-block; /* make tap targets easier */
+    padding: 0.3rem 0.5rem;
+  }
+
+  ul {
+    padding-left: 1rem;    /* prevent list bullets from squishing text */
+  }
+
+  section {
+    padding: 15px;         /* lighter padding in boxes */
+  }
+
+  .donate-button {
+    display: block;        /* make donate button span width */
+    text-align: center;
+    margin: 1rem auto;
+  }
+}
 
