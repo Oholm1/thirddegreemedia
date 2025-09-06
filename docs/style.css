@@ -157,3 +157,12 @@ section.first-principles h2 {
   color: #ccc;
 }
 
+.trail {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background: #00ffcc;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+}
