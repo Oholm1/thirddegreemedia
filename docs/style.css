@@ -158,7 +158,7 @@ section.first-principles h2 {
 }
 
 .trail {
-  position: absolute;
+  position: fixed;
   width: 10px;
   height: 10px;
   background: #00ffcc;
@@ -166,3 +166,4 @@ section.first-principles h2 {
   pointer-events: none;
   z-index: 9999;
 }
+
