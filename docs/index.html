@@ -63,35 +63,6 @@
     <p>Welcome to the sovereign node. The mythos begins here.</p>
   </header>
 
-  <!-- Optional: sitemap hint -->
-  <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
-
-  <!-- Structured data (Website + Person) -->
-  <script type="application/ld+json" nonce="r4nd0m">
-  {
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    "name": "Third Degree Media",
-    "url": "https://thirddegreemedia.com/",
-    "description": "Codex-logging sovereign tech rituals, off-grid infrastructure, and mythic absurdity.",
-    "publisher": {
-      "@type": "Person",
-      "name": "Orrin D. Holmbeck",
-      "sameAs": [
-        "https://mastodon.social/@daemonlogger"
-      ]
-    }
-  }
-  </script>
-</head>
-<body>
-  <a class="skip-link" href="#main">Skip to content</a>
-
-  <header role="banner">
-    <h1>Third Degree Media</h1>
-    <p>Welcome to the sovereign node. The mythos begins here.</p>
-  </header>
-
   <main id="main" role="main" tabindex="-1">
     <section class="callout mullvad">
       <h2>Codex</h2>
@@ -155,7 +126,7 @@
       <h2 id="about-heading">About</h2>
       <p>Architected by Orrin D. Holmbeck—mythmaker, strategist, and sovereign steward of the off-grid web.</p>
 
-      <section aria-labelledby="principles-heading">
+      <section aria-labelledby="principles-heading" class="first-principles">
         <h2 id="principles-heading">First Principles</h2>
         <p>I didn’t start with mythos. I started with confusion.</p>
         <p>I wanted to learn how to code—simple as that. But every tutorial, every tool, every login came with a shadow: trackers, telemetry, surveillance defaults. So I started asking questions. Then I started building.</p>
@@ -220,5 +191,8 @@
 
   <!-- New trail system with multiple modes -->
   <script nonce="r4nd0m" defer src="/js/trail-variants.js"></script>
+
+  <!-- Tiny helper to set the year -->
+  <script nonce="r4nd0m">document.getElementById('year').textContent = new Date().getFullYear();</script>
 </body>
 </html>
