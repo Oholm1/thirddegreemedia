@@ -34,51 +34,24 @@
 
   <!-- Critical CSS inline (ensures base styling even if style.css fails) -->
   <style>
-    body {
-      font-family: ui-monospace, "Courier New", monospace;
-      color: #eee;
-      background: #111 radial-gradient(rgba(255,255,255,.02) 1px, transparent 1px);
-      background-size: 20px 20px;
-      padding: 40px;
-      line-height: 1.6;
-      max-width: 70ch;
-      margin: auto;
-    }
-    h1, h2 { color: #ff6600; line-height: 1.25; }
-    a { color: #66ccff; font-weight: bold; text-decoration: none; }
-    a:hover { color: #ffcc00; text-decoration: underline; }
-    section {
-      margin-bottom: 40px;
-      padding: 20px;
-      border: 1px dashed #444;
-      background-color: #1a1a1a;
-      border-radius: 8px;
-    }
-    .callout { background: rgba(127,127,127,.06); border: 1px solid rgba(127,127,127,.3); border-radius: 8px; }
-    .donate-button { background: #ff6600; color: #fff; padding: 0.6rem 1rem; border-radius: 8px; font-weight: bold; text-decoration: none; }
-    footer p { font-size: 0.9em; color: #888; text-align: center; }
+    body {font-family: ui-monospace, "Courier New", monospace; color:#eee; background:#111 radial-gradient(rgba(255,255,255,.02) 1px, transparent 1px); background-size:20px 20px; padding:40px; line-height:1.6; max-width:70ch; margin:auto}
+    h1,h2{color:#ff6600; line-height:1.25}
+    a{color:#66ccff; font-weight:bold; text-decoration:none}
+    a:hover{color:#ffcc00; text-decoration:underline}
+    section{margin-bottom:40px; padding:20px; border:1px dashed #444; background-color:#1a1a1a; border-radius:8px; transition:box-shadow .28s ease, transform .28s ease}
+    section:hover{box-shadow:0 0 10px rgba(255,102,0,.30)}
+    .callout{background:rgba(127,127,127,.06); border:1px solid rgba(127,127,127,.3); border-radius:8px}
+    .donate-button{background:#ff6600; color:#fff; padding:.6rem 1rem; border-radius:8px; font-weight:bold; text-decoration:none}
+    footer p{font-size:.9em; color:#888; text-align:center}
   </style>
 
   <!-- Full stylesheet (overrides and extras) -->
-  <link rel="stylesheet" href="/style.css?v=2" />
+  <link rel="stylesheet" href="/style.css?v=3" />
   <link rel="icon" href="/favicon.ico" />
 
   <!-- Structured data (Website + Person) -->
   <script type="application/ld+json" nonce="r4nd0m">
-  {
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    "name": "Third Degree Media",
-    "url": "https://thirddegreemedia.com/",
-    "description": "Codex-logging sovereign tech rituals, off-grid infrastructure, and mythic absurdity.",
-    "publisher": {
-      "@type": "Person",
-      "name": "Orrin D. Holmbeck",
-      "sameAs": [
-        "https://mastodon.social/@daemonlogger"
-      ]
-    }
-  }
+  {"@context":"https://schema.org","@type":"WebSite","name":"Third Degree Media","url":"https://thirddegreemedia.com/","description":"Codex-logging sovereign tech rituals, off-grid infrastructure, and mythic absurdity.","publisher":{"@type":"Person","name":"Orrin D. Holmbeck","sameAs":["https://mastodon.social/@daemonlogger"]}}
   </script>
 </head>
 
@@ -89,6 +62,7 @@
     <h1>Third Degree Media</h1>
     <p>Welcome to the sovereign node. The mythos begins here.</p>
   </header>
+
   <!-- START: page content -->
   <main id="main" role="main" tabindex="-1">
     <section class="callout mullvad">
@@ -111,12 +85,8 @@
       <h3 id="signals-heading">Signal Channels</h3>
       <p>Encrypted whispers from the pines:</p>
       <ul>
-        <li>
-          <a href="https://wa.me/12189666727" target="_blank" rel="noopener noreferrer" title="Summon encrypted lore via WhatsApp">WhatsApp</a>
-        </li>
-        <li>
-          <a href="https://t.me/daemonlogger" target="_blank" rel="noopener noreferrer" title="Whisper glyphs through Telegram">Telegram</a>
-        </li>
+        <li><a href="https://wa.me/12189666727" target="_blank" rel="noopener noreferrer" title="Summon encrypted lore via WhatsApp">WhatsApp</a></li>
+        <li><a href="https://t.me/daemonlogger" target="_blank" rel="noopener noreferrer" title="Whisper glyphs through Telegram">Telegram</a></li>
       </ul>
     </section>
 
@@ -127,20 +97,10 @@
         <img src="https://upload.wikimedia.org/wikipedia/commons/4/4e/Mullvad_logo.svg" alt="Mullvad VPN logo" width="160" height="160" />
         <figcaption class="sr-only">Mullvad VPN logo</figcaption>
       </figure>
-      <p><strong>Why Mullvad?</strong><br>
-      Because surveillance is boring, and being mapped by data brokers is a cosmic insult. Mullvad is the VPN for those who reject the algorithmic gaze. No email. No name. Just an account number and a tunnel to freedom.</p>
-
-      <p><strong>What Makes It Sovereign:</strong><br>
-      🌲 No personal info required — just generate an account number and go<br>
-      🔐 Open-source, privacy-first, and radically transparent<br>
-      🧭 Based in Sweden, outside the 5/9/14 Eyes surveillance alliances<br>
-      💸 Flat €5/month pricing since 2009 — no upsells, no nonsense</p>
-
-      <p><strong>How I Use It:</strong><br>
-      I route my traffic through Malmö like a digital ghost. It pairs perfectly with the Mullvad Browser for full-spectrum stealth. Whether I’m summoning lore, gaming across continents, or just browsing absurd rituals, Mullvad keeps my signal clean.</p>
-
-      <p><strong>Support Them:</strong><br>
-      If you value privacy, consider <a href="https://mullvad.net/en" target="_blank" rel="noopener noreferrer">visiting Mullvad’s site</a> and joining the resistance. No affiliate link. No tracking. Just a nod to the mythos.</p>
+      <p><strong>Why Mullvad?</strong><br>Because surveillance is boring, and being mapped by data brokers is a cosmic insult. Mullvad is the VPN for those who reject the algorithmic gaze. No email. No name. Just an account number and a tunnel to freedom.</p>
+      <p><strong>What Makes It Sovereign:</strong><br>🌲 No personal info required — just generate an account number and go<br>🔐 Open-source, privacy-first, and radically transparent<br>🧭 Based in Sweden, outside the 5/9/14 Eyes surveillance alliances<br>💸 Flat €5/month pricing since 2009 — no upsells, no nonsense</p>
+      <p><strong>How I Use It:</strong><br>I route my traffic through Malmö like a digital ghost. It pairs perfectly with the Mullvad Browser for full-spectrum stealth. Whether I’m summoning lore, gaming across continents, or just browsing absurd rituals, Mullvad keeps my signal clean.</p>
+      <p><strong>Support Them:</strong><br>If you value privacy, consider <a href="https://mullvad.net/en" target="_blank" rel="noopener noreferrer">visiting Mullvad’s site</a> and joining the resistance. No affiliate link. No tracking. Just a nod to the mythos.</p>
     </section>
 
     <section aria-labelledby="goofy-heading">
@@ -161,13 +121,9 @@
         <p>I learned privacy hygiene because I had to. I built infrastructure rituals because the defaults felt wrong. I wrapped it all in absurd lore because it made the work feel alive.</p>
         <p>If you’re here to learn, question, or build—welcome. You don’t need to believe in pine-scented VPN tunnels or DNS ley lines. You just need to care about the signal.</p>
         <p>This page is the quiet part. The rest of the site is loud on purpose.</p>
-
         <p>We live in a digital landscape where companies like Google, Meta, and Amazon harvest staggering amounts of data—location, behavior, identity—often without meaningful consent. Surveillance capitalism isn’t just invasive; it’s structural. It’s baked into the defaults, hidden behind convenience, and monetized at scale.</p>
-
         <p>Privacy isn’t a luxury—it’s a prerequisite for autonomy. That’s why this site rejects trackers, telemetry, and algorithmic profiling. It’s why I use open-source tools, self-hosted infrastructure, and encrypted channels. Not because it’s easy, but because it’s necessary.</p>
-
         <p>Peer-to-peer sharing is part of that resistance. It’s how we reclaim distribution, decentralize control, and build networks that honor trust instead of extract it. Whether it’s music, knowledge, or infrastructure rituals, P2P is the backbone of digital sovereignty.</p>
-
         <p>This site is a node in that network. A quiet signal in the noise. A place to learn, question, and build without being watched.</p>
       </section>
 
@@ -185,13 +141,8 @@
     <!-- Donation Callout -->
     <section class="callout" aria-labelledby="fuel-heading">
       <h2 id="fuel-heading">☕🍺 Fuel the Codex</h2>
-      <p>
-        If you enjoy these sovereign rituals and goofy glyphs, you can keep the cabin lights glowing by
-        <strong>buying me an IPA</strong> (my favorite 🍺) or a <strong>coffee</strong> (for long nights of coding ☕).
-      </p>
-      <p>
-        <a href="https://buymeacoffee.com/daemonlogger" target="_blank" rel="noopener" class="donate-button">Buy me a beer or coffee →</a>
-      </p>
+      <p>If you enjoy these sovereign rituals and goofy glyphs, you can keep the cabin lights glowing by <strong>buying me an IPA</strong> (my favorite 🍺) or a <strong>coffee</strong> (for long nights of coding ☕).</p>
+      <p><a href="https://buymeacoffee.com/daemonlogger" target="_blank" rel="noopener" class="donate-button">Buy me a beer or coffee →</a></p>
     </section>
 
     <div aria-hidden="true" style="margin:2rem 0">
@@ -202,7 +153,6 @@
   </main>
   <!-- END: page content -->
 
-
   <footer role="contentinfo">
     <p>© <span id="year"></span> Third Degree Media™</p>
     <p class="small">🜲 This sovereign node sets <strong>no cookies</strong>, loads <strong>no trackers</strong>, and whispers <strong>no secrets</strong> to data brokers. The only logs are gnawed by the squirrels in the pines. 🐿️</p>
@@ -210,14 +160,13 @@
   </footer>
 
   <noscript>
-    <p style="padding:1rem">
-      JavaScript is disabled. You’ll miss the sparkly mouse trail, but all content is fully accessible.
-    </p>
+    <p style="padding:1rem">JavaScript is disabled. You’ll miss the sparkly mouse trail, but all content is fully accessible.</p>
   </noscript>
 
   <!-- Scripts -->
   <script nonce="r4nd0m" defer src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
-  <script nonce="r4nd0m" defer src="/js/trail-variants.js"></script>
+  <script nonce="r4nd0m" defer src="/js/trail-variants.js?v=1"></script>
   <script nonce="r4nd0m">document.getElementById('year').textContent = new Date().getFullYear();</script>
 </body>
 </html>
+
