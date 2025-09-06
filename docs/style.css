@@ -1,202 +1,180 @@
-/* 🜥 Glyph #044: Sovereign Styles — hardened for a11y, contrast, motion, and print */
+/*
+  Trail Variants for Third Degree Media
+  -------------------------------------
+  Modes: "rainbow", "comet", "sparks", "minimal"
 
-:root {
-  --ink: #eee;
-  --paper: #111;
-  --accent: #66ccff;
-  --accent-hover: #ffcc00;
-  --highlight: #ff6600;
-  --muted: #9aa0a6; /* slight lift for readability on dark */
-  --focus: #00e5ff; /* focus ring color */
-  --danger: #ff3366;
-  --radius: 10px;
-  --shadow: 0 0 0 1px rgba(255,255,255,.05), 0 10px 25px rgba(0,0,0,.35);
-  --maxw: 70ch;
-}
+  HOW TO USE
+  1) Include this file after anime.js (or without it; we have a fallback):
+     <script nonce="r4nd0m" defer src="/js/trail-variants.js"></script>
+  2) Choose a mode by either:
+     - Adding data-trail="rainbow|comet|sparks|minimal" to <body>
+     - Or setting: window.TRAIL_MODE = "rainbow" before this script runs
+  3) Optional: Toggle modes at runtime with `window.setTrailMode('comet')`.
 
-/* Light mode (user preference) */
-@media (prefers-color-scheme: light) {
-  :root {
-    --ink: #0d0d0d;
-    --paper: #fafafa;
-    --highlight: #d14e00; /* slightly deeper for light bg */
-    --accent: #0055cc;
-    --accent-hover: #cc5500;
-    --muted: #5f6368;
-    --shadow: 0 0 0 1px rgba(0,0,0,.06), 0 10px 25px rgba(0,0,0,.08);
+  CSP: Replace the example nonce in your HTML with your real per-request nonce.
+  Accessibility: Respects prefers-reduced-motion; auto-disables on low-power devices.
+*/
+
+(() => {
+  const supportsReduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (supportsReduced) return; // Respect user preference
+
+  const MODE = (window.TRAIL_MODE || document.body.getAttribute('data-trail') || 'rainbow').toLowerCase();
+
+  // Basic pool to avoid constant DOM thrash
+  const POOL_SIZE = 120;
+  const pool = [];
+  let poolIndex = 0;
+
+  function makeParticle(className = 'trail') {
+    const el = document.createElement('div');
+    el.className = className;
+    el.style.position = 'fixed';
+    el.style.width = '12px';
+    el.style.height = '12px';
+    el.style.borderRadius = '50%';
+    el.style.pointerEvents = 'none';
+    el.style.zIndex = '9999';
+    el.style.transform = 'translate(-50%, -50%)';
+    el.style.willChange = 'transform, opacity';
+    el.style.opacity = '0';
+    document.body.appendChild(el);
+    return el;
   }
-}
 
-/* Prefer more contrast if user requests */
-@media (prefers-contrast: more) {
-  :root { --accent: #6cf; --accent-hover: #ffd400; --focus: #00ffff; }
-}
+  for (let i = 0; i < POOL_SIZE; i++) pool.push(makeParticle('trail'));
 
-/* Base */
-html { box-sizing: border-box; }
-*, *::before, *::after { box-sizing: inherit; }
+  // Shared helpers
+  const hasAnime = () => typeof window.anime === 'function';
+  const clamp = (n, min, max) => Math.max(min, Math.min(max, n));
+  const rand = (min, max) => Math.random() * (max - min) + min;
 
-body {
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  color: var(--ink);
-  background-color: var(--paper);
-  background-image: radial-gradient(rgba(255,255,255,.03) 1px, transparent 1px);
-  background-size: 20px 20px;
-  padding: clamp(16px, 3vw, 40px);
-  line-height: 1.65;
-  max-width: var(--maxw);
-  margin: auto;
-}
+  // Color utilities
+  const golden = 0.61803398875;
+  let hue = Math.floor(rand(0, 360));
+  function nextHue(step = golden * 360) {
+    hue = (hue + step) % 360; return hue;
+  }
 
-h1, h2, h3 { line-height: 1.25; }
-h1, h2 { color: var(--highlight); text-shadow: 1px 1px 2px rgba(0,0,0,.6); }
+  // Engines
+  function animate(el, opts) {
+    if (hasAnime()) {
+      window.anime({
+        targets: el,
+        opacity: [opts.opacityFrom ?? 1, 0],
+        translateX: opts.tx ?? 0,
+        translateY: opts.ty ?? 0,
+        scale: [opts.scaleFrom ?? 1, opts.scaleTo ?? 2],
+        duration: opts.duration ?? 600,
+        easing: opts.easing || 'easeOutExpo',
+        complete: () => { el.style.opacity = '0'; }
+      });
+    } else {
+      // Fallback CSS transition
+      el.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
+      requestAnimationFrame(() => {
+        el.style.opacity = '0';
+        el.style.transform += ' scale(2)';
+      });
+      setTimeout(() => { el.style.opacity = '0'; }, 650);
+    }
+  }
 
-header, footer {
-  border-bottom: 2px solid var(--highlight);
-  padding-bottom: 10px;
-  margin-bottom: 30px;
-}
+  function nextParticle() {
+    const el = pool[poolIndex++ % POOL_SIZE];
+    el.style.opacity = '1';
+    return el;
+  }
 
-section {
-  margin-bottom: 40px;
-  padding: 20px;
-  border: 1px dashed rgba(255,255,255,.15);
-  background: color-mix(in oklab, var(--paper) 80%, black 20%);
-  border-radius: var(--radius);
-  transition: box-shadow .28s ease, transform .28s ease;
-  box-shadow: var(--shadow);
-}
-section:hover { box-shadow: 0 0 0 1px rgba(255,102,0,.35), 0 16px 40px rgba(0,0,0,.45); }
+  // Modes
+  const modes = {
+    rainbow(e) {
+      const el = nextParticle();
+      const h = nextHue();
+      el.style.background = `hsl(${h} 100% 60%)`;
+      el.style.boxShadow = '0 0 12px hsla(0,0%,100%,.15)';
+      el.style.left = e.clientX + 'px';
+      el.style.top = e.clientY + 'px';
+      animate(el, { duration: 520, scaleTo: 2.2 });
+    },
 
-@media (prefers-reduced-motion: reduce) {
-  section { transition: none; }
-}
+    comet(e) {
+      const tailLen = 6;
+      let vx = (e.movementX || 0);
+      let vy = (e.movementY || 0);
+      const speed = clamp(Math.hypot(vx, vy), 2, 40);
+      for (let i = 0; i < tailLen; i++) {
+        const el = nextParticle();
+        const fade = 1 - i / tailLen;
+        const size = 10 + (i * 2);
+        el.style.width = size + 'px';
+        el.style.height = size + 'px';
+        el.style.background = '#00ffcc';
+        el.style.filter = 'blur(' + (i * 0.6) + 'px)';
+        el.style.left = e.clientX - vx * i * 0.6 + 'px';
+        el.style.top = e.clientY - vy * i * 0.6 + 'px';
+        animate(el, { duration: 450 + i * 25, scaleTo: 1.6 + i * 0.1, opacityFrom: fade });
+      }
+    },
 
-p { margin: 10px 0; }
-em { color: var(--accent); }
+    sparks(e) {
+      const count = 10;
+      for (let i = 0; i < count; i++) {
+        const el = nextParticle();
+        const angle = rand(0, Math.PI * 2);
+        const dist = rand(10, 40);
+        const tx = Math.cos(angle) * dist;
+        const ty = Math.sin(angle) * dist;
+        const h = (hue + i * 18) % 360;
+        el.style.background = `hsl(${h} 100% 60%)`;
+        el.style.left = e.clientX + 'px';
+        el.style.top = e.clientY + 'px';
+        animate(el, { tx, ty, duration: 520 + i * 8, scaleTo: 1.2 });
+      }
+    },
 
-/* Links */
-a {
-  color: var(--accent);
-  text-decoration: underline;
-  text-decoration-thickness: 1px;
-  text-underline-offset: .18em;
-  font-weight: 700;
-}
-a:hover { color: var(--accent-hover); text-underline-offset: .35em; }
-a:active { opacity: .9; }
-a:visited { color: color-mix(in oklab, var(--accent) 70%, purple 30%); }
+    minimal(e) {
+      const el = nextParticle();
+      el.style.background = 'currentColor';
+      el.style.opacity = '0.9';
+      el.style.left = e.clientX + 'px';
+      el.style.top = e.clientY + 'px';
+      animate(el, { duration: 320, scaleTo: 1.3 });
+    }
+  };
 
-/* Keyboard focus */
-:focus-visible {
-  outline: 3px solid var(--focus);
-  outline-offset: 2px;
-  border-radius: 6px;
-}
+  // Dispatcher with throttling using rAF
+  let pending = false; let lastEvent = null;
+  function onMove(e) {
+    lastEvent = e; if (pending) return; pending = true;
+    requestAnimationFrame(() => {
+      (modes[MODE] || modes.rainbow)(lastEvent);
+      pending = false;
+    });
+  }
 
-/* Skip link (match markup in index) */
-.skip-link {
-  position: absolute; left: -9999px; top: auto; width: 1px; height: 1px; overflow: hidden;
-}
-.skip-link:focus { left: 16px; top: 16px; width: auto; height: auto; padding: .6rem .8rem; background: var(--paper); color: var(--ink); border: 2px solid var(--focus); border-radius: var(--radius); z-index: 10000; }
+  // Click burst for any mode
+  function onClick(e) {
+    for (let i = 0; i < 12; i++) modes.sparks(e);
+  }
 
-/* Callouts */
-.callout {
-  border: 1px solid rgba(127,127,127,.3);
-  padding: .9rem 1rem;
-  border-radius: var(--radius);
-  background: rgba(127,127,127,.06);
-  margin: 1.5rem 0;
-}
-.callout h3 { margin-top: 0 }
+  // Touch support
+  function onTouch(e) {
+    const t = e.touches[0]; if (!t) return;
+    const proxy = { clientX: t.clientX, clientY: t.clientY, movementX: 0, movementY: 0 };
+    onMove(proxy);
+  }
 
-/* Mullvad block */
-section.callout.mullvad h2 {
-  color: #F8E559; /* Mullvad yellow */
-  text-shadow: none;
-  border-left: 4px solid #D0933A;
-  padding-left: 16px;
-  margin: 0 0 16px;
-  font-family: "Courier New", ui-monospace, monospace;
-  box-shadow: none;
-}
-section.callout.mullvad img { width: 180px; height: auto; margin: 10px 0; filter: drop-shadow(0 2px 10px rgba(0,0,0,.45)); }
+  // Public API
+  window.setTrailMode = function setTrailMode(mode) {
+    document.body.setAttribute('data-trail', mode);
+    window.TRAIL_MODE = mode;
+  };
 
-/* First Principles */
-section.first-principles {
-  background-color: #1c1c1c;
-  border-left: 4px solid var(--accent);
-  padding: 20px;
-  font-style: italic;
-}
-section.first-principles h2 { color: var(--accent-hover); text-shadow: none; }
-
-/* Signal core */
-.signal-core {
-  background-color: #161616;
-  border-left: 4px solid var(--accent);
-  padding: 20px;
-  color: #d0d0d0;
-}
-
-/* Decoratives */
-hr {
-  border: 0;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(127,127,127,.35), transparent);
-  margin: 2rem 0;
-}
-
-/* Footer */
-footer p { font-size: .95rem; color: var(--muted); text-align: center; }
-.small { font-size: .9em; color: var(--muted); }
-
-/* Buttons */
-.donate-button {
-  display: inline-block;
-  padding: .6rem 1rem;
-  background: var(--highlight);
-  color: #fff !important;
-  border-radius: var(--radius);
-  font-weight: 800;
-  letter-spacing: .02em;
-  text-decoration: none;
-  transition: transform .2s ease, background .2s ease, box-shadow .2s ease;
-  box-shadow: 0 6px 18px rgba(0,0,0,.35);
-}
-.donate-button:hover { background: var(--accent-hover); transform: translateY(-1px); box-shadow: 0 8px 22px rgba(0,0,0,.45); }
-.donate-button:active { transform: translateY(0); }
-
-/* Mouse trail particle */
-.trail {
-  position: fixed;
-  width: 12px; height: 12px;
-  background: #00ffcc;
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 9999;
-  transform: translate(-50%, -50%);
-  will-change: transform, opacity;
-}
-@media (prefers-reduced-motion: reduce) {
-  .trail { display: none !important; }
-}
-
-/* Responsive niceties */
-@media (max-width: 640px) {
-  body { padding: 16px; }
-  section { padding: 16px; }
-}
-
-/* Print styles: minimal ink, pure content */
-@media print {
-  :root { --paper: #fff; --ink: #000; --muted: #333; }
-  body { background: #fff none; color: #000; padding: 0; max-width: 100%; }
-  header, footer, .callout, .donate-button, .trail, svg[role="img"], .skip-link { display: none !important; }
-  a { color: #000; text-decoration: none; }
-  section { box-shadow: none; border: 1px solid #ddd; background: #fff; }
-}
+  // Attach listeners
+  window.addEventListener('mousemove', onMove, { passive: true });
+  window.addEventListener('touchmove', onTouch, { passive: true });
+  window.addEventListener('click', onClick, { passive: true });
+})();
 
 
