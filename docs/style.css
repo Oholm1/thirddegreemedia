@@ -252,3 +252,11 @@ section:hover {
   color: #888;
 }
 
+  <head>
+  …
+  <link rel="stylesheet" href="/assets/style.css">
+  <style>
+    /* paste the :root and .lean-badge styles here */
+  </style>
+</head>
+
