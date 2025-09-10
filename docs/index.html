@@ -2,103 +2,98 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <!-- Basic SEO -->
-<meta name="description" content="Absurd lore meets privacy tech. Third Degree Media is a sovereign node—off-grid rituals, pine VPNs, goofy glyphs, no trackers.">
 
-<!-- Canonical -->
-<link rel="canonical" href="https://thirddegreemedia.com/">
-
-<!-- Open Graph -->
-<meta property="og:type" content="website">
-<meta property="og:title" content="Third Degree Media">
-<meta property="og:description" content="Absurd lore meets privacy tech. Sovereign privacy, IPA-fueled rituals, and glyph trails.">
-<meta property="og:url" content="https://thirddegreemedia.com/">
-<meta property="og:image" content="https://thirddegreemedia.com/og-image.png">
-
-<!-- Twitter -->
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Third Degree Media">
-<meta name="twitter:description" content="Absurd lore meets privacy tech.">
-<meta name="twitter:image" content="https://thirddegreemedia.com/og-image.png">
-
-<!-- JSON-LD structured data -->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Organization",
-  "name": "Third Degree Media",
-  "url": "https://thirddegreemedia.com/",
-  "logo": "https://thirddegreemedia.com/logo.png",
-  "sameAs": [
-    "https://mastodon.social/@daemonlogger",
-    "https://buymeacoffee.com/daemonlogger"
-  ]
-}
-</script>
-
+  <!-- Primary SEO (deduped) -->
   <title>Third Degree Media™ — Sovereign Tech & Absurd Lore</title>
-
-  <!-- Description for SEO & social -->
-  <meta name="description" content="Codex-logging sovereign tech rituals, off-grid infrastructure, and mythic absurdity." />
+  <meta name="description" content="Absurd lore meets privacy tech. Third Degree Media is a sovereign node—off-grid rituals, pine VPNs, goofy glyphs, no trackers.">
   <meta name="author" content="Orrin D. Holmbeck" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#111" />
+  <meta name="robots" content="index,follow" />
+  <link rel="canonical" href="https://thirddegreemedia.com/">
+  <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
+  <link rel="icon" href="/favicon.ico" />
 
-  <!-- Verify (Bing) -->
+  <!-- Bing Verify -->
   <meta name="msvalidate.01" content="263390F99CFC0E83F2AD8415511BA47E" />
 
-  <!-- Search engines -->
-  <meta name="robots" content="index,follow" />
-  <link rel="canonical" href="https://thirddegreemedia.com/" />
-  <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
-
   <!-- Open Graph -->
-  <meta property="og:type" content="website" />
-  <meta property="og:site_name" content="Third Degree Media" />
-  <meta property="og:title" content="Third Degree Media — Sovereign Tech & Absurd Lore" />
-  <meta property="og:description" content="Codex-logging sovereign tech rituals, off-grid infrastructure, and mythic absurdity." />
-  <meta property="og:url" content="https://thirddegreemedia.com/" />
-  <meta property="og:image" content="https://thirddegreemedia.com/og-image.jpg" />
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Third Degree Media">
+  <meta property="og:title" content="Third Degree Media — Sovereign Tech & Absurd Lore">
+  <meta property="og:description" content="Absurd lore meets privacy tech. Sovereign privacy, IPA-fueled rituals, and glyph trails.">
+  <meta property="og:url" content="https://thirddegreemedia.com/">
+  <meta property="og:image" content="https://thirddegreemedia.com/og-image.jpg">
 
   <!-- Twitter Card -->
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Third Degree Media — Sovereign Tech & Absurd Lore" />
-  <meta name="twitter:description" content="Codex-logging sovereign tech rituals, off-grid infrastructure, and mythic absurdity." />
-  <meta name="twitter:image" content="https://thirddegreemedia.com/og-image.jpg" />
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Third Degree Media — Sovereign Tech & Absurd Lore">
+  <meta name="twitter:description" content="Absurd lore meets privacy tech.">
+  <meta name="twitter:image" content="https://thirddegreemedia.com/og-image.jpg">
 
-  <!-- Critical CSS inline (ensures base styling even if style.css fails) -->
+  <!-- JSON-LD: Organization -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"Organization",
+    "name":"Third Degree Media",
+    "url":"https://thirddegreemedia.com/",
+    "logo":"https://thirddegreemedia.com/logo.png",
+    "sameAs":[
+      "https://mastodon.social/@daemonlogger",
+      "https://buymeacoffee.com/daemonlogger"
+    ]
+  }
+  </script>
+
+  <!-- JSON-LD: Website -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"WebSite",
+    "name":"Third Degree Media",
+    "url":"https://thirddegreemedia.com/",
+    "description":"Codex-logging sovereign tech rituals, off-grid infrastructure, and mythic absurdity.",
+    "publisher":{"@type":"Person","name":"Orrin D. Holmbeck","sameAs":["https://mastodon.social/@daemonlogger"]}
+  }
+  </script>
+
+  <!-- Critical CSS (DARK by default) -->
   <style>
-    body {font-family: ui-monospace, "Courier New", monospace; color:#eee; background:#111 radial-gradient(rgba(255,255,255,.02) 1px, transparent 1px); background-size:20px 20px; padding:40px; line-height:1.6; max-width:70ch; margin:auto}
+    body {
+      font-family: ui-monospace,"Courier New",monospace;
+      color:#eee;
+      background:
+        #111 radial-gradient(rgba(255,255,255,.02) 1px, transparent 1px);
+      background-size:20px 20px;
+      padding:40px; line-height:1.6; max-width:70ch; margin:auto
+    }
     h1,h2{color:#ff6600; line-height:1.25}
     a{color:#66ccff; font-weight:bold; text-decoration:none}
     a:hover{color:#ffcc00; text-decoration:underline}
     section{margin-bottom:40px; padding:20px; border:1px dashed #444; background-color:#1a1a1a; border-radius:8px; transition:box-shadow .28s ease, transform .28s ease}
     section:hover{box-shadow:0 0 10px rgba(255,102,0,.30)}
-    .callout{background:rgba(127,127,127,.06); border:1px solid rgba(127,127,127,.3); border-radius:8px}
+
+    /* Make default .callout DARK to avoid white boxes */
+    .callout{background:rgba(17,17,17,.9); border:1px solid #333; border-radius:8px}
+
     .donate-button{background:#ff6600; color:#fff; padding:.6rem 1rem; border-radius:8px; font-weight:bold; text-decoration:none}
     footer p{font-size:.9em; color:#888; text-align:center}
   </style>
 
-  <!-- Full stylesheet (overrides and extras) -->
-  <link rel="stylesheet" href="/style.css?v=3" />
-  <link rel="icon" href="/favicon.ico" />
-
-  <!-- Structured data (Website + Person) -->
-  <script type="application/ld+json" nonce="r4nd0m">
-  {"@context":"https://schema.org","@type":"WebSite","name":"Third Degree Media","url":"https://thirddegreemedia.com/","description":"Codex-logging sovereign tech rituals, off-grid infrastructure, and mythic absurdity.","publisher":{"@type":"Person","name":"Orrin D. Holmbeck","sameAs":["https://mastodon.social/@daemonlogger"]}}
-  </script>
+  <!-- Full stylesheet -->
+  <link rel="stylesheet" href="/style.css?v=4" />
 </head>
 
 <body data-trail="rainbow">
   <a class="skip-link" href="#main">Skip to content</a>
 
   <!-- Hidden SVG symbol to reuse for the trail -->
-<svg width="0" height="0" style="position:absolute; left:-9999px; visibility:hidden" aria-hidden="true" focusable="false">
-  <symbol id="glyph-star" viewBox="0 0 24 24">
-    <!-- 5-point star; replace with your custom path anytime -->
-    <path d="M12 2l3.09 6.26 6.91.99-5 4.87 1.18 6.88L12 17.77 5.82 21l1.18-6.88-5-4.87 6.91-.99z"/>
-  </symbol>
-</svg>
+  <svg width="0" height="0" style="position:absolute; left:-9999px; visibility:hidden" aria-hidden="true" focusable="false">
+    <symbol id="glyph-star" viewBox="0 0 24 24">
+      <path d="M12 2l3.09 6.26 6.91.99-5 4.87 1.18 6.88L12 17.77 5.82 21l1.18-6.88-5-4.87 6.91-.99z"/>
+    </symbol>
+  </svg>
 
   <header role="banner">
     <h1>Third Degree Media</h1>
@@ -125,7 +120,7 @@
     </section>
 
     <section aria-labelledby="signals-heading">
-      <h3 id="signals-heading">Signal Channels</h3>
+      <h2 id="signals-heading">Signal Channels</h2>
       <p>Encrypted whispers from the pines:</p>
       <ul>
         <li><a href="https://wa.me/12189666727" target="_blank" rel="noopener noreferrer" title="Summon encrypted lore via WhatsApp">WhatsApp</a></li>
@@ -136,8 +131,9 @@
     <!-- Sovereign Stack Endorsement: Mullvad VPN -->
     <section class="callout" aria-labelledby="mullvad-heading">
       <h2 id="mullvad-heading">🛡️ Mullvad VPN — Cloak Your Signal in Pine-Scented Privacy</h2>
+      <!-- Tip: host this logo locally as /img/mullvad.svg to keep 0 third-party requests -->
       <figure>
-        <img src="https://upload.wikimedia.org/wikipedia/commons/4/4e/Mullvad_logo.svg" alt="Mullvad VPN logo" width="160" height="160" />
+        <img src="/img/mullvad.svg" alt="Mullvad VPN logo" width="160" height="160" />
         <figcaption class="sr-only">Mullvad VPN logo</figcaption>
       </figure>
       <p><strong>Why Mullvad?</strong><br>Because surveillance is boring, and being mapped by data brokers is a cosmic insult. Mullvad is the VPN for those who reject the algorithmic gaze. No email. No name. Just an account number and a tunnel to freedom.</p>
@@ -195,266 +191,164 @@
       </svg>
     </div>
 
-<section class="callout">
-  <h2>Privacy Tools We Trust</h2>
-  <p>
-    We proudly support the <strong>Electronic Frontier Foundation</strong>—defenders of digital rights and creators of 
-    <a href="https://privacybadger.org" target="_blank">Privacy Badger</a>, a browser extension that automatically blocks trackers.
-  </p>
-  <p>
-    If you value online freedom and off-grid integrity, consider donating to EFF’s mission: 
-    <a href="https://supporters.eff.org/donate/support-privacy-badger" target="_blank" class="donate-button">Support EFF</a>
-  </p>
-</section>
+    <section class="callout">
+      <h2>Privacy Tools We Trust</h2>
+      <p>
+        We proudly support the <strong>Electronic Frontier Foundation</strong>—defenders of digital rights and creators of 
+        <a href="https://privacybadger.org" target="_blank" rel="noopener">Privacy Badger</a>, a browser extension that automatically blocks trackers.
+      </p>
+      <p>
+        If you value online freedom and off-grid integrity, consider donating to EFF’s mission: 
+        <a href="https://supporters.eff.org/donate/support-privacy-badger" target="_blank" rel="noopener" class="donate-button">Support EFF</a>
+      </p>
+    </section>
 
-<section id="ublock-origin" class="callout-dark">
-  <h2>🛡️ uBlock Origin — The Glyphic Shield</h2>
-  <p>
-    uBlock Origin isn’t just an ad blocker—it’s a sovereign filter forged in open-source fire. No telemetry. No corporate strings. Just raw signal filtering through recursive lists.
-  </p>
-  <ul>
-    <li><strong>Open Source</strong>: Auditable, transparent, and community-driven.</li>
-    <li><strong>Zero Tracking</strong>: No data collection, no analytics, no whispered secrets.</li>
-    <li><strong>Lightweight</strong>: Minimal CPU and memory usage—even with heavy blocklists.</li>
-    <li><strong>Customizable</strong>: Fine-tune filters, block scripts, and summon your own rules.</li>
-    <li><strong>Cross-Browser</strong>: Firefox, Chromium, Edge, Opera, and more.</li>
-  </ul>
-  <p>
-    Whether you’re browsing absurd rituals or routing traffic through Malmö, uBlock Origin keeps your signal clean and your glyphs uncorrupted.
-  </p>
-  <hr>
-  <p>
-    <em>uBlock Origin is free, open-source software maintained by Raymond Hill. This site is not affiliated with or endorsed by the project. All trademarks and logos are the property of their respective owners.</em>
-  </p>
-</section>
-
-
-   <section class="callout">
-  <h2>Anonymous Access Matters</h2>
-  <p>
-    We endorse the <strong>Tor Project</strong>—creators of the Tor Browser, which routes your traffic through a decentralized network to protect against surveillance and censorship.
-  </p>
-  <p>
-    Tor empowers journalists, activists, and sovereign individuals to explore the web without being watched. Learn more or download it at 
-    <a href="https://www.torproject.org" target="_blank">torproject.org</a>.
-  </p>
-</section>
+    <section id="ublock-origin" class="callout">
+      <h2>🛡️ uBlock Origin — The Glyphic Shield</h2>
+      <p>uBlock Origin isn’t just an ad blocker—it’s a sovereign filter forged in open-source fire. No telemetry. No corporate strings. Just raw signal filtering through recursive lists.</p>
+      <ul>
+        <li><strong>Open Source</strong>: Auditable, transparent, and community-driven.</li>
+        <li><strong>Zero Tracking</strong>: No data collection, no analytics, no whispered secrets.</li>
+        <li><strong>Lightweight</strong>: Minimal CPU and memory usage—even with heavy blocklists.</li>
+        <li><strong>Customizable</strong>: Fine-tune filters, block scripts, and summon your own rules.</li>
+        <li><strong>Cross-Browser</strong>: Firefox, Chromium, Edge, Opera, and more.</li>
+      </ul>
+      <p>Whether you’re browsing absurd rituals or routing traffic through Malmö, uBlock Origin keeps your signal clean and your glyphs uncorrupted.</p>
+      <hr>
+      <p><em>uBlock Origin is free, open-source software maintained by Raymond Hill. This site is not affiliated with or endorsed by the project. All trademarks and logos are the property of their respective owners.</em></p>
+    </section>
 
     <section class="callout">
-  <h2>Search Without Surveillance</h2>
- <img src="duckduckgo-logo.png" alt="DuckDuckGo Logo" style="height: 60px; margin-bottom: 10px;">
-      <p>
-    We endorse <strong>DuckDuckGo</strong>—a search engine and browser built for privacy. No tracking, no profiling, no filter bubbles.
-  </p>
-  <p>
-    DuckDuckGo blocks hidden trackers, forces encrypted connections, and lets you explore the web without being watched. Try it at 
-    <a href="https://duckduckgo.com" target="_blank">duckduckgo.com</a>.
-  </p>
-</section>
+      <h2>Anonymous Access Matters</h2>
+      <p>We endorse the <strong>Tor Project</strong>—creators of the Tor Browser, which routes your traffic through a decentralized network to protect against surveillance and censorship.</p>
+      <p>Tor empowers journalists, activists, and sovereign individuals to explore the web without being watched. Learn more or download it at 
+        <a href="https://www.torproject.org" target="_blank" rel="noopener">torproject.org</a>.
+      </p>
+    </section>
 
-  <section class="callout">
-  <h2>More Privacy Tools We Trust</h2>
-  <p>
-    We endorse <strong>PrivacyGuides.org</strong> — a community-run directory of privacy-respecting tools. No ads, no tracking, just honest recommendations for those who value autonomy.
-  </p>
-  <p>
-    Explore their codex at <a href="https://www.privacyguides.org" target="_blank">privacyguides.org</a>.
-  </p>
+    <section class="callout">
+      <h2>Search Without Surveillance</h2>
+      <img src="duckduckgo-logo.png" alt="DuckDuckGo Logo" style="height:60px;margin-bottom:10px">
+      <p>We endorse <strong>DuckDuckGo</strong>—a search engine and browser built for privacy. No tracking, no profiling, no filter bubbles.</p>
+      <p>DuckDuckGo blocks hidden trackers, forces encrypted connections, and lets you explore the web without being watched. Try it at 
+        <a href="https://duckduckgo.com" target="_blank" rel="noopener">duckduckgo.com</a>.
+      </p>
+    </section>
 
-   <section id="linux-intro" class="callout" style="background-color: #1a1a1a; border: 1px dashed #444; border-radius: 8px; font-family: ui-monospace, 'Courier New', monospace; color: #eee; padding: 2rem;">
-  <h2>🐧 Why Linux Deserves Your Attention</h2>
-  <p>Linux isn’t just an operating system—it’s a movement. Built on the principles of openness, collaboration, and user freedom, Linux powers everything from smartphones and servers to supercomputers and satellites. Whether you're a developer, a privacy enthusiast, or just someone who wants to break free from corporate ecosystems, Linux offers a customizable, secure, and endlessly fascinating alternative.</p>
-  <h3>🔓 What Makes Linux Special</h3>
-  <ul>
-    <li><strong>Open Source</strong>: You can view, modify, and redistribute the code. No gatekeepers.</li>
-    <li><strong>Community-Driven</strong>: Thousands of contributors worldwide keep it evolving.</li>
-    <li><strong>Privacy-Respecting</strong>: No telemetry, no tracking—just raw control.</li>
-    <li><strong>Lightweight & Fast</strong>: Perfect for older machines or high-performance setups.</li>
-    <li><strong>Secure by Design</strong>: Built with multi-user architecture and strong permission systems.</li>
-  </ul>
-  <h3>🧠 Popular Linux Distributions</h3>
-  <ul>
-    <li><strong>Ubuntu</strong> – User-friendly and great for beginners.</li>
-    <li><strong>Arch Linux</strong> – Minimalist and customizable for power users.</li>
-    <li><strong>Fedora</strong> – Cutting-edge features with Red Hat backing.</li>
-    <li><strong>Kali Linux</strong> – Tailored for cybersecurity and ethical hacking.</li>
-  </ul>
-  <hr style="border: none; border-top: 1px dashed #444; margin: 2rem 0;">
-  <p style="font-size: 0.9rem; color: #888;">
-    <em>Linux® is the registered trademark of Linus Torvalds in the U.S. and other countries. This site is not affiliated with or endorsed by Linus Torvalds or the Linux Foundation. All trademarks and logos are the property of their respective owners.</em>
-  </p>
-</section>
-    <!--
-  Lean Speed & Privacy Badge
-  - Self-contained, no tracking, no external requests
-  - Measures: TTFB, DOMContentLoaded, Load, LCP, total requests, total bytes, JS bytes, 3rd‑party requests, cookie usage
-  - Works on GitHub Pages and strict CSP sites (use a nonce or separate .js file)
+    <section class="callout">
+      <h2>More Privacy Tools We Trust</h2>
+      <p>We endorse <strong>PrivacyGuides.org</strong> — a community-run directory of privacy-respecting tools. No ads, no tracking, just honest recommendations for those who value autonomy.</p>
+      <p>Explore their codex at <a href="https://www.privacyguides.org" target="_blank" rel="noopener">privacyguides.org</a>.</p>
+    </section>
 
-  HOW TO USE (pick one):
-  1) Inline with CSP nonce
-     <script nonce="YOUR_NONCE_HERE">/* paste ONLY the JS portion below (marked) */</script>
-     <div id="lean-badge"></div>
+    <!-- CLOSED the previous section BEFORE starting Linux intro -->
+    <section id="linux-intro" class="callout">
+      <h2>🐧 Why Linux Deserves Your Attention</h2>
+      <p>Linux isn’t just an operating system—it’s a movement. Built on the principles of openness, collaboration, and user freedom, Linux powers everything from smartphones and servers to supercomputers and satellites. Whether you're a developer, a privacy enthusiast, or just someone who wants to break free from corporate ecosystems, Linux offers a customizable, secure, and endlessly fascinating alternative.</p>
+      <h3>🔓 What Makes Linux Special</h3>
+      <ul>
+        <li><strong>Open Source</strong>: You can view, modify, and redistribute the code. No gatekeepers.</li>
+        <li><strong>Community-Driven</strong>: Thousands of contributors worldwide keep it evolving.</li>
+        <li><strong>Privacy-Respecting</strong>: No telemetry, no tracking—just raw control.</li>
+        <li><strong>Lightweight & Fast</strong>: Perfect for older machines or high-performance setups.</li>
+        <li><strong>Secure by Design</strong>: Built with multi-user architecture and strong permission systems.</li>
+      </ul>
+      <h3>🧠 Popular Linux Distributions</h3>
+      <ul>
+        <li><strong>Ubuntu</strong> – User-friendly and great for beginners.</li>
+        <li><strong>Arch Linux</strong> – Minimalist and customizable for power users.</li>
+        <li><strong>Fedora</strong> – Cutting-edge features with Red Hat backing.</li>
+        <li><strong>Kali Linux</strong> – Tailored for cybersecurity and ethical hacking.</li>
+      </ul>
+      <hr style="border:none;border-top:1px dashed #444;margin:2rem 0">
+      <p style="font-size:.9rem;color:#888"><em>Linux® is the registered trademark of Linus Torvalds in the U.S. and other countries. This site is not affiliated with or endorsed by Linus Torvalds or the Linux Foundation. All trademarks and logos are the property of their respective owners.</em></p>
+    </section>
 
-  2) Split file
-     - Put the JS (between // BEGIN BADGE JS and // END BADGE JS) into /assets/lean-badge.js
-     - In HTML: <div id="lean-badge"></div>
-                <script src="/assets/lean-badge.js" defer></script>
-
-  Optional styling variables can be tweaked in :root.
--->
-
-<style>
-  :root {
-    --badge-bg: #0b0b0c;
-    --badge-fg: #e9e9ee;
-    --badge-accent: #8ef0c0; /* mint glyph energy */
-    --badge-muted: #8a8f98;
-    --badge-border: #22262b;
-  }
-  .lean-badge { 
-    background: var(--badge-bg);
-    color: var(--badge-fg);
-    border: 1px dashed var(--badge-border);
-    border-radius: 14px;
-    padding: 1.25rem 1.25rem 1rem;
-    font: 13.5px/1.45 ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial;
-    max-width: 680px; 
-    box-shadow: 0 1px 0 rgba(255,255,255,0.04) inset, 0 6px 18px rgba(0,0,0,0.25);
-  }
-  .lean-badge header { display:flex; align-items:center; gap:.6rem; margin-bottom:.6rem; }
-  .lean-badge .glyph { font-size: 1.2rem; }
-  .lean-badge h3 { margin:0; font-size:1rem; letter-spacing:.2px; }
-  .lean-badge .sub { color: var(--badge-muted); font-size:.85rem; }
-  .lean-badge .meters { display:grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap:.5rem; margin:.75rem 0; }
-  .lean-badge .kpi { background:#111216; border:1px solid #1b1f24; border-radius:10px; padding:.6rem .7rem; }
-  .lean-badge .kpi .label { color: var(--badge-muted); font-size:.8rem; display:block; }
-  .lean-badge .kpi .value { font-variant-numeric: tabular-nums; font-weight:600; }
-  .lean-badge .ok { color: var(--badge-accent); }
-  .lean-badge .warn { color: #f5d67b; }
-  .lean-badge .bad { color: #ff7a7a; }
-  .lean-badge footer { display:flex; gap:.75rem; flex-wrap:wrap; align-items:center; margin-top:.65rem; }
-  .lean-badge .pill { border:1px solid #1b1f24; background:#101217; border-radius:999px; padding:.28rem .6rem; font-size:.78rem; color:var(--badge-muted); }
-  .lean-badge .truthy { color: var(--badge-accent); border-color: rgba(142,240,192,.6); }
-  .lean-badge .falsy { color:#ff9c9c; border-color: rgba(255,122,122,.5); }
-  .lean-badge .note { color: var(--badge-muted); font-size:.78rem; margin-left:auto; }
-  @media (max-width:520px){ .lean-badge .meters { grid-template-columns: 1fr; } }
-</style>
-
-<div id="lean-badge" class="lean-badge" role="region" aria-label="Site speed and privacy badge" tabindex="0">
-  <header>
-    <div class="glyph" aria-hidden="true">⚡</div>
-    <h3>Lean Speed & Privacy</h3>
-  </header>
-  <div class="sub">GitHub Pages • zero trackers • no cookies by default</div>
-  <div class="meters" aria-live="polite">
-    <div class="kpi"><span class="label">TTFB</span><span class="value" id="kpi-ttfb">—</span></div>
-    <div class="kpi"><span class="label">LCP</span><span class="value" id="kpi-lcp">—</span></div>
-    <div class="kpi"><span class="label">DOMContentLoaded</span><span class="value" id="kpi-dcl">—</span></div>
-    <div class="kpi"><span class="label">Load</span><span class="value" id="kpi-load">—</span></div>
-    <div class="kpi"><span class="label">Total Requests</span><span class="value" id="kpi-reqs">—</span></div>
-    <div class="kpi"><span class="label">Total Bytes</span><span class="value" id="kpi-bytes">—</span></div>
-    <div class="kpi"><span class="label">JS Bytes</span><span class="value" id="kpi-js">—</span></div>
-    <div class="kpi"><span class="label">3rd‑Party Reqs</span><span class="value" id="kpi-3p">—</span></div>
-  </div>
-  <footer>
-    <div class="pill" id="pill-cookies">Cookies: —</div>
-    <div class="pill" id="pill-trackers">Third‑party: —</div>
-    <div class="note">Local-only. No beacons.</div>
-  </footer>
-</div>
-
-<script>
-// BEGIN BADGE JS
-(function(){
-  const $ = (id) => document.getElementById(id);
-  const nf = (v, d=0) => Number.isFinite(v) ? v.toFixed(d) : '—';
-  const bfmt = (b) => {
-    if (!Number.isFinite(b)) return '—';
-    const u = ['B','KB','MB','GB'];
-    let i = 0, n = b;
-    while (n >= 1024 && i < u.length-1) { n/=1024; i++; }
-    return `${n.toFixed(n>=100?0:n>=10?1:2)} ${u[i]}`;
-  };
-  function readNav() {
-    const nav = performance.getEntriesByType('navigation')[0];
-    if (!nav) return null;
-    const ttfb = nav.responseStart - nav.startTime; // ms
-    const dcl = nav.domContentLoadedEventEnd - nav.startTime; // ms
-    const load = nav.loadEventEnd - nav.startTime; // ms
-    return { ttfb, dcl, load };
-  }
-  function readResources() {
-    const res = performance.getEntriesByType('resource');
-    const origin = location.origin;
-    let totalBytes = 0, jsBytes = 0, reqs = 0, thirdParty = 0;
-    const thirdSet = new Set();
-    for (const r of res) {
-      reqs++;
-      const bytes = Number.isFinite(r.transferSize) && r.transferSize>0 ? r.transferSize : (r.encodedBodySize||0);
-      totalBytes += bytes;
-      if (r.initiatorType === 'script') jsBytes += bytes;
-      try {
-        const u = new URL(r.name, origin);
-        const sameOrigin = (u.origin === origin);
-        if (!sameOrigin) { thirdParty++; thirdSet.add(u.origin); }
-      } catch (_) {
-        // ignore
+    <!-- Lean Speed & Privacy Badge (kept local + zero beacons) -->
+    <style>
+      :root {
+        --badge-bg:#0b0b0c; --badge-fg:#e9e9ee; --badge-accent:#8ef0c0;
+        --badge-muted:#8a8f98; --badge-border:#22262b;
       }
-    }
-    return { totalBytes, jsBytes, reqs, thirdParty, thirdDomains: Array.from(thirdSet).slice(0,6) };
-  }
-  function setText(id, text) { const el = $(id); if (el) el.textContent = text; }
+      .lean-badge{
+        background:var(--badge-bg); color:var(--badge-fg);
+        border:1px dashed var(--badge-border); border-radius:14px;
+        padding:1.25rem 1.25rem 1rem; max-width:680px;
+        font:13.5px/1.45 ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;
+        box-shadow:0 1px 0 rgba(255,255,255,.04) inset, 0 6px 18px rgba(0,0,0,.25);
+      }
+      .lean-badge header{display:flex;align-items:center;gap:.6rem;margin-bottom:.6rem}
+      .lean-badge .glyph{font-size:1.2rem}
+      .lean-badge h3{margin:0;font-size:1rem;letter-spacing:.2px}
+      .lean-badge .sub{color:var(--badge-muted);font-size:.85rem}
+      .lean-badge .meters{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.5rem;margin:.75rem 0}
+      .lean-badge .kpi{background:#111216;border:1px solid #1b1f24;border-radius:10px;padding:.6rem .7rem}
+      .lean-badge .kpi .label{color:var(--badge-muted);font-size:.8rem;display:block}
+      .lean-badge .kpi .value{font-variant-numeric:tabular-nums;font-weight:600}
+      .lean-badge .pill{border:1px solid #1b1f24;background:#101217;border-radius:999px;padding:.28rem .6rem;font-size:.78rem;color:var(--badge-muted)}
+      .lean-badge .truthy{color:var(--badge-accent);border-color:rgba(142,240,192,.6)}
+      .lean-badge .falsy{color:#ff9c9c;border-color:rgba(255,122,122,.5)}
+      .lean-badge .note{color:var(--badge-muted);font-size:.78rem;margin-left:auto}
+      @media (max-width:520px){.lean-badge .meters{grid-template-columns:1fr}}
+    </style>
 
-  // Update nav timings as soon as possible
-  const nav = readNav();
-  if (nav) {
-    setText('kpi-ttfb', nf(nav.ttfb,0) + ' ms');
-    setText('kpi-dcl', nf(nav.dcl,0) + ' ms');
-    setText('kpi-load', nf(nav.load,0) + ' ms');
-  }
+    <div id="lean-badge" class="lean-badge" role="region" aria-label="Site speed and privacy badge" tabindex="0">
+      <header><div class="glyph" aria-hidden="true">⚡</div><h3>Lean Speed & Privacy</h3></header>
+      <div class="sub">GitHub Pages • zero trackers • no cookies by default</div>
+      <div class="meters" aria-live="polite">
+        <div class="kpi"><span class="label">TTFB</span><span class="value" id="kpi-ttfb">—</span></div>
+        <div class="kpi"><span class="label">LCP</span><span class="value" id="kpi-lcp">—</span></div>
+        <div class="kpi"><span class="label">DOMContentLoaded</span><span class="value" id="kpi-dcl">—</span></div>
+        <div class="kpi"><span class="label">Load</span><span class="value" id="kpi-load">—</span></div>
+        <div class="kpi"><span class="label">Total Requests</span><span class="value" id="kpi-reqs">—</span></div>
+        <div class="kpi"><span class="label">Total Bytes</span><span class="value" id="kpi-bytes">—</span></div>
+        <div class="kpi"><span class="label">JS Bytes</span><span class="value" id="kpi-js">—</span></div>
+        <div class="kpi"><span class="label">3rd-Party Reqs</span><span class="value" id="kpi-3p">—</span></div>
+      </div>
+      <footer>
+        <div class="pill" id="pill-cookies">Cookies: —</div>
+        <div class="pill" id="pill-trackers">Third-party: —</div>
+        <div class="note">Local-only. No beacons.</div>
+      </footer>
+    </div>
 
-  // Largest Contentful Paint
-  let lcpVal;
-  try {
-    const po = new PerformanceObserver((list) => {
-      const entries = list.getEntries();
-      const last = entries[entries.length-1];
-      if (last) lcpVal = last.startTime; // ms
-    });
-    po.observe({ type: 'largest-contentful-paint', buffered: true });
-    // finalize after load
-    window.addEventListener('load', () => {
-      setTimeout(() => {
-        setText('kpi-lcp', nf(lcpVal,0) + ' ms');
-      }, 0);
-    });
-  } catch(_) { setText('kpi-lcp','—'); }
+    <script>
+    (function(){
+      const $ = (id) => document.getElementById(id);
+      const nf = (v,d=0)=>Number.isFinite(v)?v.toFixed(d):'—';
+      const bfmt=(b)=>{ if(!Number.isFinite(b))return'—'; const u=['B','KB','MB','GB']; let i=0,n=b; while(n>=1024&&i<u.length-1){n/=1024;i++;} return `${n.toFixed(n>=100?0:n>=10?1:2)} ${u[i]}`; };
+      function readNav(){const nav=performance.getEntriesByType('navigation')[0]; if(!nav) return null; return { ttfb: nav.responseStart-nav.startTime, dcl: nav.domContentLoadedEventEnd-nav.startTime, load: nav.loadEventEnd-nav.startTime }; }
+      function readResources(){
+        const res=performance.getEntriesByType('resource'), origin=location.origin;
+        let totalBytes=0, jsBytes=0, reqs=0, thirdParty=0; const thirdSet=new Set();
+        for(const r of res){ reqs++; const bytes=Number.isFinite(r.transferSize)&&r.transferSize>0?r.transferSize:(r.encodedBodySize||0);
+          totalBytes+=bytes; if(r.initiatorType==='script') jsBytes+=bytes;
+          try{ const u=new URL(r.name,origin); if(u.origin!==origin){ thirdParty++; thirdSet.add(u.origin);} } catch(_){}
+        }
+        return { totalBytes, jsBytes, reqs, thirdParty, thirdDomains:[...thirdSet].slice(0,6) };
+      }
+      const nav=readNav(); if(nav){ $('kpi-ttfb').textContent=nf(nav.ttfb,0)+' ms'; $('kpi-dcl').textContent=nf(nav.dcl,0)+' ms'; $('kpi-load').textContent=nf(nav.load,0)+' ms'; }
+      let lcpVal; try{
+        const po=new PerformanceObserver(list=>{const e=list.getEntries(); const last=e[e.length-1]; if(last) lcpVal=last.startTime;});
+        po.observe({type:'largest-contentful-paint', buffered:true});
+        addEventListener('load',()=>{ setTimeout(()=>{$('kpi-lcp').textContent=nf(lcpVal,0)+' ms';},0); });
+      }catch(_){ $('kpi-lcp').textContent='—'; }
+      function finalize(){
+        const r=readResources(); if(!r) return;
+        $('kpi-reqs').textContent=r.reqs;
+        $('kpi-bytes').textContent=bfmt(r.totalBytes);
+        $('kpi-js').textContent=bfmt(r.jsBytes);
+        $('kpi-3p').textContent=r.thirdParty + (r.thirdDomains.length? ` (${r.thirdDomains.join(', ')})` : '');
+        const hasCookies=(document.cookie||'').trim().length>0;
+        const pillC=$('pill-cookies'), pillT=$('pill-trackers');
+        if(pillC){ pillC.textContent=`Cookies: ${hasCookies?'present':'none'}`; pillC.classList.add(hasCookies?'falsy':'truthy'); }
+        const no3p=r.thirdParty===0;
+        if(pillT){ pillT.textContent=`Third-party: ${no3p?'none':r.thirdParty}`; pillT.classList.add(no3p?'truthy':'falsy'); }
+      }
+      if(document.readyState==='complete') finalize(); else addEventListener('load',()=>setTimeout(finalize,0));
+    })();
+    </script>
 
-  // Resources + cookies + 3p pill
-  function finalize() {
-    const r = readResources();
-    if (r) {
-      setText('kpi-reqs', r.reqs);
-      setText('kpi-bytes', bfmt(r.totalBytes));
-      setText('kpi-js', bfmt(r.jsBytes));
-      setText('kpi-3p', r.thirdParty + (r.thirdDomains.length? ` (${r.thirdDomains.join(', ')})` : ''));
-      const cookies = (document.cookie||'').trim();
-      const hasCookies = cookies.length > 0;
-      const pillC = $('pill-cookies');
-      const pillT = $('pill-trackers');
-      if (pillC) { pillC.textContent = `Cookies: ${hasCookies? 'present' : 'none'}`; pillC.classList.add(hasCookies? 'falsy':'truthy'); }
-      const no3p = r.thirdParty === 0;
-      if (pillT) { pillT.textContent = `Third‑party: ${no3p? 'none' : r.thirdParty}`; pillT.classList.add(no3p? 'truthy':'falsy'); }
-    }
-  }
-  // After onload to collect all late resources
-  if (document.readyState === 'complete') finalize();
-  else window.addEventListener('load', () => setTimeout(finalize, 0));
-})();
-// END BADGE JS
-</script>
-
-  
   </main>
   <!-- END: page content -->
 
@@ -468,15 +362,13 @@
     <p style="padding:1rem">JavaScript is disabled. You’ll miss the sparkly mouse trail, but all content is fully accessible.</p>
   </noscript>
 
-  <!-- Scripts -->
- <!-- Scripts: anime.js first, then SVG glyph trail -->
-<script nonce="r4nd0m" defer src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
-<script nonce="r4nd0m" defer src="js/svg-trail.js?v=1"></script>
+  <!-- Scripts (self-host anime.js to keep 0 third-party requests) -->
+  <script defer src="/js/anime.min.js"></script>
+  <script defer src="/js/svg-trail.js?v=1"></script>
 
-<!-- Year updater -->
-<script nonce="r4nd0m">
-  document.getElementById('year').textContent = new Date().getFullYear();
-</script>
-</body> 
+  <!-- Year updater -->
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
 </html>
-
