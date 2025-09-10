@@ -168,27 +168,3 @@
   })();
 })();
 
-// Toggle trails with `
-document.addEventListener('keydown', (e) => {
-  if (e.key === '`') {
-    const next = (window.TRAIL_MODE === 'off') ? 'rainbow' : 'off';
-    window.setTrailMode(next);
-    console.log('Trail mode:', next);
-  }
-});
-
-/* Scope repaints to sections */
-section { contain: layout paint; }
-
-/* Replace heavy shadow hover with a cheap border tint */
-section:hover { box-shadow: none; border-color: #ff6600; }
-
-/* Cheaper: fixed pseudo-layer so scrolling doesn’t repaint the pattern */
-body { background:#111; position:relative; }
-body::before{
-  content:""; position:fixed; inset:0; z-index:-1;
-  background: radial-gradient(rgba(255,255,255,.02) 1px, transparent 1px);
-  background-size:20px 20px;
-  will-change: transform;
-}
-
