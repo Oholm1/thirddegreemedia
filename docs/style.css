@@ -252,5 +252,57 @@ section:hover {
   color: #888;
 }
 
+/* === Dark Baseline Hotfix (place at end of your CSS) === */
+:root{
+  color-scheme: dark;
+  --bg:#0b0b0c;
+  --fg:#e9e9ee;
+  --muted:#9aa0a6;
+  --card:#111216;
+  --border:#23262b;
+  --accent:#8ef0c0;
+}
+
+html, body { background: var(--bg); color: var(--fg); }
+
+/* Links & text */
+a { color: var(--accent); }
+a:hover { opacity:.9; }
+
+/* Common containers */
+section, article, .card, .panel { background: transparent; color: var(--fg); }
+hr { border: none; border-top: 1px dashed var(--border); }
+
+/* Callouts – make default callout dark instead of light */
+.callout {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.25rem;
+  color: var(--fg);
+}
+
+/* Your uBlock block can keep its darker vibe */
+.callout-dark {
+  background: var(--card);
+  border: 1px dashed var(--border);
+  color: var(--fg);
+}
+
+/* Code blocks & pre */
+code, pre { background: #0f1115; color: var(--fg); border: 1px solid #1b1f24; }
+
+/* Forms (inputs default to white on many resets) */
+input, textarea, select {
+  background: #0f1115;
+  color: var(--fg);
+  border: 1px solid #1b1f24;
+}
+
+/* TEMP safety: neutralize any explicit white backgrounds you might have */
+.bg-white, .white-bg, [style*="background:#fff"], [style*="background: #fff"] {
+  background: var(--card) !important;
+  color: var(--fg) !important;
+}
 
 
