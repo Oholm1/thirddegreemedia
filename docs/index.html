@@ -351,6 +351,24 @@
     })();
     </script>
 
+    <script>
+  // Hard-disable trails whenever the cursor is over the badge.
+  (function () {
+    const badge = document.getElementById('lean-badge');
+    if (!badge || typeof window.setTrailMode !== 'function') return;
+    let prev = (window.TRAIL_MODE || 'rainbow');
+
+    badge.addEventListener('mouseenter', () => {
+      prev = window.TRAIL_MODE || 'rainbow';
+      window.setTrailMode('off');
+    });
+
+    badge.addEventListener('mouseleave', () => {
+      window.setTrailMode(prev || 'rainbow'); // restore your preferred mode
+    });
+  })();
+</script>
+
   </main>
   <!-- END: page content -->
 
