@@ -140,3 +140,42 @@ section:hover { box-shadow: 0 0 10px rgba(255,102,0,.30); }
   background: var(--card) !important;
   color: var(--fg) !important;
 }
+
+/* 1) Make the badge its own paint island (prevents page-wide repaints) */
+.lean-badge {
+  contain: layout paint;      /* scope layout & paint to the badge */
+  isolation: isolate;         /* new stacking context */
+  will-change: transform;     /* hint for compositor */
+  transform: translateZ(0);   /* promote to its own layer */
+  box-shadow: none;           /* remove heavy outer shadow */
+}
+
+/* 2) Cheap, non-repainting hover for sections (kills the heavy glow) */
+section { 
+  border: 1px dashed #444; 
+  transition: border-color .2s ease; 
+  contain: layout paint;      /* each section paints itself only */
+}
+section:hover { 
+  box-shadow: none;           /* was causing big repaints */
+  border-color: #ff6600; 
+}
+
+/* 3) Isolate the background grid so it doesn't repaint with content */
+body { background:#111; position: relative; }
+body::before {
+  content: "";
+  position: fixed; inset: 0; z-index: -1;
+  background: radial-gradient(rgba(255,255,255,.02) 1px, transparent 1px);
+  background-size: 20px 20px;
+  will-change: transform;
+}
+/* If you kept any glow on the badge’s inner KPIs, make them cheap too */
+.lean-badge .kpi { box-shadow: none; filter: none; }
+
+<section class="callout" style="contain: layout paint; isolation: isolate;">
+  <!-- badge here -->
+  <div id="lean-badge" class="lean-badge" role="region" aria-label="Site speed and privacy badge" tabindex="0">…</div>
+</section>
+
+
