@@ -315,41 +315,106 @@
     </div>
 
     <script>
-    (function(){
-      const $ = (id) => document.getElementById(id);
-      const nf = (v,d=0)=>Number.isFinite(v)?v.toFixed(d):'—';
-      const bfmt=(b)=>{ if(!Number.isFinite(b))return'—'; const u=['B','KB','MB','GB']; let i=0,n=b; while(n>=1024&&i<u.length-1){n/=1024;i++;} return `${n.toFixed(n>=100?0:n>=10?1:2)} ${u[i]}`; };
-      function readNav(){const nav=performance.getEntriesByType('navigation')[0]; if(!nav) return null; return { ttfb: nav.responseStart-nav.startTime, dcl: nav.domContentLoadedEventEnd-nav.startTime, load: nav.loadEventEnd-nav.startTime }; }
-      function readResources(){
-        const res=performance.getEntriesByType('resource'), origin=location.origin;
-        let totalBytes=0, jsBytes=0, reqs=0, thirdParty=0; const thirdSet=new Set();
-        for(const r of res){ reqs++; const bytes=Number.isFinite(r.transferSize)&&r.transferSize>0?r.transferSize:(r.encodedBodySize||0);
-          totalBytes+=bytes; if(r.initiatorType==='script') jsBytes+=bytes;
-          try{ const u=new URL(r.name,origin); if(u.origin!==origin){ thirdParty++; thirdSet.add(u.origin);} } catch(_){}
-        }
-        return { totalBytes, jsBytes, reqs, thirdParty, thirdDomains:[...thirdSet].slice(0,6) };
+(function () {
+  const $  = (id) => document.getElementById(id);
+  const nf = (v, d=0) => Number.isFinite(v) ? v.toFixed(d) : '—';
+  const bfmt = (b) => {
+    if (!Number.isFinite(b)) return '—';
+    const u = ['B','KB','MB','GB']; let i=0, n=b;
+    while (n>=1024 && i<u.length-1) { n/=1024; i++; }
+    return `${n.toFixed(n>=100?0:n>=10?1:2)} ${u[i]}`;
+  };
+
+  const navEntry = () => performance.getEntriesByType('navigation')[0] || null;
+
+  function updateTTFB_DCL_Load() {
+    const nav = navEntry(); if (!nav) return;
+
+    // TTFB & DCL are safe to set anytime
+    $('kpi-ttfb') && ($('kpi-ttfb').textContent = nf(nav.responseStart - nav.startTime, 0) + ' ms');
+    $('kpi-dcl')  && ($('kpi-dcl').textContent  = nf(nav.domContentLoadedEventEnd - nav.startTime, 0) + ' ms');
+
+    // Load may be 0 if read too early or on bfcache
+    let load = nav.loadEventEnd - nav.startTime;
+    if (!load || load < 0) {
+      if (document.readyState === 'complete') {
+        // fallback approximation if loadEventEnd isn't populated (e.g., bfcache)
+        load = performance.now() - nav.startTime;
+      } else {
+        return; // wait and try again after onload
       }
-      const nav=readNav(); if(nav){ $('kpi-ttfb').textContent=nf(nav.ttfb,0)+' ms'; $('kpi-dcl').textContent=nf(nav.dcl,0)+' ms'; $('kpi-load').textContent=nf(nav.load,0)+' ms'; }
-      let lcpVal; try{
-        const po=new PerformanceObserver(list=>{const e=list.getEntries(); const last=e[e.length-1]; if(last) lcpVal=last.startTime;});
-        po.observe({type:'largest-contentful-paint', buffered:true});
-        addEventListener('load',()=>{ setTimeout(()=>{$('kpi-lcp').textContent=nf(lcpVal,0)+' ms';},0); });
-      }catch(_){ $('kpi-lcp').textContent='—'; }
-      function finalize(){
-        const r=readResources(); if(!r) return;
-        $('kpi-reqs').textContent=r.reqs;
-        $('kpi-bytes').textContent=bfmt(r.totalBytes);
-        $('kpi-js').textContent=bfmt(r.jsBytes);
-        $('kpi-3p').textContent=r.thirdParty + (r.thirdDomains.length? ` (${r.thirdDomains.join(', ')})` : '');
-        const hasCookies=(document.cookie||'').trim().length>0;
-        const pillC=$('pill-cookies'), pillT=$('pill-trackers');
-        if(pillC){ pillC.textContent=`Cookies: ${hasCookies?'present':'none'}`; pillC.classList.add(hasCookies?'falsy':'truthy'); }
-        const no3p=r.thirdParty===0;
-        if(pillT){ pillT.textContent=`Third-party: ${no3p?'none':r.thirdParty}`; pillT.classList.add(no3p?'truthy':'falsy'); }
-      }
-      if(document.readyState==='complete') finalize(); else addEventListener('load',()=>setTimeout(finalize,0));
-    })();
-    </script>
+    }
+    $('kpi-load') && ($('kpi-load').textContent = nf(load, 0) + ' ms');
+  }
+
+  // Initial attempt (TTFB/DCL now; Load may still be 0)
+  updateTTFB_DCL_Load();
+
+  // LCP
+  let lcpVal;
+  try {
+    const po = new PerformanceObserver((list) => {
+      const entries = list.getEntries();
+      const last = entries[entries.length - 1];
+      if (last) lcpVal = last.startTime;
+    });
+    po.observe({ type: 'largest-contentful-paint', buffered: true });
+    addEventListener('load', () => { setTimeout(() => {
+      $('kpi-lcp') && ($('kpi-lcp').textContent = nf(lcpVal, 0) + ' ms');
+    }, 0); });
+  } catch (_) {
+    $('kpi-lcp') && ($('kpi-lcp').textContent = '—');
+  }
+
+  // Resources + privacy pills
+  function readResources() {
+    const res = performance.getEntriesByType('resource');
+    const origin = location.origin;
+    let totalBytes = 0, jsBytes = 0, reqs = 0, thirdParty = 0;
+    const thirdSet = new Set();
+    for (const r of res) {
+      reqs++;
+      const bytes = Number.isFinite(r.transferSize) && r.transferSize > 0 ? r.transferSize : (r.encodedBodySize || 0);
+      totalBytes += bytes;
+      if (r.initiatorType === 'script') jsBytes += bytes;
+      try {
+        const u = new URL(r.name, origin);
+        if (u.origin !== origin) { thirdParty++; thirdSet.add(u.origin); }
+      } catch {}
+    }
+    return { totalBytes, jsBytes, reqs, thirdParty, thirdDomains: [...thirdSet].slice(0, 6) };
+  }
+
+  function finalize() {
+    const r = readResources(); if (!r) return;
+    $('kpi-reqs')  && ($('kpi-reqs').textContent  = r.reqs);
+    $('kpi-bytes') && ($('kpi-bytes').textContent = bfmt(r.totalBytes));
+    $('kpi-js')    && ($('kpi-js').textContent    = bfmt(r.jsBytes));
+    $('kpi-3p')    && ($('kpi-3p').textContent    = r.thirdParty + (r.thirdDomains.length ? ` (${r.thirdDomains.join(', ')})` : ''));
+
+    const hasCookies = (document.cookie || '').trim().length > 0;
+    const pillC = $('pill-cookies'), pillT = $('pill-trackers');
+    if (pillC) { pillC.textContent = `Cookies: ${hasCookies ? 'present' : 'none'}`; pillC.classList.add(hasCookies ? 'falsy' : 'truthy'); }
+    const no3p = r.thirdParty === 0;
+    if (pillT) { pillT.textContent = `Third-party: ${no3p ? 'none' : r.thirdParty}`; pillT.classList.add(no3p ? 'truthy' : 'falsy'); }
+  }
+
+  // Re-run after load so Load is populated
+  addEventListener('load', () => {
+    setTimeout(updateTTFB_DCL_Load, 0);
+    setTimeout(finalize, 0);
+  });
+
+  // Handle bfcache restores
+  addEventListener('pageshow', (e) => {
+    if (e.persisted) {
+      setTimeout(updateTTFB_DCL_Load, 0);
+      setTimeout(finalize, 0);
+    }
+  });
+})();
+</script>
+
 
   </main>
   <!-- END: page content -->
