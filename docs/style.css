@@ -1,259 +1,10 @@
-/*
-  Trail Variants for Third Degree Media
-  -------------------------------------
-  Modes: "rainbow", "comet", "sparks", "minimal"
+/* ===========================
+   Third Degree Media – style.css (v4)
+   Dark baseline + components
+   =========================== */
 
-  HOW TO USE
-  1) Include this file after anime.js (or without it; we have a fallback):
-     <script nonce="r4nd0m" defer src="/js/trail-variants.js"></script>
-  2) Choose a mode by either:
-     - Adding data-trail="rainbow|comet|sparks|minimal" to <body>
-     - Or setting: window.TRAIL_MODE = "rainbow" before this script runs
-  3) Optional: Toggle modes at runtime with `window.setTrailMode('comet')`.
-
-  CSP: Replace the example nonce in your HTML with your real per-request nonce.
-  Accessibility: Respects prefers-reduced-motion; auto-disables on low-power devices.
-*/
-
-(() => {
-  const supportsReduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (supportsReduced) return; // Respect user preference
-
-  const MODE = (window.TRAIL_MODE || document.body.getAttribute('data-trail') || 'rainbow').toLowerCase();
-
-  // Basic pool to avoid constant DOM thrash
-  const POOL_SIZE = 120;
-  const pool = [];
-  let poolIndex = 0;
-
-  function makeParticle(className = 'trail') {
-    const el = document.createElement('div');
-    el.className = className;
-    el.style.position = 'fixed';
-    el.style.width = '12px';
-    el.style.height = '12px';
-    el.style.borderRadius = '50%';
-    el.style.pointerEvents = 'none';
-    el.style.zIndex = '9999';
-    el.style.transform = 'translate(-50%, -50%)';
-    el.style.willChange = 'transform, opacity';
-    el.style.opacity = '0';
-    document.body.appendChild(el);
-    return el;
-  }
-
-  for (let i = 0; i < POOL_SIZE; i++) pool.push(makeParticle('trail'));
-
-  // Shared helpers
-  const hasAnime = () => typeof window.anime === 'function';
-  const clamp = (n, min, max) => Math.max(min, Math.min(max, n));
-  const rand = (min, max) => Math.random() * (max - min) + min;
-
-  // Color utilities
-  const golden = 0.61803398875;
-  let hue = Math.floor(rand(0, 360));
-  function nextHue(step = golden * 360) {
-    hue = (hue + step) % 360; return hue;
-  }
-
-  // Engines
-  function animate(el, opts) {
-    if (hasAnime()) {
-      window.anime({
-        targets: el,
-        opacity: [opts.opacityFrom ?? 1, 0],
-        translateX: opts.tx ?? 0,
-        translateY: opts.ty ?? 0,
-        scale: [opts.scaleFrom ?? 1, opts.scaleTo ?? 2],
-        duration: opts.duration ?? 600,
-        easing: opts.easing || 'easeOutExpo',
-        complete: () => { el.style.opacity = '0'; }
-      });
-    } else {
-      // Fallback CSS transition
-      el.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
-      requestAnimationFrame(() => {
-        el.style.opacity = '0';
-        el.style.transform += ' scale(2)';
-      });
-      setTimeout(() => { el.style.opacity = '0'; }, 650);
-    }
-  }
-
-  function nextParticle() {
-    const el = pool[poolIndex++ % POOL_SIZE];
-    el.style.opacity = '1';
-    return el;
-  }
-
-  // Modes
-  const modes = {
-    rainbow(e) {
-      const el = nextParticle();
-      const h = nextHue();
-      el.style.background = `hsl(${h} 100% 60%)`;
-      el.style.boxShadow = '0 0 12px hsla(0,0%,100%,.15)';
-      el.style.left = e.clientX + 'px';
-      el.style.top = e.clientY + 'px';
-      animate(el, { duration: 520, scaleTo: 2.2 });
-    },
-
-    comet(e) {
-      const tailLen = 6;
-      let vx = (e.movementX || 0);
-      let vy = (e.movementY || 0);
-      const speed = clamp(Math.hypot(vx, vy), 2, 40);
-      for (let i = 0; i < tailLen; i++) {
-        const el = nextParticle();
-        const fade = 1 - i / tailLen;
-        const size = 10 + (i * 2);
-        el.style.width = size + 'px';
-        el.style.height = size + 'px';
-        el.style.background = '#00ffcc';
-        el.style.filter = 'blur(' + (i * 0.6) + 'px)';
-        el.style.left = e.clientX - vx * i * 0.6 + 'px';
-        el.style.top = e.clientY - vy * i * 0.6 + 'px';
-        animate(el, { duration: 450 + i * 25, scaleTo: 1.6 + i * 0.1, opacityFrom: fade });
-      }
-    },
-
-    sparks(e) {
-      const count = 10;
-      for (let i = 0; i < count; i++) {
-        const el = nextParticle();
-        const angle = rand(0, Math.PI * 2);
-        const dist = rand(10, 40);
-        const tx = Math.cos(angle) * dist;
-        const ty = Math.sin(angle) * dist;
-        const h = (hue + i * 18) % 360;
-        el.style.background = `hsl(${h} 100% 60%)`;
-        el.style.left = e.clientX + 'px';
-        el.style.top = e.clientY + 'px';
-        animate(el, { tx, ty, duration: 520 + i * 8, scaleTo: 1.2 });
-      }
-    },
-
-    minimal(e) {
-      const el = nextParticle();
-      el.style.background = 'currentColor';
-      el.style.opacity = '0.9';
-      el.style.left = e.clientX + 'px';
-      el.style.top = e.clientY + 'px';
-      animate(el, { duration: 320, scaleTo: 1.3 });
-    }
-  };
-
-  // Dispatcher with throttling using rAF
-  let pending = false; let lastEvent = null;
-  function onMove(e) {
-    lastEvent = e; if (pending) return; pending = true;
-    requestAnimationFrame(() => {
-      (modes[MODE] || modes.rainbow)(lastEvent);
-      pending = false;
-    });
-  }
-
-  // Click burst for any mode
-  function onClick(e) {
-    for (let i = 0; i < 12; i++) modes.sparks(e);
-  }
-
-  // Touch support
-  function onTouch(e) {
-    const t = e.touches[0]; if (!t) return;
-    const proxy = { clientX: t.clientX, clientY: t.clientY, movementX: 0, movementY: 0 };
-    onMove(proxy);
-  }
-
-  // Public API
-  window.setTrailMode = function setTrailMode(mode) {
-    document.body.setAttribute('data-trail', mode);
-    window.TRAIL_MODE = mode;
-  };
-
-  // Attach listeners
-  window.addEventListener('mousemove', onMove, { passive: true });
-  window.addEventListener('touchmove', onTouch, { passive: true });
-  window.addEventListener('click', onClick, { passive: true });
-})();
-
-/* 📱 Mobile-friendly adjustments */
-@media (max-width: 600px) {
-  body {
-    padding: 20px;         /* less edge padding on tiny screens */
-    font-size: 1rem;       /* make text comfy, not too tiny */
-    line-height: 1.7;
-  }
-
-  header, footer {
-    text-align: center;    /* center header/footer on small screens */
-  }
-
-  h1, h2 {
-    word-break: break-word; /* prevent long words from overflowing */
-  }
-
-  img {
-    max-width: 100%;       /* scale down big images */
-    height: auto;
-  }
-
-  a {
-    display: inline-block; /* make tap targets easier */
-    padding: 0.3rem 0.5rem;
-  }
-
-  ul {
-    padding-left: 1rem;    /* prevent list bullets from squishing text */
-  }
-
-  section {
-    padding: 15px;         /* lighter padding in boxes */
-  }
-
-  .donate-button {
-    display: block;        /* make donate button span width */
-    text-align: center;
-    margin: 1rem auto;
-  }
-}
-
-section:hover {
-  box-shadow: 0 0 10px rgba(255,102,0,.30);
-}
-    .callout {
-  background-color: #f5f5f5;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  padding: 2rem;
-  margin-top: 2rem;
-  font-family: system-ui, sans-serif;
-}
-
-.callout-dark {
-  background-color: #1a1a1a;
-  border: 1px dashed #444;
-  border-radius: 8px;
-  padding: 2rem;
-  margin-top: 2rem;
-  font-family: ui-monospace, "Courier New", monospace;
-  color: #eee;
-}
-
-.callout-dark hr {
-  border: none;
-  border-top: 1px dashed #444;
-  margin: 2rem 0;
-}
-
-.callout-dark p small,
-.callout-dark p em {
-  font-size: 0.9rem;
-  color: #888;
-}
-
-/* === Dark Baseline Hotfix (place at end of your CSS) === */
-:root{
+/* Theme tokens */
+:root {
   color-scheme: dark;
   --bg:#0b0b0c;
   --fg:#e9e9ee;
@@ -261,48 +12,131 @@ section:hover {
   --card:#111216;
   --border:#23262b;
   --accent:#8ef0c0;
+
+  --radius: 12px;
+  --gap: 20px;
 }
 
-html, body { background: var(--bg); color: var(--fg); }
+/* Base */
+html, body {
+  background: var(--bg);
+  color: var(--fg);
+}
 
-/* Links & text */
-a { color: var(--accent); }
-a:hover { opacity:.9; }
+a { color: var(--accent); font-weight: 600; text-decoration: none; }
+a:hover { opacity: .9; text-decoration: underline; }
 
-/* Common containers */
-section, article, .card, .panel { background: transparent; color: var(--fg); }
+img { max-width: 100%; height: auto; }
 hr { border: none; border-top: 1px dashed var(--border); }
 
-/* Callouts – make default callout dark instead of light */
+/* Containers */
+section, article, .card, .panel {
+  background: transparent;
+  color: var(--fg);
+}
+
+/* Callouts (DARK by default) */
 .callout {
   background: var(--card);
   border: 1px solid var(--border);
-  border-radius: 12px;
+  border-radius: var(--radius);
   padding: 1.25rem;
-  color: var(--fg);
 }
 
-/* Your uBlock block can keep its darker vibe */
-.callout-dark {
-  background: var(--card);
-  border: 1px dashed var(--border);
-  color: var(--fg);
+/* Optional: a dashed variant (used for uBlock / Linux blocks) */
+.callout-dashed {
+  border-style: dashed;
 }
 
-/* Code blocks & pre */
-code, pre { background: #0f1115; color: var(--fg); border: 1px solid #1b1f24; }
+/* Buttons */
+.donate-button {
+  display: inline-block;
+  background: #ff6600;
+  color: #fff;
+  padding: .6rem 1rem;
+  border-radius: var(--radius);
+  font-weight: 700;
+  text-decoration: none;
+}
 
-/* Forms (inputs default to white on many resets) */
+/* Code & forms */
+code, pre {
+  background: #0f1115;
+  color: var(--fg);
+  border: 1px solid #1b1f24;
+  border-radius: 8px;
+  padding: .25rem .4rem;
+}
+
 input, textarea, select {
   background: #0f1115;
   color: var(--fg);
   border: 1px solid #1b1f24;
+  border-radius: 8px;
+  padding: .5rem .6rem;
 }
 
-/* TEMP safety: neutralize any explicit white backgrounds you might have */
+/* Accessibility helpers */
+.sr-only {
+  position: absolute !important;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0,0,0,0);
+  white-space: nowrap; border: 0;
+}
+
+.skip-link {
+  position: absolute; left: -9999px; top: auto;
+  width: 1px; height: 1px; overflow: hidden;
+}
+.skip-link:focus {
+  position: static; width: auto; height: auto;
+  padding: .5rem .75rem; background: #222; border-radius: 8px;
+}
+
+/* Lean Speed & Privacy badge styles (so you can remove inline badge CSS if you want) */
+:root {
+  --badge-bg: #0b0b0c;
+  --badge-fg: #e9e9ee;
+  --badge-accent: #8ef0c0;
+  --badge-muted: #8a8f98;
+  --badge-border: #22262b;
+}
+.lean-badge{
+  background:var(--badge-bg); color:var(--badge-fg);
+  border:1px dashed var(--badge-border); border-radius:14px;
+  padding:1.25rem 1.25rem 1rem; max-width:680px;
+  font:13.5px/1.45 ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;
+  box-shadow:0 1px 0 rgba(255,255,255,.04) inset, 0 6px 18px rgba(0,0,0,.25);
+}
+.lean-badge header{display:flex;align-items:center;gap:.6rem;margin-bottom:.6rem}
+.lean-badge .glyph{font-size:1.2rem}
+.lean-badge h3{margin:0;font-size:1rem;letter-spacing:.2px}
+.lean-badge .sub{color:var(--badge-muted);font-size:.85rem}
+.lean-badge .meters{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.5rem;margin:.75rem 0}
+.lean-badge .kpi{background:#111216;border:1px solid #1b1f24;border-radius:10px;padding:.6rem .7rem}
+.lean-badge .kpi .label{color:var(--badge-muted);font-size:.8rem;display:block}
+.lean-badge .kpi .value{font-variant-numeric:tabular-nums;font-weight:600}
+.lean-badge .pill{border:1px solid #1b1f24;background:#101217;border-radius:999px;padding:.28rem .6rem;font-size:.78rem;color:var(--badge-muted)}
+.lean-badge .truthy{color:var(--badge-accent);border-color:rgba(142,240,192,.6)}
+.lean-badge .falsy{color:#ff9c9c);border-color:rgba(255,122,122,.5)}
+.lean-badge .note{color:var(--badge-muted);font-size:.78rem;margin-left:auto}
+
+/* Hover glow for sections */
+section:hover { box-shadow: 0 0 10px rgba(255,102,0,.30); }
+
+/* Mobile tweaks */
+@media (max-width: 600px) {
+  body { padding: 20px; font-size: 1rem; line-height: 1.7; }
+  header, footer { text-align: center; }
+  h1, h2 { word-break: break-word; }
+  ul { padding-left: 1rem; }
+  section { padding: 15px; }
+  .donate-button { display:block; text-align:center; margin:1rem auto; }
+}
+
+/* Safety net: neutralize explicit white backgrounds if any slipped in */
 .bg-white, .white-bg, [style*="background:#fff"], [style*="background: #fff"] {
   background: var(--card) !important;
   color: var(--fg) !important;
 }
-
-
