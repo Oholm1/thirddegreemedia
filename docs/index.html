@@ -284,6 +284,176 @@
     <em>Linux® is the registered trademark of Linus Torvalds in the U.S. and other countries. This site is not affiliated with or endorsed by Linus Torvalds or the Linux Foundation. All trademarks and logos are the property of their respective owners.</em>
   </p>
 </section>
+    <!--
+  Lean Speed & Privacy Badge
+  - Self-contained, no tracking, no external requests
+  - Measures: TTFB, DOMContentLoaded, Load, LCP, total requests, total bytes, JS bytes, 3rd‑party requests, cookie usage
+  - Works on GitHub Pages and strict CSP sites (use a nonce or separate .js file)
+
+  HOW TO USE (pick one):
+  1) Inline with CSP nonce
+     <script nonce="YOUR_NONCE_HERE">/* paste ONLY the JS portion below (marked) */</script>
+     <div id="lean-badge"></div>
+
+  2) Split file
+     - Put the JS (between // BEGIN BADGE JS and // END BADGE JS) into /assets/lean-badge.js
+     - In HTML: <div id="lean-badge"></div>
+                <script src="/assets/lean-badge.js" defer></script>
+
+  Optional styling variables can be tweaked in :root.
+-->
+
+<style>
+  :root {
+    --badge-bg: #0b0b0c;
+    --badge-fg: #e9e9ee;
+    --badge-accent: #8ef0c0; /* mint glyph energy */
+    --badge-muted: #8a8f98;
+    --badge-border: #22262b;
+  }
+  .lean-badge { 
+    background: var(--badge-bg);
+    color: var(--badge-fg);
+    border: 1px dashed var(--badge-border);
+    border-radius: 14px;
+    padding: 1.25rem 1.25rem 1rem;
+    font: 13.5px/1.45 ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial;
+    max-width: 680px; 
+    box-shadow: 0 1px 0 rgba(255,255,255,0.04) inset, 0 6px 18px rgba(0,0,0,0.25);
+  }
+  .lean-badge header { display:flex; align-items:center; gap:.6rem; margin-bottom:.6rem; }
+  .lean-badge .glyph { font-size: 1.2rem; }
+  .lean-badge h3 { margin:0; font-size:1rem; letter-spacing:.2px; }
+  .lean-badge .sub { color: var(--badge-muted); font-size:.85rem; }
+  .lean-badge .meters { display:grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap:.5rem; margin:.75rem 0; }
+  .lean-badge .kpi { background:#111216; border:1px solid #1b1f24; border-radius:10px; padding:.6rem .7rem; }
+  .lean-badge .kpi .label { color: var(--badge-muted); font-size:.8rem; display:block; }
+  .lean-badge .kpi .value { font-variant-numeric: tabular-nums; font-weight:600; }
+  .lean-badge .ok { color: var(--badge-accent); }
+  .lean-badge .warn { color: #f5d67b; }
+  .lean-badge .bad { color: #ff7a7a; }
+  .lean-badge footer { display:flex; gap:.75rem; flex-wrap:wrap; align-items:center; margin-top:.65rem; }
+  .lean-badge .pill { border:1px solid #1b1f24; background:#101217; border-radius:999px; padding:.28rem .6rem; font-size:.78rem; color:var(--badge-muted); }
+  .lean-badge .truthy { color: var(--badge-accent); border-color: rgba(142,240,192,.6); }
+  .lean-badge .falsy { color:#ff9c9c; border-color: rgba(255,122,122,.5); }
+  .lean-badge .note { color: var(--badge-muted); font-size:.78rem; margin-left:auto; }
+  @media (max-width:520px){ .lean-badge .meters { grid-template-columns: 1fr; } }
+</style>
+
+<div id="lean-badge" class="lean-badge" role="region" aria-label="Site speed and privacy badge" tabindex="0">
+  <header>
+    <div class="glyph" aria-hidden="true">⚡</div>
+    <h3>Lean Speed & Privacy</h3>
+  </header>
+  <div class="sub">GitHub Pages • zero trackers • no cookies by default</div>
+  <div class="meters" aria-live="polite">
+    <div class="kpi"><span class="label">TTFB</span><span class="value" id="kpi-ttfb">—</span></div>
+    <div class="kpi"><span class="label">LCP</span><span class="value" id="kpi-lcp">—</span></div>
+    <div class="kpi"><span class="label">DOMContentLoaded</span><span class="value" id="kpi-dcl">—</span></div>
+    <div class="kpi"><span class="label">Load</span><span class="value" id="kpi-load">—</span></div>
+    <div class="kpi"><span class="label">Total Requests</span><span class="value" id="kpi-reqs">—</span></div>
+    <div class="kpi"><span class="label">Total Bytes</span><span class="value" id="kpi-bytes">—</span></div>
+    <div class="kpi"><span class="label">JS Bytes</span><span class="value" id="kpi-js">—</span></div>
+    <div class="kpi"><span class="label">3rd‑Party Reqs</span><span class="value" id="kpi-3p">—</span></div>
+  </div>
+  <footer>
+    <div class="pill" id="pill-cookies">Cookies: —</div>
+    <div class="pill" id="pill-trackers">Third‑party: —</div>
+    <div class="note">Local-only. No beacons.</div>
+  </footer>
+</div>
+
+<script>
+// BEGIN BADGE JS
+(function(){
+  const $ = (id) => document.getElementById(id);
+  const nf = (v, d=0) => Number.isFinite(v) ? v.toFixed(d) : '—';
+  const bfmt = (b) => {
+    if (!Number.isFinite(b)) return '—';
+    const u = ['B','KB','MB','GB'];
+    let i = 0, n = b;
+    while (n >= 1024 && i < u.length-1) { n/=1024; i++; }
+    return `${n.toFixed(n>=100?0:n>=10?1:2)} ${u[i]}`;
+  };
+  function readNav() {
+    const nav = performance.getEntriesByType('navigation')[0];
+    if (!nav) return null;
+    const ttfb = nav.responseStart - nav.startTime; // ms
+    const dcl = nav.domContentLoadedEventEnd - nav.startTime; // ms
+    const load = nav.loadEventEnd - nav.startTime; // ms
+    return { ttfb, dcl, load };
+  }
+  function readResources() {
+    const res = performance.getEntriesByType('resource');
+    const origin = location.origin;
+    let totalBytes = 0, jsBytes = 0, reqs = 0, thirdParty = 0;
+    const thirdSet = new Set();
+    for (const r of res) {
+      reqs++;
+      const bytes = Number.isFinite(r.transferSize) && r.transferSize>0 ? r.transferSize : (r.encodedBodySize||0);
+      totalBytes += bytes;
+      if (r.initiatorType === 'script') jsBytes += bytes;
+      try {
+        const u = new URL(r.name, origin);
+        const sameOrigin = (u.origin === origin);
+        if (!sameOrigin) { thirdParty++; thirdSet.add(u.origin); }
+      } catch (_) {
+        // ignore
+      }
+    }
+    return { totalBytes, jsBytes, reqs, thirdParty, thirdDomains: Array.from(thirdSet).slice(0,6) };
+  }
+  function setText(id, text) { const el = $(id); if (el) el.textContent = text; }
+
+  // Update nav timings as soon as possible
+  const nav = readNav();
+  if (nav) {
+    setText('kpi-ttfb', nf(nav.ttfb,0) + ' ms');
+    setText('kpi-dcl', nf(nav.dcl,0) + ' ms');
+    setText('kpi-load', nf(nav.load,0) + ' ms');
+  }
+
+  // Largest Contentful Paint
+  let lcpVal;
+  try {
+    const po = new PerformanceObserver((list) => {
+      const entries = list.getEntries();
+      const last = entries[entries.length-1];
+      if (last) lcpVal = last.startTime; // ms
+    });
+    po.observe({ type: 'largest-contentful-paint', buffered: true });
+    // finalize after load
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        setText('kpi-lcp', nf(lcpVal,0) + ' ms');
+      }, 0);
+    });
+  } catch(_) { setText('kpi-lcp','—'); }
+
+  // Resources + cookies + 3p pill
+  function finalize() {
+    const r = readResources();
+    if (r) {
+      setText('kpi-reqs', r.reqs);
+      setText('kpi-bytes', bfmt(r.totalBytes));
+      setText('kpi-js', bfmt(r.jsBytes));
+      setText('kpi-3p', r.thirdParty + (r.thirdDomains.length? ` (${r.thirdDomains.join(', ')})` : ''));
+      const cookies = (document.cookie||'').trim();
+      const hasCookies = cookies.length > 0;
+      const pillC = $('pill-cookies');
+      const pillT = $('pill-trackers');
+      if (pillC) { pillC.textContent = `Cookies: ${hasCookies? 'present' : 'none'}`; pillC.classList.add(hasCookies? 'falsy':'truthy'); }
+      const no3p = r.thirdParty === 0;
+      if (pillT) { pillT.textContent = `Third‑party: ${no3p? 'none' : r.thirdParty}`; pillT.classList.add(no3p? 'truthy':'falsy'); }
+    }
+  }
+  // After onload to collect all late resources
+  if (document.readyState === 'complete') finalize();
+  else window.addEventListener('load', () => setTimeout(finalize, 0));
+})();
+// END BADGE JS
+</script>
+
   
   </main>
   <!-- END: page content -->
