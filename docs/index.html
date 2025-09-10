@@ -85,7 +85,7 @@
   <link rel="stylesheet" href="/style.css?v=4" />
 </head>
 
-<body data-trail="rainbow">
+<body>
   <a class="skip-link" href="#main">Skip to content</a>
 
   <!-- Hidden SVG symbol to reuse for the trail -->
@@ -350,24 +350,6 @@
       if(document.readyState==='complete') finalize(); else addEventListener('load',()=>setTimeout(finalize,0));
     })();
     </script>
-
-    <script>
-  // Hard-disable trails whenever the cursor is over the badge.
-  (function () {
-    const badge = document.getElementById('lean-badge');
-    if (!badge || typeof window.setTrailMode !== 'function') return;
-    let prev = (window.TRAIL_MODE || 'rainbow');
-
-    badge.addEventListener('mouseenter', () => {
-      prev = window.TRAIL_MODE || 'rainbow';
-      window.setTrailMode('off');
-    });
-
-    badge.addEventListener('mouseleave', () => {
-      window.setTrailMode(prev || 'rainbow'); // restore your preferred mode
-    });
-  })();
-</script>
 
   </main>
   <!-- END: page content -->
