@@ -3,18 +3,16 @@
 <head>
 <meta charset="utf-8" />
 
-<!-- ONE CSP (looser for now so you can recover) -->
 <meta http-equiv="Content-Security-Policy"
   content="
     default-src 'self';
-    img-src 'self' data: https://upload.wikimedia.org;
-    style-src 'self' 'unsafe-inline';
+    img-src 'self' data:;
+    style-src 'self' 'nonce-r4nd0m';
     script-src 'self' 'nonce-r4nd0m';
     font-src 'self';
     object-src 'none';
     base-uri 'none';
     frame-ancestors 'self'">
-<meta name="referrer" content="no-referrer" />
 
 <!-- Primary SEO (deduped) -->
 <title>Third Degree Media™ — Sovereign Tech & Absurd Lore</title>
@@ -304,33 +302,32 @@
       <p style="font-size:.9rem;color:#888"><em>Linux® is the registered trademark of Linus Torvalds in the U.S. and other countries. This site is not affiliated with or endorsed by Linus Torvalds or the Linux Foundation. All trademarks and logos are the property of their respective owners.</em></p>
     </section>
 
-    <!-- Lean Speed & Privacy Badge (kept local + zero beacons) -->
-    <style>
-      :root {
-        --badge-bg:#0b0b0c; --badge-fg:#e9e9ee; --badge-accent:#8ef0c0;
-        --badge-muted:#8a8f98; --badge-border:#22262b;
-      }
-      .lean-badge{
-        background:var(--badge-bg); color:var(--badge-fg);
-        border:1px dashed var(--badge-border); border-radius:14px;
-        padding:1.25rem 1.25rem 1rem; max-width:680px;
-        font:13.5px/1.45 ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;
-        box-shadow:0 1px 0 rgba(255,255,255,.04) inset, 0 6px 18px rgba(0,0,0,.25);
-      }
-      .lean-badge header{display:flex;align-items:center;gap:.6rem;margin-bottom:.6rem}
-      .lean-badge .glyph{font-size:1.2rem}
-      .lean-badge h3{margin:0;font-size:1rem;letter-spacing:.2px}
-      .lean-badge .sub{color:var(--badge-muted);font-size:.85rem}
-      .lean-badge .meters{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.5rem;margin:.75rem 0}
-      .lean-badge .kpi{background:#111216;border:1px solid #1b1f24;border-radius:10px;padding:.6rem .7rem}
-      .lean-badge .kpi .label{color:var(--badge-muted);font-size:.8rem;display:block}
-      .lean-badge .kpi .value{font-variant-numeric:tabular-nums;font-weight:600}
-      .lean-badge .pill{border:1px solid #1b1f24;background:#101217;border-radius:999px;padding:.28rem .6rem;font-size:.78rem;color:var(--badge-muted)}
-      .lean-badge .truthy{color:var(--badge-accent);border-color:rgba(142,240,192,.6)}
-      .lean-badge .falsy{color:#ff9c9c;border-color:rgba(255,122,122,.5)}
-      .lean-badge .note{color:var(--badge-muted);font-size:.78rem;margin-left:auto}
-      @media (max-width:520px){.lean-badge .meters{grid-template-columns:1fr}}
-    </style>
+   <!-- Lean Speed & Privacy Badge (kept local + zero beacons) -->
+<style nonce="r4nd0m">
+  :root {
+    --badge-bg:#0b0b0c; --badge-fg:#e9e9ee; --badge-accent:#8ef0c0;
+    --badge-muted:#8a8f98; --badge-border:#22262b;
+  }
+  .lean-badge{ background:var(--badge-bg); color:var(--badge-fg);
+    border:1px dashed var(--badge-border); border-radius:14px;
+    padding:1.25rem 1.25rem 1rem; max-width:680px;
+    font:13.5px/1.45 ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue',Arial;
+    box-shadow:0 1px 0 rgba(255,255,255,.04) inset, 0 6px 18px rgba(0,0,0,.25);
+  }
+  .lean-badge header{display:flex;align-items:center;gap:.6rem;margin-bottom:.6rem}
+  .lean-badge .glyph{font-size:1.2rem}
+  .lean-badge h3{margin:0;font-size:1rem;letter-spacing:.2px}
+  .lean-badge .sub{color:var(--badge-muted);font-size:.85rem}
+  .lean-badge .meters{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.5rem;margin:.75rem 0}
+  .lean-badge .kpi{background:#111216;border:1px solid #1b1f24;border-radius:10px;padding:.6rem .7rem}
+  .lean-badge .kpi .label{color:var(--badge-muted);font-size:.8rem;display:block}
+  .lean-badge .kpi .value{font-variant-numeric:tabular-nums;font-weight:600}
+  .lean-badge .pill{border:1px solid #1b1f24;background:#101217;border-radius:999px;padding:.28rem .6rem;font-size:.78rem;color:var(--badge-muted)}
+  .lean-badge .truthy{color:var(--badge-accent);border-color:rgba(142,240,192,.6)}
+  .lean-badge .falsy{color:#ff9c9c;border-color:rgba(255,122,122,.5)}
+  .lean-badge .note{color:var(--badge-muted);font-size:.78rem;margin-left:auto}
+  @media (max-width:520px){.lean-badge .meters{grid-template-columns:1fr}}
+</style>
 
     <div id="lean-badge" class="lean-badge" role="region"
      aria-label="Site speed and privacy badge" tabindex="0"
