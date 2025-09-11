@@ -258,6 +258,31 @@
 })();
 </script>
 
+    <section class="callout" id="sha256">
+  <h2>🗝️ SHA-256 (on-device)</h2>
+  <p>Select a file; hashing happens entirely in your browser.</p>
+  <input type="file" id="h-file" />
+  <button class="btn" id="h-go" type="button">Hash</button>
+  <pre class="mono" id="h-out" aria-live="polite">—</pre>
+</section>
+
+<script nonce="r4nd0m">
+(() => {
+  const $=id=>document.getElementById(id);
+  const hex = b => [...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join('');
+  $('h-go').addEventListener('click', async () => {
+    const f = $('h-file').files[0];
+    if(!f){ $('h-out').textContent='Pick a file first.'; return; }
+    $('h-out').textContent='Hashing…';
+    try {
+      const buf = await f.arrayBuffer();
+      const dig = await crypto.subtle.digest('SHA-256', buf);
+      $('h-out').textContent = hex(dig);
+    } catch(e){ $('h-out').textContent='Error: '+e; }
+  });
+})();
+</script>
+
     <!-- Lean Speed & Privacy Badge -->
     <div id="lean-badge" class="lean-badge" role="region" aria-label="Site speed and privacy badge" tabindex="0">
       <header><div class="glyph" aria-hidden="true">⚡</div><h3>Lean Speed & Privacy</h3></header>
