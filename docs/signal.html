@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Signal — Private Messaging That Just Works</title>
+  <meta name="description" content="What Signal is, why its end-to-end encryption matters, and the settings that keep your chats private without hassle." />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="canonical" href="https://thirddegreemedia.com/signal.html" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Signal — Private Messaging That Just Works" />
+  <meta property="og:description" content="End-to-end encrypted messages, calls, and groups—open-source clients, modern crypto, and useful defaults." />
+  <meta property="og:url" content="https://thirddegreemedia.com/signal.html" />
+  <link rel="icon" href="/favicon.ico" />
+  <link rel="stylesheet" href="/style.css?v=5" />
+  <style>
+    .lede{color:var(--muted)}
+    .kbd{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;background:#0f1115;border:1px solid #1b1f24;padding:.14rem .36rem;border-radius:6px}
+    .stamp{font-size:.875rem;color:var(--muted)}
+  </style>
+</head>
+<body>
+  <header role="banner">
+    <h1>Signal — Private Messaging That Just Works</h1>
+    <p class="lede">End-to-end encrypted messages, calls, and groups. Open-source apps, modern protocols, and sane defaults—no ads, no trackers.</p>
+    <p class="stamp">Updated: 2025-09-10</p>
+  </header>
+
+  <main id="main" role="main" tabindex="-1">
+    <section class="callout">
+      <h2>Why Signal</h2>
+      <ul>
+        <li><strong>E2EE by default</strong> for 1:1, groups, voice/video.</li>
+        <li><strong>Open-source clients</strong> with active audits and community scrutiny.</li>
+        <li><strong>Modern privacy features</strong>: disappearing messages, view-once media, screen security, registration lock.</li>
+        <li><strong>Minimal metadata</strong>: designed to keep as little as possible.</li>
+      </ul>
+    </section>
+
+    <section class="callout">
+      <h2>Install</h2>
+      <ul>
+        <li>Mobile: iOS App Store / Google Play (Signal Foundation).</li>
+        <li>Desktop: macOS / Windows / Linux (pairs with your phone).</li>
+      </ul>
+      <p class="lede">You register with a phone number; you can hide it from non-contacts and limit who can find you.</p>
+    </section>
+
+    <section class="callout">
+      <h2>Recommended settings (2 minutes)</h2>
+      <ul>
+        <li><strong>Privacy</strong> → enable <em>Registration Lock</em> (PIN), <em>Screen Security</em>, and restrict who can find you by number.</li>
+        <li><strong>Safety Numbers</strong> → verify for sensitive contacts (tap name → <em>View Safety Number</em>).</li>
+        <li><strong>Disappearing messages</strong> → set a sensible default (e.g., 1 week) per chat.</li>
+        <li><strong>Calls</strong> → enable <em>Always Relay Calls</em> if you prefer hiding IPs (may reduce quality).</li>
+      </ul>
+    </section>
+
+    <section class="callout">
+      <h2>Verify it’s private</h2>
+      <ol>
+        <li>Open a chat → compare <strong>Safety Numbers</strong> in person or via another channel.</li>
+        <li>Send a disappearing message and confirm it vanishes on both devices.</li>
+        <li>Desktop pairing: confirm the “Linked Devices” list only shows your machines.</li>
+      </ol>
+    </section>
+
+    <section class="callout">
+      <h2>Get Signal</h2>
+      <ul>
+        <li><a href="https://signal.org/" target="_blank" rel="noopener noreferrer">signal.org</a></li>
+        <li><a href="https://github.com/signalapp" target="_blank" rel="noopener noreferrer">GitHub (clients, server components)</a></li>
+      </ul>
+      <p class="lede">Disclosure: not affiliated. All trademarks belong to their owners.</p>
+    </section>
+
+    <nav class="callout" aria-label="Next reads">
+      <h2>Next up</h2>
+      <ul>
+        <li><a href="/keepassxc.html">KeePassXC — local passwords</a></li>
+        <li><a href="/syncthing.html">Syncthing — P2P sync, no cloud</a></li>
+      </ul>
+    </nav>
+  </main>
+
+  <footer role="contentinfo">
+    <p>© <span id="year"></span> Third Degree Media™</p>
+    <script>(function(){var y=document.getElementById('year'); if(y) y.textContent=new Date().getFullYear();})();</script>
+  </footer>
+</body>
+</html>
