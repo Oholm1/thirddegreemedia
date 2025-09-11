@@ -224,6 +224,40 @@
       <p>Explore their codex at <a href="https://www.privacyguides.org" target="_blank" rel="noopener">privacyguides.org</a>.</p>
     </section>
 
+    <section class="callout" id="privacy-mirror">
+  <h2>🔎 Privacy Mirror</h2>
+  <p>This shows what your browser shares by default — locally, no beacons.</p>
+  <dl class="kv mono">
+    <dt>UA</dt><dd id="pm-ua">—</dd>
+    <dt>Timezone</dt><dd id="pm-tz">—</dd>
+    <dt>Langs</dt><dd id="pm-lang">—</dd>
+    <dt>Screen</dt><dd id="pm-screen">—</dd>
+    <dt>CPU</dt><dd id="pm-cpu">—</dd>
+    <dt>Memory</dt><dd id="pm-mem">—</dd>
+    <dt>Do Not Track</dt><dd id="pm-dnt">—</dd>
+    <dt>Cookies Enabled</dt><dd id="pm-cookies">—</dd>
+    <dt>Reduced Motion</dt><dd id="pm-motion">—</dd>
+    <dt>Color Scheme</dt><dd id="pm-color">—</dd>
+  </dl>
+</section>
+
+<script nonce="r4nd0m">
+(() => {
+  const $=id=>document.getElementById(id);
+  const mm=q=>matchMedia(q).matches ? 'yes' : 'no';
+  $('pm-ua').textContent      = navigator.userAgent;
+  $('pm-tz').textContent      = Intl.DateTimeFormat().resolvedOptions().timeZone || '—';
+  $('pm-lang').textContent    = (navigator.languages||[navigator.language]).join(', ');
+  $('pm-screen').textContent  = `${screen.width}×${screen.height} @ ${screen.colorDepth}-bit`;
+  $('pm-cpu').textContent     = (navigator.hardwareConcurrency||'—') + ' threads';
+  $('pm-mem').textContent     = (navigator.deviceMemory ? navigator.deviceMemory+' GB' : '—');
+  $('pm-dnt').textContent     = (navigator.doNotTrack==='1' ? 'on' : 'off');
+  $('pm-cookies').textContent = navigator.cookieEnabled ? 'yes' : 'no';
+  $('pm-motion').textContent  = mm('(prefers-reduced-motion: reduce)');
+  $('pm-color').textContent   = mm('(prefers-color-scheme: dark)')==='yes' ? 'dark' : 'light';
+})();
+</script>
+
     <!-- Lean Speed & Privacy Badge -->
     <div id="lean-badge" class="lean-badge" role="region" aria-label="Site speed and privacy badge" tabindex="0">
       <header><div class="glyph" aria-hidden="true">⚡</div><h3>Lean Speed & Privacy</h3></header>
