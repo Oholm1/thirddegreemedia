@@ -150,3 +150,9 @@ footer p{ font-size:.9em; color:var(--muted); text-align:center; margin:.2rem 0;
 .lean-badge .note{ color:var(--badge-muted); font-size:.78rem; margin-left:auto; }
 @media (max-width:520px){ .lean-badge .meters{ grid-template-columns:1fr; } }
 
+/* in /style.css */
+.brand{display:flex;align-items:center;gap:.6rem}
+.logo{width:48px;height:48px}
+@media (prefers-reduced-motion:no-preference){
+  .brand:hover .logo{transform:rotate(-6deg) scale(1.04); transition:transform .2s ease}
+}
