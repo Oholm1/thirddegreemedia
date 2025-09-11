@@ -79,5 +79,30 @@
   <priority>0.7</priority>
 </url>
 
+  <url>
+  <loc>https://thirddegreemedia.com/thunderbird-mailvelope.html</loc>
+  <lastmod>2025-09-10</lastmod>
+  <changefreq>monthly</changefreq>
+  <priority>0.7</priority>
+</url>
+<url>
+  <loc>https://thirddegreemedia.com/simplex.html</loc>
+  <lastmod>2025-09-10</lastmod>
+  <changefreq>monthly</changefreq>
+  <priority>0.6</priority>
+</url>
+<url>
+  <loc>https://thirddegreemedia.com/openwrt.html</loc>
+  <lastmod>2025-09-10</lastmod>
+  <changefreq>monthly</changefreq>
+  <priority>0.7</priority>
+</url>
+<url>
+  <loc>https://thirddegreemedia.com/age.html</loc>
+  <lastmod>2025-09-10</lastmod>
+  <changefreq>monthly</changefreq>
+  <priority>0.6</priority>
+</url>
+
 </urlset>
 
