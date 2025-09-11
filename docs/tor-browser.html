@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Tor Browser — Anonymity, Not Just Privacy</title>
+  <meta name="description" content="What Tor Browser does, how it defends against tracking and fingerprinting, and how to use it safely without shooting yourself in the foot." />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="canonical" href="https://thirddegreemedia.com/tor-browser.html" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Tor Browser — Anonymity, Not Just Privacy" />
+  <meta property="og:description" content="Route traffic through Tor circuits with strong fingerprinting defenses. How to install, use bridges, and the dos/don’ts." />
+  <meta property="og:url" content="https://thirddegreemedia.com/tor-browser.html" />
+  <link rel="icon" href="/favicon.ico" />
+  <link rel="stylesheet" href="/style.css?v=5" />
+  <style>
+    .lede{color:var(--muted)}
+    .kbd{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;background:#0f1115;border:1px solid #1b1f24;padding:.14rem .36rem;border-radius:6px}
+    .stamp{font-size:.875rem;color:var(--muted)}
+  </style>
+</head>
+<body>
+  <header role="banner">
+    <h1>Tor Browser — Anonymity, Not Just Privacy</h1>
+    <p class="lede">A hardened browser that routes your web traffic through the Tor network with strong anti-fingerprinting tech. No accounts, no trackers, and a default that tries to make users look alike.</p>
+    <p class="stamp">Updated: 2025-09-10</p>
+  </header>
+
+  <main id="main" role="main" tabindex="-1">
+    <section class="callout">
+      <h2>What Tor Browser actually does</h2>
+      <ul>
+        <li><strong>Tor circuits</strong>: traffic hops through 3 relays (entry → middle → exit) to hide your IP.</li>
+        <li><strong>Fingerprinting defenses</strong>: standardized window size, disabled APIs, isolation.</li>
+        <li><strong>First-party isolation</strong>: cookies/identifiers don’t cross sites.</li>
+        <li><strong>Built-in HTTPS-Only</strong> and security levels to reduce attack surface.</li>
+      </ul>
+      <p class="lede">Goal: make you blend into the largest anonymity set while keeping sites usable.</p>
+    </section>
+
+    <section class="callout">
+      <h2>Install</h2>
+      <ul>
+        <li><strong>Desktop</strong>: download from <a href="https://www.torproject.org/" target="_blank" rel="noopener noreferrer">torproject.org</a> (macOS/Windows/Linux).</li>
+        <li><strong>Mobile</strong>: Tor Browser on Android; on iOS the Tor Project recommends Onion Browser (different engine constraints).</li>
+      </ul>
+      <p class="lede">Verify signatures when possible, especially on Linux.</p>
+    </section>
+
+    <section class="callout">
+      <h2>Connect when Tor is blocked (bridges)</h2>
+      <ol>
+        <li>Open Tor Browser → <em>Settings → Connection → Use a bridge</em>.</li>
+        <li>Try built-in bridges first; if blocked, request custom bridges from Tor Project.</li>
+        <li>Pluggable transports (e.g., obfs4, snowflake) help bypass censorship.</li>
+      </ol>
+    </section>
+
+    <section class="callout">
+      <h2>Safe defaults & tips</h2>
+      <ul>
+        <li><strong>Don’t install extensions</strong> (they create a unique fingerprint).</li>
+        <li><strong>Don’t resize or maximize</strong> windows; use the default size.</li>
+        <li><strong>Use “New Identity”</strong> (broom icon) to reset circuits and state between contexts.</li>
+        <li><strong>Security Level</strong>: start at <em>Standard</em>; move to <em>Safer</em>/<em>Safest</em> if you can handle more breakage.</li>
+        <li><strong>Don’t log into accounts tied to your real identity</strong> if your goal is anonymity.</li>
+      </ul>
+    </section>
+
+    <section class="callout">
+      <h2>Verify it’s working</h2>
+      <ol>
+        <li>Tor Browser shows a green onion on connect; you can also visit Tor’s check page (linked from the start page).</li>
+        <li>Open the circuit view (onion icon) to see the current relays for the tab.</li>
+      </ol>
+      <p class="lede">Remember: sites still see what you type. Tor hides <em>network metadata</em>, not your behavior.</p>
+    </section>
+
+    <section class="callout">
+      <h2>Get Tor Browser</h2>
+      <ul>
+        <li><a href="https://www.torproject.org/" target="_blank" rel="noopener noreferrer">torproject.org</a></li>
+        <li><a href="https://support.torproject.org/" target="_blank" rel="noopener noreferrer">Support & docs</a></li>
+      </ul>
+      <p class="lede">Disclosure: not affiliated.</p>
+    </section>
+
+    <nav class="callout" aria-label="Next reads">
+      <h2>Next up</h2>
+      <ul>
+        <li><a href="/librewolf.html">LibreWolf — Firefox, hardened</a></li>
+        <li><a href="/ublock-origin.html">uBlock Origin — network-level blocking</a></li>
+      </ul>
+    </nav>
+  </main>
+
+  <footer role="contentinfo">
+    <p>© <span id="year"></span> Third Degree Media™</p>
+    <script>(function(){var y=document.getElementById('year'); if(y) y.textContent=new Date().getFullYear();})();</script>
+  </footer>
+</body>
+</html>
