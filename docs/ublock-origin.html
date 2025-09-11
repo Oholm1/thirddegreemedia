@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>uBlock Origin — Network-level Blocking, Done Right</title>
+  <meta name="description" content="What uBlock Origin actually does, how it works, and opinionated settings that keep pages clean without breakage." />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="canonical" href="https://thirddegreemedia.com/ublock-origin.html" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="uBlock Origin — Network-level Blocking, Done Right" />
+  <meta property="og:description" content="Understand uBO’s static & dynamic filtering, recommended lists, and how to verify it’s doing work." />
+  <meta property="og:url" content="https://thirddegreemedia.com/ublock-origin.html" />
+  <link rel="icon" href="/favicon.ico" />
+  <link rel="stylesheet" href="/style.css?v=5" />
+  <style>
+    .lede{color:var(--muted)}
+    .kbd{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;background:#0f1115;border:1px solid #1b1f24;padding:.14rem .36rem;border-radius:6px}
+    .stamp{font-size:.875rem;color:var(--muted)}
+  </style>
+</head>
+<body>
+  <header role="banner">
+    <h1>uBlock Origin — Network-level Blocking, Done Right</h1>
+    <p class="lede">Open-source content blocker that stops ads, trackers, miners, beacons, and a lot of page junk — with low CPU/RAM and no telemetry.</p>
+    <p class="stamp">Updated: 2025-09-10</p>
+  </header>
+
+  <main id="main" role="main" tabindex="-1">
+    <section class="callout">
+      <h2>What uBO actually does</h2>
+      <ul>
+        <li><strong>Static filtering</strong>: rule lists (EasyList/EasyPrivacy, uBO filters) block requests and hide elements.</li>
+        <li><strong>Dynamic filtering</strong>: optional “matrix” lets you allow/deny scripts/frames per site (like a friendlier uMatrix).</li>
+        <li><strong>Cosmetic filtering</strong>: cleans up leftovers (placeholders, popovers, cookie nags when feasible).</li>
+        <li><strong>Resource replacement</strong>: swaps known trackers with harmless stubs to prevent breakage.</li>
+      </ul>
+    </section>
+
+    <section class="callout">
+      <h2>Install</h2>
+      <ul>
+        <li><strong>Firefox / LibreWolf</strong>: Add uBlock Origin from the official add-ons store.</li>
+        <li><strong>Chromium-based</strong>: Install from the Chrome Web Store (look for the one by Raymond Hill).</li>
+      </ul>
+      <p class="lede">No accounts, no “acceptable ads,” no nags. It just works.</p>
+    </section>
+
+    <section class="callout">
+      <h2>Recommended settings (fast + low breakage)</h2>
+      <ul>
+        <li>In <em>Filter lists</em>, keep defaults + enable <strong>uBlock filters – Annoyances</strong> and your <strong>regional list</strong>.</li>
+        <li>Leave <strong>“Block remote fonts”</strong> off unless you’re okay with some pages looking wrong (or self-host fonts).</li>
+        <li>Under <em>Settings</em>, keep <strong>Parse and enforce cosmetic filters</strong> on.</li>
+        <li>Optional: enable <strong>“I am an advanced user”</strong> → start with <em>medium mode</em> dynamic filtering for power control.</li>
+      </ul>
+      <p class="lede">Power users: dynamic filtering lets you allow only first-party scripts by default, then selectively enable 3rd-party domains that are essential.</p>
+    </section>
+
+    <section class="callout">
+      <h2>Verify it’s working (no telemetry)</h2>
+      <ol>
+        <li>Open the page logger (uBO icon → <em>Open the logger</em>).</li>
+        <li>Reload a noisy news site. You’ll see blocked requests (red), allowed (green).</li>
+        <li>Count how many off-origin hits were stopped — that’s real privacy saved.</li>
+      </ol>
+    </section>
+
+    <section class="callout">
+      <h2>FAQ</h2>
+      <p><strong>uBO vs Adblock Plus?</strong> uBO is lighter, more capable, and has no “acceptable ads” program.</p>
+      <p><strong>Will it break sites?</strong> Sometimes. Use the big power button to disable per-site, or allow a needed domain in the popup for that page only.</p>
+    </section>
+
+    <section class="callout">
+      <h2>Get uBlock Origin</h2>
+      <ul>
+        <li><a href="https://ublockorigin.com/" target="_blank" rel="noopener noreferrer">ublockorigin.com</a></li>
+        <li><a href="https://github.com/gorhill/uBlock" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+      </ul>
+    </section>
+
+    <nav class="callout" aria-label="Next reads">
+      <h2>Next up</h2>
+      <ul>
+        <li><a href="/local-cdn.html">LocalCDN — emulate CDNs locally</a></li>
+        <li><a href="/keepassxc.html">KeePassXC — local passwords</a></li>
+      </ul>
+    </nav>
+  </main>
+
+  <footer role="contentinfo">
+    <p>© <span id="year"></span> Third Degree Media™</p>
+    <script>(function(){var y=document.getElementById('year'); if(y) y.textContent=new Date().getFullYear();})();</script>
+  </footer>
+</body>
+</html>
