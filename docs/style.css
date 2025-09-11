@@ -158,3 +158,7 @@ footer p{ font-size:.9em; color:var(--muted); text-align:center; margin:.2rem 0;
 }
 .screenshot { max-width: 100%; height: auto; display:block; }
 .img-frame  { background:#0f1115; border:1px solid #1b1f24; border-radius:8px; padding:6px; }
+.kv{display:grid;grid-template-columns:180px 1fr;gap:.4rem .8rem}
+.kv dt{color:var(--muted)}
+.kv dd{margin:0}
+.mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
