@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>KeePassXC — Local Passwords, No Cloud Required</title>
+  <meta name="description" content="Use KeePassXC to keep a local encrypted vault (KDBX) with a strong master password and optional keyfile. Browser integration without accounts." />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="canonical" href="https://thirddegreemedia.com/keepassxc.html" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="KeePassXC — Local Passwords, No Cloud Required" />
+  <meta property="og:description" content="How KeePassXC works, secure defaults (Argon2), browser extension, and backup options that stay in your control." />
+  <meta property="og:url" content="https://thirddegreemedia.com/keepassxc.html" />
+  <link rel="icon" href="/favicon.ico" />
+  <link rel="stylesheet" href="/style.css?v=5" />
+  <style>
+    .lede{color:var(--muted)}
+    .kbd{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;background:#0f1115;border:1px solid #1b1f24;padding:.14rem .36rem;border-radius:6px}
+    .stamp{font-size:.875rem;color:var(--muted)}
+  </style>
+</head>
+<body>
+  <header role="banner">
+    <h1>KeePassXC — Local Passwords, No Cloud Required</h1>
+    <p class="lede">Open-source password manager where the only vault is a local file (<span class="kbd">.kdbx</span>) encrypted with your key. No accounts, no telemetry.</p>
+    <p class="stamp">Updated: 2025-09-10</p>
+  </header>
+
+  <main id="main" role="main" tabindex="-1">
+    <section class="callout">
+      <h2>How it works</h2>
+      <ul>
+        <li>Your passwords live in an encrypted database file (<strong>KDBX</strong>).</li>
+        <li>Protection via <strong>master password</strong> + optional <strong>keyfile</strong>.</li>
+        <li>Modern KDF: <strong>Argon2</strong> (tune iterations/memory for your machine).</li>
+        <li>Optional browser integration (Firefox/Chromium) with <strong>KeePassXC-Browser</strong>.</li>
+      </ul>
+    </section>
+
+    <section class="callout">
+      <h2>Setup (5 minutes)</h2>
+      <ol>
+        <li>Install <strong>KeePassXC</strong> for your OS (package manager or official site).</li>
+        <li>Create a new database → choose a <strong>long, memorable passphrase</strong>.</li>
+        <li>(Optional) Add a <strong>keyfile</strong>; store it separately (USB, hidden dir).</li>
+        <li>In <em>Security</em> → set KDF to <strong>Argon2id</strong>; increase memory/iterations until unlock time ≈ 200–500 ms on your box.</li>
+        <li>Enable <strong>auto-lock</strong> on inactivity and when the system is locked.</li>
+      </ol>
+    </section>
+
+    <section class="callout">
+      <h2>Browser autofill (privacy-respecting)</h2>
+      <ol>
+        <li>Install <strong>KeePassXC-Browser</strong> (Firefox/Chromium extension).</li>
+        <li>In KeePassXC → <em>Tools → Settings → Browser Integration</em> → enable your browser and pair it (random key exchange).</li>
+        <li>Use <em>Match URL</em> rules; avoid broad wildcards. Approve connection per-browser profile.</li>
+      </ol>
+      <p class="lede">No cloud account; the desktop app mediates all access to your local vault.</p>
+    </section>
+
+    <section class="callout">
+      <h2>Backups that stay yours</h2>
+      <ul>
+        <li><strong>Syncthing</strong> between devices (encrypted, peer-to-peer).</li>
+        <li>Or store the <span class="kbd">.kdbx</span> in a cloud folder, but <strong>encrypt</strong> it (it’s already encrypted) and keep a second offline copy.</li>
+        <li>Enable <strong>database backups</strong> on save inside KeePassXC (versioned).</li>
+      </ul>
+    </section>
+
+    <section class="callout">
+      <h2>Hygiene tips</h2>
+      <ul>
+        <li>Use the <strong>Password Generator</strong> (20+ chars, mixed) and unique passwords per site.</li>
+        <li>Enable <strong>TOTP</strong> where available; KeePassXC can store the seed and show 2FA codes.</li>
+        <li>Clipboard: reduce auto-clear time; prefer the browser integration to avoid extra copies.</li>
+      </ul>
+    </section>
+
+    <section class="callout">
+      <h2>Get KeePassXC</h2>
+      <ul>
+        <li><a href="https://keepassxc.org/" target="_blank" rel="noopener noreferrer">keepassxc.org</a></li>
+        <li><a href="https://github.com/keepassxreboot/keepassxc" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+      </ul>
+    </section>
+
+    <nav class="callout" aria-label="Next reads">
+      <h2>Next up</h2>
+      <ul>
+        <li><a href="/syncthing.html">Syncthing — P2P sync without a cloud</a></li>
+        <li><a href="/local-cdn.html">LocalCDN — emulate CDNs locally</a></li>
+      </ul>
+    </nav>
+  </main>
+
+  <footer role="contentinfo">
+    <p>© <span id="year"></span> Third Degree Media™</p>
+    <script>(function(){var y=document.getElementById('year'); if(y) y.textContent=new Date().getFullYear();})();</script>
+  </footer>
+</body>
+</html>
