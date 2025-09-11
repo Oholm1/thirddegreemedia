@@ -129,3 +129,4 @@ footer p { font-size: .9em; color: var(--muted); text-align: center; margin: .2r
   color: var(--fg) !important;
 }
 
+.trail { display: none !important; }
