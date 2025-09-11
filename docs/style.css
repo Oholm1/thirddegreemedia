@@ -156,3 +156,5 @@ footer p{ font-size:.9em; color:var(--muted); text-align:center; margin:.2rem 0;
 @media (prefers-reduced-motion:no-preference){
   .brand:hover .logo{transform:rotate(-6deg) scale(1.04); transition:transform .2s ease}
 }
+.screenshot { max-width: 100%; height: auto; display:block; }
+.img-frame  { background:#0f1115; border:1px solid #1b1f24; border-radius:8px; padding:6px; }
