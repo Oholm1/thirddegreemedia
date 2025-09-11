@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>LocalCDN — Kill Unnecessary Third-Party CDN Calls</title>
+  <meta name="description" content="What LocalCDN does, how it protects privacy by emulating CDNs locally, and how to use it alongside uBlock Origin." />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="canonical" href="https://thirddegreemedia.com/local-cdn.html" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="LocalCDN — Kill Unnecessary Third-Party CDN Calls" />
+  <meta property="og:description" content="Understand LocalCDN: how it works, why it helps privacy & speed, and how to configure it safely." />
+  <meta property="og:url" content="https://thirddegreemedia.com/local-cdn.html" />
+  <link rel="icon" href="/favicon.ico" />
+  <link rel="stylesheet" href="/style.css?v=5" />
+  <style>
+    /* Page-specific niceties (tiny, safe) */
+    .lede { font-size: 1.05rem; color: var(--muted); }
+    .grid { display: grid; gap: 1rem; }
+    @media (min-width: 760px) { .cols-2 { grid-template-columns: 1fr 1fr; } }
+    .kbd { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace; background:#0f1115; border:1px solid #1b1f24; padding:.15rem .35rem; border-radius:6px; }
+    .muted { color: var(--muted); }
+    .stamp { font-size:.875rem; color: var(--muted); }
+  </style>
+</head>
+<body>
+  <header role="banner">
+    <h1>LocalCDN — Kill Unnecessary Third-Party CDN Calls</h1>
+    <p class="lede">A power-user extension that serves common web libraries <em>locally</em> from your browser, so pages don’t have to call out to Cloudflare/CDNJS/Google Hosted Libraries just to fetch <span class="kbd">jquery.min.js</span> for the 10,000th time.</p>
+    <p class="stamp">Updated: 2025-09-10</p>
+  </header>
+
+  <main id="main" role="main" tabindex="-1">
+    <section class="callout">
+      <h2>What LocalCDN actually does</h2>
+      <p><strong>LocalCDN emulates popular CDNs in your browser.</strong> When a page tries to load a supported library (e.g., jQuery, Bootstrap) from a third-party CDN, LocalCDN intercepts the request and provides a <em>local</em> copy packaged with the extension. The page works the same—but your browser makes zero requests to that third-party host.</p>
+      <div class="grid cols-2">
+        <div>
+          <h3>Why this matters</h3>
+          <ul>
+            <li><strong>Privacy:</strong> Fewer off-origin requests → less cross-site profiling via CDN logs.</li>
+            <li><strong>Speed:</strong> Local file → instant, no DNS/handshake/latency.</li>
+            <li><strong>Resilience:</strong> If a CDN is slow or blocked, the page can still run.</li>
+          </ul>
+        </div>
+        <div>
+          <h3>How it looks in the wild</h3>
+          <ol>
+            <li>Site requests <span class="kbd">https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js</span></li>
+            <li>LocalCDN recognizes it and serves a matching local copy.</li>
+            <li>No network hit to cdnjs/Google/StackPath; functionality unchanged.</li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <section class="callout">
+      <h2>When to use it (and when not)</h2>
+      <div class="grid cols-2">
+        <div>
+          <h3>Great fit</h3>
+          <ul>
+            <li>You browse with <strong>uBlock Origin</strong> and want fewer exceptions.</li>
+            <li>You value privacy and prefer fewer third-party dependencies.</li>
+            <li>You’re on flaky networks where CDNs sometimes stall or are blocked.</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Know the limits</h3>
+          <ul>
+            <li>It only replaces <em>supported</em> library URLs (not every asset on the web).</li>
+            <li>New library versions may appear before LocalCDN ships them.</li>
+            <li>On Chromium, a few extension APIs are more limited than Firefox.</li>
+          </ul>
+        </div>
+      </div>
+      <p class="muted"><em>Rule of thumb:</em> LocalCDN is a great <strong>user-side safety net</strong>. If you’re a site owner, the gold standard is still to <strong>self-host your own JS/CSS/fonts</strong> and avoid third-party CDNs entirely.</p>
+    </section>
+
+    <section class="callout">
+      <h2>How to install</h2>
+      <ul>
+        <li><strong>Firefox:</strong> Get LocalCDN from the official add-ons store.</li>
+        <li><strong>Chromium-based:</strong> Install from the Chrome Web Store (works; a few features are Firefox-only).</li>
+      </ul>
+      <p class="muted">After install, it works automatically—no setup needed.</p>
+    </section>
+
+    <section class="callout">
+      <h2>Recommended settings</h2>
+      <ul>
+        <li><strong>Pair with uBlock Origin:</strong> Let uBO handle network-level blocking; let LocalCDN swap safe library URLs locally.</li>
+        <li><strong>Be cautious with font blocking:</strong> If you block remote fonts, allow only what you need or prefer sites that self-host fonts.</li>
+        <li><strong>Keep it updated:</strong> New versions add more libraries and fixes.</li>
+      </ul>
+    </section>
+
+    <section class="callout">
+      <h2>Verify it’s working (no tracking needed)</h2>
+      <ol>
+        <li>Open your browser’s DevTools → <strong>Network</strong>.</li>
+        <li>Visit a site that loads common libraries from a CDN.</li>
+        <li>Look for requests to <span class="kbd">cdnjs.cloudflare.com</span>, <span class="kbd">ajax.googleapis.com</span>, etc.  
+            With LocalCDN active, those should be <strong>missing</strong> (or show as served locally by the extension).</li>
+      </ol>
+      <p class="muted">LocalCDN also offers a simple testing page; if you prefer, use that to confirm replacements without digging into DevTools.</p>
+    </section>
+
+    <section class="callout">
+      <h2>FAQ</h2>
+      <p><strong>Isn’t this what Decentraleyes did?</strong><br>Yes—LocalCDN began as a fork, expanded the number of supported libraries, and continues active development.</p>
+      <p><strong>Will it break sites?</strong><br>Rarely. If a site pins a very specific version that LocalCDN doesn’t have yet, it’ll just load the normal remote file. If you’ve set aggressive “block if missing” options, loosen them for that site.</p>
+      <p><strong>Do I still need a content blocker?</strong><br>Yes. LocalCDN isn’t an ad/tracker blocker. Use it <em>with</em> uBlock Origin for best results.</p>
+    </section>
+
+    <section class="callout">
+      <h2>For site owners: the sovereign approach</h2>
+      <ul>
+        <li><strong>Self-host your JS/CSS/fonts</strong> on your own origin; avoid cross-origin CDNs.</li>
+        <li><strong>Pin versions</strong> intentionally; don’t auto-pull latest from a CDN.</li>
+        <li><strong>Measure:</strong> Use your on-page badge (no beacons) to prove zero third-party requests.</li>
+      </ul>
+      <p class="muted">LocalCDN helps users; your job as a site owner is to make it unnecessary.</p>
+    </section>
+
+    <section class="callout">
+      <h2>Get LocalCDN</h2>
+      <ul>
+        <li><a href="https://www.localcdn.org/" target="_blank" rel="noopener noreferrer">localcdn.org</a> — overview & tutorial</li>
+        <li><a href="https://addons.mozilla.org/en-US/firefox/addon/localcdn-fork-of-decentraleyes/" target="_blank" rel="noopener noreferrer">Firefox Add-ons</a></li>
+        <li><a href="https://chrome.google.com/webstore/detail/localcdn-fork-of-decentr/ljdobmomdgdljniojadhoplhkpialdid" target="_blank" rel="noopener noreferrer">Chrome Web Store</a></li>
+      </ul>
+      <p class="muted"><em>Disclosure:</em> This site isn’t affiliated with LocalCDN. All trademarks belong to their owners.</p>
+    </section>
+
+    <nav class="callout" aria-label="Next reads">
+      <h2>Next up</h2>
+      <ul>
+        <li><a href="/zero-third-party-checklist.html">Zero-Third-Party Website Checklist</a></li>
+        <li><a href="/privacy-tools.html#ublock-origin">uBlock Origin — Network-level blocking done right</a></li>
+        <li><a href="/mullvad.html">Mullvad Browser — anti-fingerprinting without Tor</a></li>
+      </ul>
+    </nav>
+  </main>
+
+  <footer role="contentinfo">
+    <p>© <span id="year"></span> Third Degree Media™</p>
+    <script>
+      (function(){var y=document.getElementById('year'); if(y) y.textContent=new Date().getFullYear();})();
+    </script>
+  </footer>
+</body>
+</html>
