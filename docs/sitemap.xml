@@ -66,5 +66,18 @@
   <priority>0.7</priority>
 </url>
 
+  <url>
+  <loc>https://thirddegreemedia.com/tor-browser.html</loc>
+  <lastmod>2025-09-10</lastmod>
+  <changefreq>monthly</changefreq>
+  <priority>0.7</priority>
+</url>
+<url>
+  <loc>https://thirddegreemedia.com/adguard-home.html</loc>
+  <lastmod>2025-09-10</lastmod>
+  <changefreq>monthly</changefreq>
+  <priority>0.7</priority>
+</url>
+
 </urlset>
 
