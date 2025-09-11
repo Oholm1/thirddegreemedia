@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Syncthing — Peer-to-Peer Sync Without a Cloud</title>
+  <meta name="description" content="Sync files directly between your devices with end-to-end encryption and no central server. Keep your data on your disks." />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="canonical" href="https://thirddegreemedia.com/syncthing.html" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Syncthing — Peer-to-Peer Sync Without a Cloud" />
+  <meta property="og:description" content="What Syncthing is, how to set it up in minutes, and the settings that keep it private and resilient." />
+  <meta property="og:url" content="https://thirddegreemedia.com/syncthing.html" />
+  <link rel="icon" href="/favicon.ico" />
+  <link rel="stylesheet" href="/style.css?v=5" />
+  <style>
+    .lede{color:var(--muted)}
+    .kbd{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;background:#0f1115;border:1px solid #1b1f24;padding:.14rem .36rem;border-radius:6px}
+    .stamp{font-size:.875rem;color:var(--muted)}
+  </style>
+</head>
+<body>
+  <header role="banner">
+    <h1>Syncthing — Peer-to-Peer Sync Without a Cloud</h1>
+    <p class="lede">Open-source, encrypted file sync that connects your devices directly. No accounts, no central server, no monthly fee.</p>
+    <p class="stamp">Updated: 2025-09-10</p>
+  </header>
+
+  <main id="main" role="main" tabindex="-1">
+    <section class="callout">
+      <h2>Why Syncthing</h2>
+      <ul>
+        <li><strong>Private</strong>: devices discover each other and exchange data over encrypted connections (TLS); your data isn’t stored on third-party servers.</li>
+        <li><strong>Resilient</strong>: LAN-fast at home; can relay if needed when you’re remote (you can disable relays if you want LAN-only).</li>
+        <li><strong>Transparent</strong>: web UI shows what’s syncing and why.</li>
+      </ul>
+    </section>
+
+    <section class="callout">
+      <h2>Quick start (two devices)</h2>
+      <ol>
+        <li>Install Syncthing on both (desktop packages available; on Android use Syncthing-Fork).</li>
+        <li>Open the web UI (usually <span class="kbd">http://127.0.0.1:8384</span>).</li>
+        <li>Copy the <strong>Device ID</strong> from Device A and add it on Device B (and vice versa).</li>
+        <li>Create a folder on A → share it to B → accept on B → pick a local path.</li>
+        <li>Drop a file in the folder on A → watch it appear on B. Done.</li>
+      </ol>
+    </section>
+
+    <section class="callout">
+      <h2>Recommended settings</h2>
+      <ul>
+        <li><strong>Versioning</strong>: enable “Staggered file versioning” for safety (keeps old copies when files change).</li>
+        <li><strong>LAN-only mode</strong>: if you want purely local sync, disable “Use relays” and “Global discovery.”</li>
+        <li><strong>Ignore patterns</strong>: add <span class="kbd">.stversions</span>, OS temp files, etc., to keep noise out.</li>
+        <li><strong>Resource limits</strong>: cap upload/download if you share a tight connection.</li>
+      </ul>
+    </section>
+
+    <section class="callout">
+      <h2>Verify it’s private</h2>
+      <ol>
+        <li>Open the **Connections** panel — you should see direct connections (LAN) or encrypted relay when remote.</li>
+        <li>Run your OS network monitor: you’ll only see traffic between your devices (or to a relay if enabled), never to a cloud storage provider.</li>
+      </ol>
+    </section>
+
+    <section class="callout">
+      <h2>Get Syncthing</h2>
+      <ul>
+        <li><a href="https://syncthing.net/" target="_blank" rel="noopener noreferrer">syncthing.net</a></li>
+        <li><a href="https://github.com/syncthing/syncthing" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+      </ul>
+    </section>
+
+    <nav class="callout" aria-label="Next reads">
+      <h2>Next up</h2>
+      <ul>
+        <li><a href="/keepassxc.html">KeePassXC — local passwords</a></li>
+        <li><a href="/local-cdn.html">LocalCDN — emulate CDNs locally</a></li>
+      </ul>
+    </nav>
+  </main>
+
+  <footer role="contentinfo">
+    <p>© <span id="year"></span> Third Degree Media™</p>
+    <script>(function(){var y=document.getElementById('year'); if(y) y.textContent=new Date().getFullYear();})();</script>
+  </footer>
+</body>
+</html>
