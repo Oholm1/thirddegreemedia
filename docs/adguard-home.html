@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>AdGuard Home — Network-Wide DNS Filtering</title>
+  <meta name="description" content="Run AdGuard Home on a Pi or any box to block ads/trackers at DNS for every device. How it differs from Pi-hole, simple installs, and safe defaults." />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="canonical" href="https://thirddegreemedia.com/adguard-home.html" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="AdGuard Home — Network-Wide DNS Filtering" />
+  <meta property="og:description" content="Set up DNS-level blocking with DoH/DoT support, client rules, and a friendly UI. Local, private, and fast." />
+  <meta property="og:url" content="https://thirddegreemedia.com/adguard-home.html" />
+  <link rel="icon" href="/favicon.ico" />
+  <link rel="stylesheet" href="/style.css?v=5" />
+  <style>
+    .lede{color:var(--muted)}
+    .kbd{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;background:#0f1115;border:1px solid #1b1f24;padding:.14rem .36rem;border-radius:6px}
+    .stamp{font-size:.875rem;color:var(--muted)}
+    code{white-space:pre-wrap}
+  </style>
+</head>
+<body>
+  <header role="banner">
+    <h1>AdGuard Home — Network-Wide DNS Filtering</h1>
+    <p class="lede">A self-hosted DNS sinkhole with an easy UI, DoH/DoT support, client rules, and rich logs—blocks ads/trackers for every device on your LAN.</p>
+    <p class="stamp">Updated: 2025-09-10</p>
+  </header>
+
+  <main id="main" role="main" tabindex="-1">
+    <section class="callout">
+      <h2>What it does (and how it compares)</h2>
+      <ul>
+        <li><strong>DNS blocking</strong>: returns <span class="kbd">0.0.0.0</span> for ad/tracker domains.</li>
+        <li><strong>Built-in DoH/DoT</strong>: easy encrypted upstream DNS or serve DoH/DoT to clients.</li>
+        <li><strong>Per-client rules</strong>: different blocklists for TVs, kids, guests, etc.</li>
+        <li><strong>Compared to Pi-hole</strong>: similar core idea; AdGuard Home has smoother DoH/DoT setup and client policies; Pi-hole has a super-light footprint and huge community. Both are great.</li>
+      </ul>
+    </section>
+
+    <section class="callout">
+      <h2>Quick install options</h2>
+      <h3>Docker (any OS with Docker)</h3>
+      <pre><code>docker run -d --name adguardhome \
+  --restart unless-stopped \
+  -v /opt/adguardhome/work:/opt/adguardhome/work \
+  -v /opt/adguardhome/conf:/opt/adguardhome/conf \
+  -p 53:53/tcp -p 53:53/udp \
+  -p 3000:3000/tcp -p 80:80/tcp -p 443:443/tcp \
+  adguard/adguardhome</code></pre>
+      <p class="lede">Open <span class="kbd">http://&lt;your-lan-ip&gt;:3000</span> to finish setup. Afterwards the admin UI lives on port 80/443.</p>
+
+      <h3>Linux script (official)</h3>
+      <pre><code>curl -s -S -L https://static.adguard.com/adguardhome/release/AdGuardHome_linux_amd64.tar.gz \
+  | tar -xz && sudo ./AdGuardHome/AdGuardHome -s install</code></pre>
+      <p class="lede">Set a static LAN IP first so your DNS address doesn’t change.</p>
+    </section>
+
+    <section class="callout">
+      <h2>Point devices at it</h2>
+      <ul>
+        <li><strong>Best:</strong> set your router’s LAN DNS to the AdGuard Home IP (affects all clients).</li>
+        <li><strong>Per-device:</strong> set DNS manually on computers/phones to the AdGuard Home IP.</li>
+      </ul>
+    </section>
+
+    <section class="callout">
+      <h2>Recommended settings</h2>
+      <ul>
+        <li>Keep the default blocklists; optionally add one consolidated list (e.g., OISD) for broader coverage.</li>
+        <li><strong>Encrypted upstream DNS</strong>: choose DoH/DoT or point to a <em>local Unbound</em> resolver.</li>
+        <li><strong>Client rules</strong>: create groups (TVs, Kids) with stricter lists; keep your devices on a lighter profile for fewer breakages.</li>
+        <li><strong>Query logs</strong>: keep short retention or anonymize if you don’t want per-client history.</li>
+      </ul>
+    </section>
+
+    <section class="callout">
+      <h2>Verify it’s working</h2>
+      <ol>
+        <li>Open the dashboard → you should see queries/blocks as you browse.</li>
+        <li>On a client device, run <span class="kbd">nslookup doubleclick.net</span> → expect <span class="kbd">0.0.0.0</span>.</li>
+        <li>If you enabled DoH/DoT for clients, test with a DoH/DoT-aware tool and confirm it hits your box, not a public resolver.</li>
+      </ol>
+    </section>
+
+    <section class="callout">
+      <h2>Get AdGuard Home</h2>
+      <ul>
+        <li><a href="https://adguard.com/adguard-home.html" target="_blank" rel="noopener noreferrer">Product page</a></li>
+        <li><a href="https://github.com/AdguardTeam/AdGuardHome" target="_blank" rel="noopener noreferrer">GitHub (source & releases)</a></li>
+      </ul>
+      <p class="lede">Disclosure: not affiliated.</p>
+    </section>
+
+    <nav class="callout" aria-label="Next reads">
+      <h2>Next up</h2>
+      <ul>
+        <li><a href="/pi-hole.html">Pi-hole — DNS-level blocking</a></li>
+        <li><a href="/librewolf.html">LibreWolf — Firefox, hardened</a></li>
+      </ul>
+    </nav>
+  </main>
+
+  <footer role="contentinfo">
+    <p>© <span id="year"></span> Third Degree Media™</p>
+    <script>(function(){var y=document.getElementById('year'); if(y) y.textContent=new Date().getFullYear();})();</script>
+  </footer>
+</body>
+</html>
