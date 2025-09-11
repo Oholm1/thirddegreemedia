@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>LibreWolf — Firefox, Hardened and De-Telemetrized</title>
+  <meta name="description" content="LibreWolf is a privacy-focused Firefox fork with telemetry stripped and sane hardening defaults. What it changes, how to install, and how to use it smoothly." />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="canonical" href="https://thirddegreemedia.com/librewolf.html" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="LibreWolf — Firefox, Hardened and De-Telemetrized" />
+  <meta property="og:description" content="Why LibreWolf, recommended add-ons, and tips for avoiding breakage while keeping strong privacy." />
+  <meta property="og:url" content="https://thirddegreemedia.com/librewolf.html" />
+  <link rel="icon" href="/favicon.ico" />
+  <link rel="stylesheet" href="/style.css?v=5" />
+  <style>
+    .lede{color:var(--muted)}
+    .kbd{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;background:#0f1115;border:1px solid #1b1f24;padding:.14rem .36rem;border-radius:6px}
+    .stamp{font-size:.875rem;color:var(--muted)}
+  </style>
+</head>
+<body>
+  <header role="banner">
+    <h1>LibreWolf — Firefox, Hardened and De-Telemetrized</h1>
+    <p class="lede">Open-source browser based on Firefox with telemetry removed and privacy/security preferences pre-tuned.</p>
+    <p class="stamp">Updated: 2025-09-10</p>
+  </header>
+
+  <main id="main" role="main" tabindex="-1">
+    <section class="callout">
+      <h2>What LibreWolf changes</h2>
+      <ul>
+        <li><strong>No telemetry</strong> and no experiments.</li>
+        <li><strong>Hardened defaults</strong> (cookies, tracking protection, referrers, etc.).</li>
+        <li><strong>Search & new-tab tweaks</strong> oriented toward privacy.</li>
+        <li>Regularly rebased on Firefox ESR/stable with community-maintained patches.</li>
+      </ul>
+      <p class="lede">Goal: Firefox compatibility with stronger privacy out-of-the-box.</p>
+    </section>
+
+    <section class="callout">
+      <h2>Install</h2>
+      <ul>
+        <li><strong>Linux/macOS/Windows</strong>: grab builds from the official LibreWolf website or supported repos.</li>
+        <li>Profile separation works like Firefox—keep a clean profile for sensitive work.</li>
+      </ul>
+    </section>
+
+    <section class="callout">
+      <h2>Recommended add-ons</h2>
+      <ul>
+        <li><strong>uBlock Origin</strong> — network-level blocking.</li>
+        <li><strong>ClearURLs</strong> — strip tracking params from links.</li>
+        <li><strong>LocalCDN</strong> — emulate common CDNs locally.</li>
+        <li>(Advanced) <strong>NoScript</strong> — script control, if you like tuning.</li>
+      </ul>
+    </section>
+
+    <section class="callout">
+      <h2>Tips to avoid breakage</h2>
+      <ul>
+        <li>Use per-site permissions (lock icon) instead of weakening global prefs.</li>
+        <li>If a site demands cross-site cookies, prefer a <strong>Temporary Container</strong> or a separate profile.</li>
+        <li>For video DRM sites, consider a separate vanilla Firefox profile for that task only.</li>
+      </ul>
+    </section>
+
+    <section class="callout">
+      <h2>Get LibreWolf</h2>
+      <ul>
+        <li><a href="https://librewolf.net/" target="_blank" rel="noopener noreferrer">librewolf.net</a></li>
+        <li><a href="https://gitlab.com/librewolf-community" target="_blank" rel="noopener noreferrer">Source & packages</a></li>
+      </ul>
+      <p class="lede">Disclosure: not affiliated.</p>
+    </section>
+
+    <nav class="callout" aria-label="Next reads">
+      <h2>Next up</h2>
+      <ul>
+        <li><a href="/ublock-origin.html">uBlock Origin — network-level blocking</a></li>
+        <li><a href="/local-cdn.html">LocalCDN — emulate CDNs locally</a></li>
+      </ul>
+    </nav>
+  </main>
+
+  <footer role="contentinfo">
+    <p>© <span id="year"></span> Third Degree Media™</p>
+    <script>(function(){var y=document.getElementById('year'); if(y) y.textContent=new Date().getFullYear();})();</script>
+  </footer>
+</body>
+</html>
