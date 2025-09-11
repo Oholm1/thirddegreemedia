@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>SimpleX Chat — Messaging Without Identifiers</title>
+  <meta name="description" content="SimpleX Chat avoids phone numbers and usernames, using private, ephemeral routes. How it works and how to start safely." />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="canonical" href="https://thirddegreemedia.com/simplex.html" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="SimpleX Chat — Messaging Without Identifiers" />
+  <meta property="og:description" content="No global IDs. Share one-time links/QRs to connect. Open-source apps with privacy-by-design." />
+  <meta property="og:url" content="https://thirddegreemedia.com/simplex.html" />
+  <link rel="icon" href="/favicon.ico" />
+  <link rel="stylesheet" href="/style.css?v=5" />
+  <style>.lede{color:var(--muted)}.kbd{font-family:ui-monospace,Menlo,Consolas,monospace;background:#0f1115;border:1px solid #1b1f24;padding:.14rem .36rem;border-radius:6px}.stamp{font-size:.875rem;color:var(--muted)}</style>
+</head>
+<body>
+  <header role="banner">
+    <h1>SimpleX Chat — Messaging Without Identifiers</h1>
+    <p class="lede">No usernames, no phone numbers, no central directory. SimpleX connects people using one-time invites and private relays, keeping your identity out of band.</p>
+    <p class="stamp">Updated: 2025-09-10</p>
+  </header>
+
+  <main id="main" role="main" tabindex="-1">
+    <section class="callout">
+      <h2>How it’s different</h2>
+      <ul>
+        <li><strong>No global ID</strong> to track or harvest.</li>
+        <li><strong>Connection via one-time links/QRs</strong>; rotate identities as needed.</li>
+        <li><strong>Open-source</strong> clients and infrastructure.</li>
+      </ul>
+    </section>
+
+    <section class="callout">
+      <h2>Quick start</h2>
+      <ol>
+        <li>Install SimpleX on two devices.</li>
+        <li>Create a new chat identity; share an invite link/QR out-of-band.</li>
+        <li>Once connected, messages are E2E encrypted; rotate identities for different contexts.</li>
+      </ol>
+    </section>
+
+    <section class="callout">
+      <h2>Tips</h2>
+      <ul>
+        <li>Use different identities for different circles (work/friends/public).</li>
+        <li>Back up your local keys if you move devices.</li>
+        <li>For sensitive use, keep metadata minimal (no cloud backups).</li>
+      </ul>
+    </section>
+
+    <section class="callout">
+      <h2>Get SimpleX</h2>
+      <ul>
+        <li><a href="https://simplex.chat/" target="_blank" rel="noopener noreferrer">simplex.chat</a></li>
+        <li><a href="https://github.com/simplex-chat/simplex-chat" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+      </ul>
+    </section>
+
+    <nav class="callout" aria-label="Next reads">
+      <h2>Next up</h2>
+      <ul>
+        <li><a href="/signal.html">Signal — private messaging</a></li>
+        <li><a href="/librewolf.html">LibreWolf — Firefox, hardened</a></li>
+      </ul>
+    </nav>
+  </main>
+
+  <footer role="contentinfo">
+    <p>© <span id="year"></span> Third Degree Media™</p>
+    <script>(function(){var y=document.getElementById('year'); if(y) y.textContent=new Date().getFullYear();})();</script>
+  </footer>
+</body>
+</html>
