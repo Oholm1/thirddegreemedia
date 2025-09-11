@@ -1,105 +1,73 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
+  <meta charset="utf-8" />
 
-<meta http-equiv="Content-Security-Policy"
-  content="
-    default-src 'self';
-    img-src 'self' data:;
-    style-src 'self' 'nonce-r4nd0m';
-    script-src 'self' 'nonce-r4nd0m';
-    font-src 'self';
-    object-src 'none';
-    base-uri 'none';
-    frame-ancestors 'self'">
+  <!-- Strict CSP (no inline styles; inline scripts require nonce) -->
+  <meta http-equiv="Content-Security-Policy"
+        content="
+          default-src 'self';
+          img-src 'self' data:;
+          style-src 'self';
+          script-src 'self' 'nonce-r4nd0m';
+          font-src 'self';
+          object-src 'none';
+          base-uri 'none';
+          frame-ancestors 'self'">
+  <meta name="referrer" content="no-referrer" />
 
-<!-- Primary SEO (deduped) -->
-<title>Third Degree Media™ — Sovereign Tech & Absurd Lore</title>
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta name="description" content="Absurd lore meets privacy tech. Third Degree Media is a sovereign node—off-grid rituals, pine VPNs, goofy glyphs, no trackers.">
-<meta name="author" content="Orrin D. Holmbeck" />
-<meta name="theme-color" content="#111" />
-<meta name="robots" content="index,follow" />
-<link rel="canonical" href="https://thirddegreemedia.com/">
-<link rel="sitemap" type="application/xml" href="/sitemap.xml" />
-<link rel="icon" href="/favicon.ico" />
-<link rel="stylesheet" href="/style.css?v=6" />
+  <!-- Primary SEO (deduped) -->
+  <title>Third Degree Media™ — Sovereign Tech & Absurd Lore</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Absurd lore meets privacy tech. Third Degree Media is a sovereign node—off-grid rituals, pine VPNs, goofy glyphs, no trackers.">
+  <meta name="author" content="Orrin D. Holmbeck" />
+  <meta name="theme-color" content="#111" />
+  <meta name="robots" content="index,follow" />
+  <link rel="canonical" href="https://thirddegreemedia.com/">
+  <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
+  <link rel="icon" href="/favicon.ico" />
+  <link rel="stylesheet" href="/style.css?v=6" />
 
-<!-- Bing Verify -->
-<meta name="msvalidate.01" content="263390F99CFC0E83F2AD8415511BA47E" />
+  <!-- Bing Verify -->
+  <meta name="msvalidate.01" content="263390F99CFC0E83F2AD8415511BA47E" />
 
-<!-- Open Graph -->
-<meta property="og:type" content="website">
-<meta property="og:site_name" content="Third Degree Media">
-<meta property="og:title" content="Third Degree Media — Sovereign Tech & Absurd Lore">
-<meta property="og:description" content="Absurd lore meets privacy tech. Sovereign privacy, IPA-fueled rituals, and glyph trails.">
-<meta property="og:url" content="https://thirddegreemedia.com/">
-<meta property="og:image" content="https://thirddegreemedia.com/og-image.jpg">
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Third Degree Media">
+  <meta property="og:title" content="Third Degree Media — Sovereign Tech & Absurd Lore">
+  <meta property="og:description" content="Absurd lore meets privacy tech. Sovereign privacy, IPA-fueled rituals, and glyph trails.">
+  <meta property="og:url" content="https://thirddegreemedia.com/">
+  <meta property="og:image" content="https://thirddegreemedia.com/og-image.jpg">
 
-<!-- Twitter Card -->
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Third Degree Media — Sovereign Tech & Absurd Lore">
-<meta name="twitter:description" content="Absurd lore meets privacy tech.">
-<meta name="twitter:image" content="https://thirddegreemedia.com/og-image.jpg">
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Third Degree Media — Sovereign Tech & Absurd Lore">
+  <meta name="twitter:description" content="Absurd lore meets privacy tech.">
+  <meta name="twitter:image" content="https://thirddegreemedia.com/og-image.jpg">
 
-<!-- JSON-LD (keep ONE block, with nonce) -->
-<script type="application/ld+json" nonce="r4nd0m">
-{
-  "@context": "https://schema.org",
-  "@type": "WebSite",
-  "name": "Third Degree Media",
-  "url": "https://thirddegreemedia.com/",
-  "publisher": {
-    "@type": "Organization",
+  <!-- JSON-LD (single block, with nonce) -->
+  <script type="application/ld+json" nonce="r4nd0m">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
     "name": "Third Degree Media",
     "url": "https://thirddegreemedia.com/",
-    "logo": "https://thirddegreemedia.com/logo.png",
-    "sameAs": [
-      "https://mastodon.social/@daemonlogger",
-      "https://buymeacoffee.com/daemonlogger"
-    ]
-  }
-}
-</script>
-
-
-  <!-- Critical CSS (DARK by default) -->
-  <style>
-    body {
-      font-family: ui-monospace,"Courier New",monospace;
-      color:#eee;
-      background:
-        #111 radial-gradient(rgba(255,255,255,.02) 1px, transparent 1px);
-      background-size:20px 20px;
-      padding:40px; line-height:1.6; max-width:70ch; margin:auto
+    "publisher": {
+      "@type": "Organization",
+      "name": "Third Degree Media",
+      "url": "https://thirddegreemedia.com/",
+      "logo": "https://thirddegreemedia.com/logo.png",
+      "sameAs": [
+        "https://mastodon.social/@daemonlogger",
+        "https://buymeacoffee.com/daemonlogger"
+      ]
     }
-    h1,h2{color:#ff6600; line-height:1.25}
-    a{color:#66ccff; font-weight:bold; text-decoration:none}
-    a:hover{color:#ffcc00; text-decoration:underline}
-    section{margin-bottom:40px; padding:20px; border:1px dashed #444; background-color:#1a1a1a; border-radius:8px; transition:box-shadow .28s ease, transform .28s ease}
-    section:hover{box-shadow:0 0 10px rgba(255,102,0,.30)}
-
-    /* Make default .callout DARK to avoid white boxes */
-    .callout{background:rgba(17,17,17,.9); border:1px solid #333; border-radius:8px}
-
-    .donate-button{background:#ff6600; color:#fff; padding:.6rem 1rem; border-radius:8px; font-weight:bold; text-decoration:none}
-    footer p{font-size:.9em; color:#888; text-align:center}
-  </style>
-
-  <!-- Full stylesheet -->
-  <link rel="stylesheet" href="/style.css?v=4" />
+  }
+  </script>
 </head>
 
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
-
-  <!-- Hidden SVG symbol to reuse for the trail -->
-  <svg width="0" height="0" style="position:absolute; left:-9999px; visibility:hidden" aria-hidden="true" focusable="false">
-    <symbol id="glyph-star" viewBox="0 0 24 24">
-      <path d="M12 2l3.09 6.26 6.91.99-5 4.87 1.18 6.88L12 17.77 5.82 21l1.18-6.88-5-4.87 6.91-.99z"/>
-    </symbol>
-  </svg>
 
   <header role="banner">
     <h1>Third Degree Media</h1>
@@ -112,6 +80,8 @@
       <h2>Codex</h2>
       <p>Documenting infrastructure rituals, domain claims, and glyphic milestones.</p>
       <p><a href="malware-purge.html">🦠 Rituals of Purge: Malware Encounters & Sovereign Remedies</a></p>
+
+      <!-- Guides -->
       <p><a href="/local-cdn.html">📦 LocalCDN — Kill Unnecessary Third-Party CDN Calls</a></p>
       <p><a href="/ublock-origin.html">🧱 uBlock Origin — Network-level blocking, done right</a></p>
       <p><a href="/keepassxc.html">🔐 KeePassXC — Local passwords, no cloud</a></p>
@@ -125,6 +95,7 @@
       <p><a href="/simplex.html">🔐 SimpleX — messaging without identifiers</a></p>
       <p><a href="/openwrt.html">📡 OpenWrt — take back your router</a></p>
       <p><a href="/age.html">🗝️ age — simple, modern file encryption</a></p>
+
       <p><strong>Disclaimer:</strong> This site may cause spontaneous myth-making, ritual dancing, and mild confusion in DNS servers.</p>
       <p><em>Fun Fact:</em> This homepage was coded using a pinecone, a VPN tunnel, and the distant hum of a fax machine.</p>
     </section>
@@ -150,9 +121,8 @@
     <!-- Sovereign Stack Endorsement: Mullvad VPN -->
     <section class="callout" aria-labelledby="mullvad-heading">
       <h2 id="mullvad-heading">🛡️ Mullvad VPN — Cloak Your Signal in Pine-Scented Privacy</h2>
-      <!-- Tip: host this logo locally as /img/mullvad.svg to keep 0 third-party requests -->
       <figure>
-        <img src="/img/mullvad.svg" alt="Mullvad VPN logo" width="160" height="160" />
+        <img src="/img/mullvad.svg" alt="Mullvad VPN logo" width="160" height="160" decoding="async" />
         <figcaption class="sr-only">Mullvad VPN logo</figcaption>
       </figure>
       <p><strong>Why Mullvad?</strong><br>Because surveillance is boring, and being mapped by data brokers is a cosmic insult. Mullvad is the VPN for those who reject the algorithmic gaze. No email. No name. Just an account number and a tunnel to freedom.</p>
@@ -204,7 +174,7 @@
       <p><a href="https://buymeacoffee.com/daemonlogger" target="_blank" rel="noopener" class="donate-button">Buy me a beer or coffee →</a></p>
     </section>
 
-    <div aria-hidden="true" style="margin:2rem 0">
+    <div aria-hidden="true">
       <svg width="100%" height="12" viewBox="0 0 400 12" preserveAspectRatio="none" role="img" aria-label="Decorative wave">
         <path d="M0,6 C80,2 120,10 200,6 C280,2 320,10 400,6" fill="none" stroke="currentColor" stroke-opacity=".25"/>
       </svg>
@@ -247,7 +217,7 @@
 
     <section class="callout">
       <h2>Search Without Surveillance</h2>
-      <img src="duckduckgo-logo.png" alt="DuckDuckGo Logo" style="height:60px;margin-bottom:10px">
+      <img src="/duckduckgo-logo.png" alt="DuckDuckGo Logo" width="180" height="60" decoding="async" loading="lazy">
       <p>We endorse <strong>DuckDuckGo</strong>—a search engine and browser built for privacy. No tracking, no profiling, no filter bubbles.</p>
       <p>DuckDuckGo blocks hidden trackers, forces encrypted connections, and lets you explore the web without being watched. Try it at 
         <a href="https://duckduckgo.com" target="_blank" rel="noopener">duckduckgo.com</a>.
@@ -261,25 +231,24 @@
     </section>
 
     <section id="noscript" class="callout">
-  <h2>🧰 NoScript — Script Control for Power Users</h2>
-  <p>
-    <strong>NoScript</strong> blocks JavaScript and other active content by default, letting you
-    <em>whitelist only the domains you trust</em>. It’s open source and maintained by Giorgio Maone.
-  </p>
-  <ul>
-    <li><strong>Granular control</strong>: Per-site allow/deny for scripts, objects, media.</li>
-    <li><strong>Hardening extras</strong>: Anti-XSS and clickjacking protections.</li>
-    <li><strong>Pairs well</strong>: Use alongside uBlock Origin for network-level blocking.</li>
-  </ul>
-  <p><em>Heads-up:</em> It <strong>will break</strong> many modern sites until you allow just the minimal domains needed. This is for people who enjoy tuning.</p>
-  <p>
-    Get it: 
-    <a href="https://noscript.net/" target="_blank" rel="noopener noreferrer">noscript.net</a> 
-    (Firefox/Chromium).
-  </p>
-</section>
+      <h2>🧰 NoScript — Script Control for Power Users</h2>
+      <p>
+        <strong>NoScript</strong> blocks JavaScript and other active content by default, letting you
+        <em>whitelist only the domains you trust</em>. It’s open source and maintained by Giorgio Maone.
+      </p>
+      <ul>
+        <li><strong>Granular control</strong>: Per-site allow/deny for scripts, objects, media.</li>
+        <li><strong>Hardening extras</strong>: Anti-XSS and clickjacking protections.</li>
+        <li><strong>Pairs well</strong>: Use alongside uBlock Origin for network-level blocking.</li>
+      </ul>
+      <p><em>Heads-up:</em> It <strong>will break</strong> many modern sites until you allow just the minimal domains needed. This is for people who enjoy tuning.</p>
+      <p>
+        Get it: 
+        <a href="https://noscript.net/" target="_blank" rel="noopener noreferrer">noscript.net</a> 
+        (Firefox/Chromium).
+      </p>
+    </section>
 
-    <!-- CLOSED the previous section BEFORE starting Linux intro -->
     <section id="linux-intro" class="callout">
       <h2>🐧 Why Linux Deserves Your Attention</h2>
       <p>Linux isn’t just an operating system—it’s a movement. Built on the principles of openness, collaboration, and user freedom, Linux powers everything from smartphones and servers to supercomputers and satellites. Whether you're a developer, a privacy enthusiast, or just someone who wants to break free from corporate ecosystems, Linux offers a customizable, secure, and endlessly fascinating alternative.</p>
@@ -298,40 +267,12 @@
         <li><strong>Fedora</strong> – Cutting-edge features with Red Hat backing.</li>
         <li><strong>Kali Linux</strong> – Tailored for cybersecurity and ethical hacking.</li>
       </ul>
-      <hr style="border:none;border-top:1px dashed #444;margin:2rem 0">
-      <p style="font-size:.9rem;color:#888"><em>Linux® is the registered trademark of Linus Torvalds in the U.S. and other countries. This site is not affiliated with or endorsed by Linus Torvalds or the Linux Foundation. All trademarks and logos are the property of their respective owners.</em></p>
+      <hr>
+      <p><em>Linux® is the registered trademark of Linus Torvalds in the U.S. and other countries. This site is not affiliated with or endorsed by Linus Torvalds or the Linux Foundation. All trademarks and logos are the property of their respective owners.</em></p>
     </section>
 
-   <!-- Lean Speed & Privacy Badge (kept local + zero beacons) -->
-<style nonce="r4nd0m">
-  :root {
-    --badge-bg:#0b0b0c; --badge-fg:#e9e9ee; --badge-accent:#8ef0c0;
-    --badge-muted:#8a8f98; --badge-border:#22262b;
-  }
-  .lean-badge{ background:var(--badge-bg); color:var(--badge-fg);
-    border:1px dashed var(--badge-border); border-radius:14px;
-    padding:1.25rem 1.25rem 1rem; max-width:680px;
-    font:13.5px/1.45 ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue',Arial;
-    box-shadow:0 1px 0 rgba(255,255,255,.04) inset, 0 6px 18px rgba(0,0,0,.25);
-  }
-  .lean-badge header{display:flex;align-items:center;gap:.6rem;margin-bottom:.6rem}
-  .lean-badge .glyph{font-size:1.2rem}
-  .lean-badge h3{margin:0;font-size:1rem;letter-spacing:.2px}
-  .lean-badge .sub{color:var(--badge-muted);font-size:.85rem}
-  .lean-badge .meters{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.5rem;margin:.75rem 0}
-  .lean-badge .kpi{background:#111216;border:1px solid #1b1f24;border-radius:10px;padding:.6rem .7rem}
-  .lean-badge .kpi .label{color:var(--badge-muted);font-size:.8rem;display:block}
-  .lean-badge .kpi .value{font-variant-numeric:tabular-nums;font-weight:600}
-  .lean-badge .pill{border:1px solid #1b1f24;background:#101217;border-radius:999px;padding:.28rem .6rem;font-size:.78rem;color:var(--badge-muted)}
-  .lean-badge .truthy{color:var(--badge-accent);border-color:rgba(142,240,192,.6)}
-  .lean-badge .falsy{color:#ff9c9c;border-color:rgba(255,122,122,.5)}
-  .lean-badge .note{color:var(--badge-muted);font-size:.78rem;margin-left:auto}
-  @media (max-width:520px){.lean-badge .meters{grid-template-columns:1fr}}
-</style>
-
-    <div id="lean-badge" class="lean-badge" role="region"
-     aria-label="Site speed and privacy badge" tabindex="0"
-     data-no-trail>
+    <!-- Lean Speed & Privacy Badge -->
+    <div id="lean-badge" class="lean-badge" role="region" aria-label="Site speed and privacy badge" tabindex="0">
       <header><div class="glyph" aria-hidden="true">⚡</div><h3>Lean Speed & Privacy</h3></header>
       <div class="sub">GitHub Pages • zero trackers • no cookies by default</div>
       <div class="meters" aria-live="polite">
@@ -351,107 +292,96 @@
       </footer>
     </div>
 
+    <!-- Badge JS (nonce required by CSP) -->
     <script nonce="r4nd0m">
-(function () {
-  const $  = (id) => document.getElementById(id);
-  const nf = (v, d=0) => Number.isFinite(v) ? v.toFixed(d) : '—';
-  const bfmt = (b) => {
-    if (!Number.isFinite(b)) return '—';
-    const u = ['B','KB','MB','GB']; let i=0, n=b;
-    while (n>=1024 && i<u.length-1) { n/=1024; i++; }
-    return `${n.toFixed(n>=100?0:n>=10?1:2)} ${u[i]}`;
-  };
+    (function () {
+      const $  = (id) => document.getElementById(id);
+      const nf = (v, d=0) => Number.isFinite(v) ? v.toFixed(d) : '—';
+      const bfmt = (b) => {
+        if (!Number.isFinite(b)) return '—';
+        const u = ['B','KB','MB','GB']; let i=0, n=b;
+        while (n>=1024 && i<u.length-1) { n/=1024; i++; }
+        return `${n.toFixed(n>=100?0:n>=10?1:2)} ${u[i]}`;
+      };
 
-  const navEntry = () => performance.getEntriesByType('navigation')[0] || null;
+      const navEntry = () => performance.getEntriesByType('navigation')[0] || null;
 
-  function updateTTFB_DCL_Load() {
-    const nav = navEntry(); if (!nav) return;
-
-    // TTFB & DCL are safe to set anytime
-    $('kpi-ttfb') && ($('kpi-ttfb').textContent = nf(nav.responseStart - nav.startTime, 0) + ' ms');
-    $('kpi-dcl')  && ($('kpi-dcl').textContent  = nf(nav.domContentLoadedEventEnd - nav.startTime, 0) + ' ms');
-
-    // Load may be 0 if read too early or on bfcache
-    let load = nav.loadEventEnd - nav.startTime;
-    if (!load || load < 0) {
-      if (document.readyState === 'complete') {
-        // fallback approximation if loadEventEnd isn't populated (e.g., bfcache)
-        load = performance.now() - nav.startTime;
-      } else {
-        return; // wait and try again after onload
+      function updateTTFB_DCL_Load() {
+        const nav = navEntry(); if (!nav) return;
+        $('kpi-ttfb') && ($('kpi-ttfb').textContent = nf(nav.responseStart - nav.startTime, 0) + ' ms');
+        $('kpi-dcl')  && ($('kpi-dcl').textContent  = nf(nav.domContentLoadedEventEnd - nav.startTime, 0) + ' ms');
+        let load = nav.loadEventEnd - nav.startTime;
+        if (!load || load < 0) {
+          if (document.readyState === 'complete') {
+            load = performance.now() - nav.startTime;
+          } else {
+            return;
+          }
+        }
+        $('kpi-load') && ($('kpi-load').textContent = nf(load, 0) + ' ms');
       }
-    }
-    $('kpi-load') && ($('kpi-load').textContent = nf(load, 0) + ' ms');
-  }
 
-  // Initial attempt (TTFB/DCL now; Load may still be 0)
-  updateTTFB_DCL_Load();
+      updateTTFB_DCL_Load();
 
-  // LCP
-  let lcpVal;
-  try {
-    const po = new PerformanceObserver((list) => {
-      const entries = list.getEntries();
-      const last = entries[entries.length - 1];
-      if (last) lcpVal = last.startTime;
-    });
-    po.observe({ type: 'largest-contentful-paint', buffered: true });
-    addEventListener('load', () => { setTimeout(() => {
-      $('kpi-lcp') && ($('kpi-lcp').textContent = nf(lcpVal, 0) + ' ms');
-    }, 0); });
-  } catch (_) {
-    $('kpi-lcp') && ($('kpi-lcp').textContent = '—');
-  }
-
-  // Resources + privacy pills
-  function readResources() {
-    const res = performance.getEntriesByType('resource');
-    const origin = location.origin;
-    let totalBytes = 0, jsBytes = 0, reqs = 0, thirdParty = 0;
-    const thirdSet = new Set();
-    for (const r of res) {
-      reqs++;
-      const bytes = Number.isFinite(r.transferSize) && r.transferSize > 0 ? r.transferSize : (r.encodedBodySize || 0);
-      totalBytes += bytes;
-      if (r.initiatorType === 'script') jsBytes += bytes;
+      let lcpVal;
       try {
-        const u = new URL(r.name, origin);
-        if (u.origin !== origin) { thirdParty++; thirdSet.add(u.origin); }
-      } catch {}
-    }
-    return { totalBytes, jsBytes, reqs, thirdParty, thirdDomains: [...thirdSet].slice(0, 6) };
-  }
+        const po = new PerformanceObserver((list) => {
+          const entries = list.getEntries();
+          const last = entries[entries.length - 1];
+          if (last) lcpVal = last.startTime;
+        });
+        po.observe({ type: 'largest-contentful-paint', buffered: true });
+        addEventListener('load', () => { setTimeout(() => {
+          $('kpi-lcp') && ($('kpi-lcp').textContent = nf(lcpVal, 0) + ' ms');
+        }, 0); });
+      } catch (_) {
+        $('kpi-lcp') && ($('kpi-lcp').textContent = '—');
+      }
 
-  function finalize() {
-    const r = readResources(); if (!r) return;
-    $('kpi-reqs')  && ($('kpi-reqs').textContent  = r.reqs);
-    $('kpi-bytes') && ($('kpi-bytes').textContent = bfmt(r.totalBytes));
-    $('kpi-js')    && ($('kpi-js').textContent    = bfmt(r.jsBytes));
-    $('kpi-3p')    && ($('kpi-3p').textContent    = r.thirdParty + (r.thirdDomains.length ? ` (${r.thirdDomains.join(', ')})` : ''));
+      function readResources() {
+        const res = performance.getEntriesByType('resource');
+        const origin = location.origin;
+        let totalBytes = 0, jsBytes = 0, reqs = 0, thirdParty = 0;
+        const thirdSet = new Set();
+        for (const r of res) {
+          reqs++;
+          const bytes = Number.isFinite(r.transferSize) && r.transferSize > 0 ? r.transferSize : (r.encodedBodySize || 0);
+          totalBytes += bytes;
+          if (r.initiatorType === 'script') jsBytes += bytes;
+          try {
+            const u = new URL(r.name, origin);
+            if (u.origin !== origin) { thirdParty++; thirdSet.add(u.origin); }
+          } catch {}
+        }
+        return { totalBytes, jsBytes, reqs, thirdParty, thirdDomains: [...thirdSet].slice(0, 6) };
+      }
 
-    const hasCookies = (document.cookie || '').trim().length > 0;
-    const pillC = $('pill-cookies'), pillT = $('pill-trackers');
-    if (pillC) { pillC.textContent = `Cookies: ${hasCookies ? 'present' : 'none'}`; pillC.classList.add(hasCookies ? 'falsy' : 'truthy'); }
-    const no3p = r.thirdParty === 0;
-    if (pillT) { pillT.textContent = `Third-party: ${no3p ? 'none' : r.thirdParty}`; pillT.classList.add(no3p ? 'truthy' : 'falsy'); }
-  }
+      function finalize() {
+        const r = readResources(); if (!r) return;
+        $('kpi-reqs')  && ($('kpi-reqs').textContent  = r.reqs);
+        $('kpi-bytes') && ($('kpi-bytes').textContent = bfmt(r.totalBytes));
+        $('kpi-js')    && ($('kpi-js').textContent    = bfmt(r.jsBytes));
+        $('kpi-3p')    && ($('kpi-3p').textContent    = r.thirdParty + (r.thirdDomains.length ? ` (${r.thirdDomains.join(', ')})` : ''));
+        const hasCookies = (document.cookie || '').trim().length > 0;
+        const pillC = $('pill-cookies'), pillT = $('pill-trackers');
+        if (pillC) { pillC.textContent = `Cookies: ${hasCookies ? 'present' : 'none'}`; pillC.classList.add(hasCookies ? 'falsy' : 'truthy'); }
+        const no3p = r.thirdParty === 0;
+        if (pillT) { pillT.textContent = `Third-party: ${no3p ? 'none' : r.thirdParty}`; pillT.classList.add(no3p ? 'truthy' : 'falsy'); }
+      }
 
-  // Re-run after load so Load is populated
-  addEventListener('load', () => {
-    setTimeout(updateTTFB_DCL_Load, 0);
-    setTimeout(finalize, 0);
-  });
+      addEventListener('load', () => {
+        setTimeout(updateTTFB_DCL_Load, 0);
+        setTimeout(finalize, 0);
+      });
 
-  // Handle bfcache restores
-  addEventListener('pageshow', (e) => {
-    if (e.persisted) {
-      setTimeout(updateTTFB_DCL_Load, 0);
-      setTimeout(finalize, 0);
-    }
-  });
-})();
-</script>
-
+      addEventListener('pageshow', (e) => {
+        if (e.persisted) {
+          setTimeout(updateTTFB_DCL_Load, 0);
+          setTimeout(finalize, 0);
+        }
+      });
+    })();
+    </script>
 
   </main>
   <!-- END: page content -->
@@ -463,17 +393,15 @@
   </footer>
 
   <noscript>
-    <p style="padding:1rem">JavaScript is disabled. You’ll miss the sparkly mouse trail, but all content is fully accessible.</p>
+    <div class="callout">
+      <p>JavaScript is disabled. You’ll still get the content; interactive bits like the speed badge won’t run.</p>
+    </div>
   </noscript>
 
-<!-- Year updater -->
-<script nonce="r4nd0m">
-  const y = document.getElementById('year');
-  if (y) y.textContent = new Date().getFullYear();
-</script>
-  
-</body>
-</html>
-
+  <!-- Year updater -->
+  <script nonce="r4nd0m">
+    const y = document.getElementById('year');
+    if (y) y.textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
