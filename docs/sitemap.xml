@@ -27,5 +27,24 @@
     <changefreq>yearly</changefreq>
     <priority>0.2</priority>
   </url>
+
+  <url>
+  <loc>https://thirddegreemedia.com/ublock-origin.html</loc>
+  <lastmod>2025-09-10</lastmod>
+  <changefreq>monthly</changefreq>
+  <priority>0.7</priority>
+</url>
+<url>
+  <loc>https://thirddegreemedia.com/keepassxc.html</loc>
+  <lastmod>2025-09-10</lastmod>
+  <changefreq>monthly</changefreq>
+  <priority>0.7</priority>
+</url>
+<url>
+  <loc>https://thirddegreemedia.com/syncthing.html</loc>
+  <lastmod>2025-09-10</lastmod>
+  <changefreq>monthly</changefreq>
+  <priority>0.7</priority>
+</url>
 </urlset>
 
