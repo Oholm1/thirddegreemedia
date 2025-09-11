@@ -1,8 +1,9 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
+<meta charset="utf-8" />
 
+<!-- ONE CSP (looser for now so you can recover) -->
 <meta http-equiv="Content-Security-Policy"
   content="
     default-src 'self';
@@ -13,10 +14,9 @@
     object-src 'none';
     base-uri 'none';
     frame-ancestors 'self'">
-
+<meta name="referrer" content="no-referrer" />
 
 <!-- Primary SEO (deduped) -->
-<meta charset="utf-8" />
 <title>Third Degree Media™ — Sovereign Tech & Absurd Lore</title>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name="description" content="Absurd lore meets privacy tech. Third Degree Media is a sovereign node—off-grid rituals, pine VPNs, goofy glyphs, no trackers.">
@@ -30,11 +30,6 @@
 
 <!-- Bing Verify -->
 <meta name="msvalidate.01" content="263390F99CFC0E83F2AD8415511BA47E" />
-
-<!-- Security / Privacy -->
-<meta http-equiv="Content-Security-Policy"
-      content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self' 'nonce-r4nd0m'; font-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'self'">
-<meta name="referrer" content="no-referrer" />
 
 <!-- Open Graph -->
 <meta property="og:type" content="website">
@@ -50,7 +45,7 @@
 <meta name="twitter:description" content="Absurd lore meets privacy tech.">
 <meta name="twitter:image" content="https://thirddegreemedia.com/og-image.jpg">
 
-<!-- JSON-LD: WebSite + Organization (single block) -->
+<!-- JSON-LD (keep ONE block, with nonce) -->
 <script type="application/ld+json" nonce="r4nd0m">
 {
   "@context": "https://schema.org",
@@ -70,17 +65,6 @@
 }
 </script>
 
-  <!-- JSON-LD: Website -->
-  <script type="application/ld+json">
-  {
-    "@context":"https://schema.org",
-    "@type":"WebSite",
-    "name":"Third Degree Media",
-    "url":"https://thirddegreemedia.com/",
-    "description":"Codex-logging sovereign tech rituals, off-grid infrastructure, and mythic absurdity.",
-    "publisher":{"@type":"Person","name":"Orrin D. Holmbeck","sameAs":["https://mastodon.social/@daemonlogger"]}
-  }
-  </script>
 
   <!-- Critical CSS (DARK by default) -->
   <style>
@@ -370,7 +354,7 @@
       </footer>
     </div>
 
-    <script>
+    <script nonce="r4nd0m">
 (function () {
   const $  = (id) => document.getElementById(id);
   const nf = (v, d=0) => Number.isFinite(v) ? v.toFixed(d) : '—';
