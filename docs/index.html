@@ -469,35 +469,12 @@
     <p style="padding:1rem">JavaScript is disabled. You’ll miss the sparkly mouse trail, but all content is fully accessible.</p>
   </noscript>
 
-  <!-- Scripts (self-host anime.js to keep 0 third-party requests) -->
-  <script defer src="/js/anime.min.js"></script>
-  <script defer src="/js/svg-trail.js?v=1"></script>
-
-  <!-- Year updater -->
-  <script>
-    document.getElementById('year').textContent = new Date().getFullYear();
-  </script>
-    <!-- Year updater -->
-  <script nonce="r4nd0m">
-    document.getElementById('year').textContent = new Date().getFullYear();
-  </script>
-
-  <!-- KILL SWITCH to stop all trail particles -->
-  <script>
-    (function () {
-      try { window.setTrailMode && window.setTrailMode('off'); } catch(e){}
-      var s = document.createElement('style');
-      s.textContent = '.trail{ display:none !important; }';
-      document.head.appendChild(s);
-      function kill(){ document.querySelectorAll('.trail').forEach(n=>n.remove()); }
-      var mo = new MutationObserver(kill);
-      mo.observe(document.documentElement, { childList: true, subtree: true });
-      kill();
-      ['mousemove','touchmove','click'].forEach(type=>{
-        window.addEventListener(type, function noop(){}, { passive:true, capture:true });
-      });
-    })();
-  </script>
+<!-- Year updater -->
+<script nonce="r4nd0m">
+  const y = document.getElementById('year');
+  if (y) y.textContent = new Date().getFullYear();
+</script>
+  
 </body>
 </html>
 
