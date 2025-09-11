@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Thunderbird + Mailvelope — Private Email, Your Way</title>
+  <meta name="description" content="Use Thunderbird or Mailvelope to add end-to-end encryption (OpenPGP) to email, with practical defaults and no cloud lock-in." />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="canonical" href="https://thirddegreemedia.com/thunderbird-mailvelope.html" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Thunderbird + Mailvelope — Private Email, Your Way" />
+  <meta property="og:description" content="Open-source tools to encrypt/sign mail with OpenPGP. How to set up, exchange keys, and avoid common mistakes." />
+  <meta property="og:url" content="https://thirddegreemedia.com/thunderbird-mailvelope.html" />
+  <link rel="icon" href="/favicon.ico" />
+  <link rel="stylesheet" href="/style.css?v=5" />
+  <style>.lede{color:var(--muted)}.kbd{font-family:ui-monospace,Menlo,Consolas,monospace;background:#0f1115;border:1px solid #1b1f24;padding:.14rem .36rem;border-radius:6px}.stamp{font-size:.875rem;color:var(--muted)}</style>
+</head>
+<body>
+  <header role="banner">
+    <h1>Thunderbird + Mailvelope — Private Email, Your Way</h1>
+    <p class="lede">Open-source email with optional end-to-end encryption (OpenPGP). No accounts to buy, no vendor lock-in—just your keys and your messages.</p>
+    <p class="stamp">Updated: 2025-09-10</p>
+  </header>
+
+  <main id="main" role="main" tabindex="-1">
+    <section class="callout">
+      <h2>Why this stack</h2>
+      <ul>
+        <li><strong>Thunderbird</strong>: full-featured OSS email client with built-in OpenPGP.</li>
+        <li><strong>Mailvelope</strong>: browser extension to encrypt/decrypt inside webmail UIs.</li>
+        <li><strong>You control keys</strong>: generate, store, and back them up locally.</li>
+      </ul>
+    </section>
+
+    <section class="callout">
+      <h2>Set up in Thunderbird (simplest)</h2>
+      <ol>
+        <li>Add your mail account → <em>End-to-End Encryption</em> → <strong>Generate New Key</strong>.</li>
+        <li>Export your <strong>public key</strong> to share; keep the <strong>private key</strong> offline/backed up.</li>
+        <li>To mail someone privately: import their public key → compose → click the lock to encrypt/sign.</li>
+      </ol>
+      <p class="lede">Thunderbird handles OpenPGP natively—no extra add-ons needed.</p>
+    </section>
+
+    <section class="callout">
+      <h2>Webmail route (Mailvelope)</h2>
+      <ol>
+        <li>Install <strong>Mailvelope</strong> (Firefox/Chromium) → generate/import keys.</li>
+        <li>Open your webmail → compose → use the Mailvelope editor to encrypt.</li>
+      </ol>
+      <p class="lede">Great for people who live in webmail but want real crypto.</p>
+    </section>
+
+    <section class="callout">
+      <h2>Good hygiene</h2>
+      <ul>
+        <li>Use <strong>ed25519</strong> or RSA 3072+; set reasonable expiry and rotate keys over time.</li>
+        <li>Share public keys via multiple channels; verify fingerprints out-of-band.</li>
+        <li>Back up private keys + revocation cert to offline storage.</li>
+      </ul>
+    </section>
+
+    <section class="callout">
+      <h2>Get the tools</h2>
+      <ul>
+        <li><a href="https://www.thunderbird.net/" target="_blank" rel="noopener noreferrer">thunderbird.net</a></li>
+        <li><a href="https://www.mailvelope.com/" target="_blank" rel="noopener noreferrer">mailvelope.com</a></li>
+      </ul>
+    </section>
+
+    <nav class="callout" aria-label="Next reads">
+      <h2>Next up</h2>
+      <ul>
+        <li><a href="/keepassxc.html">KeePassXC — local passwords</a></li>
+        <li><a href="/syncthing.html">Syncthing — P2P sync</a></li>
+      </ul>
+    </nav>
+  </main>
+
+  <footer role="contentinfo">
+    <p>© <span id="year"></span> Third Degree Media™</p>
+    <script>(function(){var y=document.getElementById('year'); if(y) y.textContent=new Date().getFullYear();})();</script>
+  </footer>
+</body>
+</html>
