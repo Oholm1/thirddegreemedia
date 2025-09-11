@@ -1,181 +1,131 @@
-/* ===========================
-   Third Degree Media – style.css (v4)
-   Dark baseline + components
-   =========================== */
+/* ================================
+   Third Degree Media — Global CSS
+   Dark, lean, no third-party deps
+   ================================ */
 
-/* Theme tokens */
+/* Base reset-ish */
+*,
+*::before,
+*::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
 :root {
   color-scheme: dark;
-  --bg:#0b0b0c;
-  --fg:#e9e9ee;
-  --muted:#9aa0a6;
-  --card:#111216;
-  --border:#23262b;
-  --accent:#8ef0c0;
-
-  --radius: 12px;
-  --gap: 20px;
+  --bg: #0b0b0c;
+  --fg: #e9e9ee;
+  --muted: #9aa0a6;
+  --card: #111216;
+  --border: #23262b;
+  --accent: #ff6600;      /* headings, accents */
+  --link: #66ccff;
+  --link-hover: #ffcc00;
 }
 
-/* Base */
-html, body {
+/* Layout & typography */
+html, body { height: 100%; margin: 0; }
+body {
+  color: var(--fg);
   background: var(--bg);
-  color: var(--fg);
+  font: 16px/1.6 ui-monospace, "Courier New", monospace;
+  max-width: 70ch;
+  margin: 0 auto;          /* centers the column */
+  padding: 40px;
 }
 
-a { color: var(--accent); font-weight: 600; text-decoration: none; }
-a:hover { opacity: .9; text-decoration: underline; }
+/* Background grid as fixed layer (cheap to paint) */
+body::before{
+  content:"";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background: radial-gradient(rgba(255,255,255,.02) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
 
-img { max-width: 100%; height: auto; }
-hr { border: none; border-top: 1px dashed var(--border); }
+/* Headings, links */
+h1, h2 { color: var(--accent); line-height: 1.25; margin: 0 0 .5rem; }
+a { color: var(--link); font-weight: 700; text-decoration: none; }
+a:hover { color: var(--link-hover); text-decoration: underline; }
+a:focus-visible { outline: 2px dashed var(--accent); outline-offset: 2px; }
+:focus-visible { outline: 2px dashed var(--accent); outline-offset: 2px; }
 
-/* Containers */
+/* Sections / cards */
 section, article, .card, .panel {
-  background: transparent;
+  background: var(--card);
+  border: 1px dashed var(--border);
+  border-radius: 12px;
+  padding: 20px;
+  margin: 0 0 40px;
+  contain: layout paint; /* avoids page-wide repaints on hover */
+  transition: border-color .2s ease;
+}
+section:hover { border-color: var(--accent); }
+
+/* Callouts */
+.callout { /* same as section but explicit class for clarity */ }
+.callout-dark {
+  background: var(--card);
+  border: 1px dashed var(--border);
   color: var(--fg);
 }
+hr { border: none; border-top: 1px dashed var(--border); margin: 2rem 0; }
 
-/* Callouts (DARK by default) */
-.callout {
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 1.25rem;
-}
-
-/* Optional: a dashed variant (used for uBlock / Linux blocks) */
-.callout-dashed {
-  border-style: dashed;
-}
-
-/* Buttons */
-.donate-button {
-  display: inline-block;
-  background: #ff6600;
-  color: #fff;
-  padding: .6rem 1rem;
-  border-radius: var(--radius);
-  font-weight: 700;
-  text-decoration: none;
-}
-
-/* Code & forms */
+/* Lists, images, code */
+ul { padding-left: 1.1rem; }
+img { max-width: 100%; height: auto; }
 code, pre {
   background: #0f1115;
   color: var(--fg);
   border: 1px solid #1b1f24;
   border-radius: 8px;
-  padding: .25rem .4rem;
+  padding: .2rem .4rem;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 }
+pre { padding: .75rem 1rem; overflow: auto; }
 
-input, textarea, select {
-  background: #0f1115;
-  color: var(--fg);
-  border: 1px solid #1b1f24;
+/* Buttons */
+.donate-button {
+  background: var(--accent);
+  color: #111;
+  padding: .6rem 1rem;
   border-radius: 8px;
-  padding: .5rem .6rem;
+  font-weight: 700;
+  text-decoration: none;
+  display: inline-block;
 }
+.donate-button:hover { filter: brightness(1.05); }
+
+/* Footer */
+footer p { font-size: .9em; color: var(--muted); text-align: center; margin: .2rem 0; }
 
 /* Accessibility helpers */
-.sr-only {
-  position: absolute !important;
-  width: 1px; height: 1px;
-  padding: 0; margin: -1px;
-  overflow: hidden; clip: rect(0,0,0,0);
-  white-space: nowrap; border: 0;
-}
-
 .skip-link {
-  position: absolute; left: -9999px; top: auto;
-  width: 1px; height: 1px; overflow: hidden;
+  position: absolute; left: -9999px;
 }
 .skip-link:focus {
-  position: static; width: auto; height: auto;
-  padding: .5rem .75rem; background: #222; border-radius: 8px;
+  left: 16px; top: 16px; z-index: 10000;
+  background: var(--card); color: var(--fg);
+  padding: .5rem .75rem; border: 1px dashed var(--border); border-radius: 8px;
 }
 
-/* Lean Speed & Privacy badge styles (so you can remove inline badge CSS if you want) */
-:root {
-  --badge-bg: #0b0b0c;
-  --badge-fg: #e9e9ee;
-  --badge-accent: #8ef0c0;
-  --badge-muted: #8a8f98;
-  --badge-border: #22262b;
-}
-.lean-badge{
-  background:var(--badge-bg); color:var(--badge-fg);
-  border:1px dashed var(--badge-border); border-radius:14px;
-  padding:1.25rem 1.25rem 1rem; max-width:680px;
-  font:13.5px/1.45 ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;
-  box-shadow:0 1px 0 rgba(255,255,255,.04) inset, 0 6px 18px rgba(0,0,0,.25);
-}
-.lean-badge header{display:flex;align-items:center;gap:.6rem;margin-bottom:.6rem}
-.lean-badge .glyph{font-size:1.2rem}
-.lean-badge h3{margin:0;font-size:1rem;letter-spacing:.2px}
-.lean-badge .sub{color:var(--badge-muted);font-size:.85rem}
-.lean-badge .meters{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.5rem;margin:.75rem 0}
-.lean-badge .kpi{background:#111216;border:1px solid #1b1f24;border-radius:10px;padding:.6rem .7rem}
-.lean-badge .kpi .label{color:var(--badge-muted);font-size:.8rem;display:block}
-.lean-badge .kpi .value{font-variant-numeric:tabular-nums;font-weight:600}
-.lean-badge .pill{border:1px solid #1b1f24;background:#101217;border-radius:999px;padding:.28rem .6rem;font-size:.78rem;color:var(--badge-muted)}
-.lean-badge .truthy{color:var(--badge-accent);border-color:rgba(142,240,192,.6)}
-.lean-badge .falsy{color:#ff9c9c);border-color:rgba(255,122,122,.5)}
-.lean-badge .note{color:var(--badge-muted);font-size:.78rem;margin-left:auto}
-
-/* Hover glow for sections */
-section:hover { box-shadow: 0 0 10px rgba(255,102,0,.30); }
-
-/* Mobile tweaks */
+/* Small screens */
 @media (max-width: 600px) {
   body { padding: 20px; font-size: 1rem; line-height: 1.7; }
   header, footer { text-align: center; }
   h1, h2 { word-break: break-word; }
-  ul { padding-left: 1rem; }
-  section { padding: 15px; }
-  .donate-button { display:block; text-align:center; margin:1rem auto; }
+  a { display: inline-block; padding: .2rem .25rem; }
+  .donate-button { display: block; text-align: center; margin: 1rem auto; }
 }
 
-/* Safety net: neutralize explicit white backgrounds if any slipped in */
+/* Utility */
+.sr-only {
+  position: absolute !important; width: 1px; height: 1px;
+  padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0);
+  white-space: nowrap; border: 0;
+}
+
+/* TEMP safety: neutralize any explicit white backgrounds you might have */
 .bg-white, .white-bg, [style*="background:#fff"], [style*="background: #fff"] {
   background: var(--card) !important;
   color: var(--fg) !important;
 }
-
-/* 1) Make the badge its own paint island (prevents page-wide repaints) */
-.lean-badge {
-  contain: layout paint;      /* scope layout & paint to the badge */
-  isolation: isolate;         /* new stacking context */
-  will-change: transform;     /* hint for compositor */
-  transform: translateZ(0);   /* promote to its own layer */
-  box-shadow: none;           /* remove heavy outer shadow */
-}
-
-/* 2) Cheap, non-repainting hover for sections (kills the heavy glow) */
-section { 
-  border: 1px dashed #444; 
-  transition: border-color .2s ease; 
-  contain: layout paint;      /* each section paints itself only */
-}
-section:hover { 
-  box-shadow: none;           /* was causing big repaints */
-  border-color: #ff6600; 
-}
-
-/* 3) Isolate the background grid so it doesn't repaint with content */
-body { background:#111; position: relative; }
-body::before {
-  content: "";
-  position: fixed; inset: 0; z-index: -1;
-  background: radial-gradient(rgba(255,255,255,.02) 1px, transparent 1px);
-  background-size: 20px 20px;
-  will-change: transform;
-}
-/* If you kept any glow on the badge’s inner KPIs, make them cheap too */
-.lean-badge .kpi { box-shadow: none; filter: none; }
-
-<section class="callout" style="contain: layout paint; isolation: isolate;">
-  <!-- badge here -->
-  <div id="lean-badge" class="lean-badge" role="region" aria-label="Site speed and privacy badge" tabindex="0">…</div>
-</section>
-
 
