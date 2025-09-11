@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>OpenWrt — Take Back Your Router</title>
+  <meta name="description" content="Open-source firmware for many routers. Gain real control over your network: updates, packages, WireGuard, DNS filters, and more." />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="canonical" href="https://thirddegreemedia.com/openwrt.html" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="OpenWrt — Take Back Your Router" />
+  <meta property="og:description" content="Why OpenWrt, how to check device support safely, and first steps after flashing." />
+  <meta property="og:url" content="https://thirddegreemedia.com/openwrt.html" />
+  <link rel="icon" href="/favicon.ico" />
+  <link rel="stylesheet" href="/style.css?v=5" />
+  <style>.lede{color:var(--muted)}.kbd{font-family:ui-monospace,Menlo,Consolas,monospace;background:#0f1115;border:1px solid #1b1f24;padding:.14rem .36rem;border-radius:6px}.stamp{font-size:.875rem;color:var(--muted)}</style>
+</head>
+<body>
+  <header role="banner">
+    <h1>OpenWrt — Take Back Your Router</h1>
+    <p class="lede">Open-source firmware that turns supported routers into capable, secure devices with real updates, packages, and control.</p>
+    <p class="stamp">Updated: 2025-09-10</p>
+  </header>
+
+  <main id="main" role="main" tabindex="-1">
+    <section class="callout">
+      <h2>Why OpenWrt</h2>
+      <ul>
+        <li><strong>Security & updates</strong> beyond many stock firmwares.</li>
+        <li><strong>Packages</strong>: WireGuard, AdGuard Home, DHCP/DNS tweaks, VLANs, SQM QoS.</li>
+        <li><strong>Transparency</strong>: no hidden telemetry; full logs and config control.</li>
+      </ul>
+    </section>
+
+    <section class="callout">
+      <h2>Check device support (before anything)</h2>
+      <ol>
+        <li>Find your exact router model/revision and hardware version.</li>
+        <li>Look it up on the official OpenWrt Table of Hardware.</li>
+        <li>Follow the <strong>device-specific</strong> install instructions: image type, recovery path, and revert method.</li>
+      </ol>
+      <p class="lede">Flash at your own risk; read twice, flash once.</p>
+    </section>
+
+    <section class="callout">
+      <h2>First steps after flashing</h2>
+      <ul>
+        <li>Set a strong admin password; disable remote admin from WAN.</li>
+        <li>Update packages: <span class="kbd">opkg update</span> then install what you need.</li>
+        <li>Set DNS (e.g., local Unbound/AdGuard Home) and enable HTTPS for LuCI if supported.</li>
+      </ul>
+    </section>
+
+    <section class="callout">
+      <h2>Add WireGuard (quick sketch)</h2>
+      <ol>
+        <li>Install packages: <span class="kbd">opkg install wireguard-tools luci-app-wireguard</span></li>
+        <li>Create keys, add an interface and a peer, open UDP port as needed.</li>
+        <li>Route specific subnets or full-tunnel as you prefer.</li>
+      </ol>
+    </section>
+
+    <section class="callout">
+      <h2>Get OpenWrt</h2>
+      <ul>
+        <li><a href="https://openwrt.org/" target="_blank" rel="noopener noreferrer">openwrt.org</a></li>
+        <li><a href="https://openwrt.org/toh/start" target="_blank" rel="noopener noreferrer">Table of Hardware</a></li>
+      </ul>
+    </section>
+
+    <nav class="callout" aria-label="Next reads">
+      <h2>Next up</h2>
+      <ul>
+        <li><a href="/adguard-home.html">AdGuard Home — DNS filtering</a></li>
+        <li><a href="/pi-hole.html">Pi-hole — DNS-level blocking</a></li>
+      </ul>
+    </nav>
+  </main>
+
+  <footer role="contentinfo">
+    <p>© <span id="year"></span> Third Degree Media™</p>
+    <script>(function(){var y=document.getElementById('year'); if(y) y.textContent=new Date().getFullYear();})();</script>
+  </footer>
+</body>
+</html>
