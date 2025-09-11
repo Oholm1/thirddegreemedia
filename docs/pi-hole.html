@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Pi-hole — DNS-Level Ad & Tracker Blocking for Your Network</title>
+  <meta name="description" content="Run Pi-hole on a Raspberry Pi or any Linux box to block ads and trackers for every device on your network. What it does, how to install, and safe defaults." />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="canonical" href="https://thirddegreemedia.com/pi-hole.html" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Pi-hole — DNS-Level Ad & Tracker Blocking for Your Network" />
+  <meta property="og:description" content="A DNS sinkhole for your whole LAN. Simple setup, powerful results—no browser extensions required on each device." />
+  <meta property="og:url" content="https://thirddegreemedia.com/pi-hole.html" />
+  <link rel="icon" href="/favicon.ico" />
+  <link rel="stylesheet" href="/style.css?v=5" />
+  <style>
+    .lede{color:var(--muted)}
+    .kbd{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;background:#0f1115;border:1px solid #1b1f24;padding:.14rem .36rem;border-radius:6px}
+    .stamp{font-size:.875rem;color:var(--muted)}
+    code{white-space:pre-wrap}
+  </style>
+</head>
+<body>
+  <header role="banner">
+    <h1>Pi-hole — DNS-Level Ad & Tracker Blocking for Your Network</h1>
+    <p class="lede">A local DNS sinkhole that blocks ad/tracker domains for <em>every</em> device on your LAN—phones, TVs, consoles—without installing extensions on each.</p>
+    <p class="stamp">Updated: 2025-09-10</p>
+  </header>
+
+  <main id="main" role="main" tabindex="-1">
+    <section class="callout">
+      <h2>How it works</h2>
+      <ul>
+        <li><strong>DNS sinkhole</strong>: when a device asks for a known ad/tracker domain, Pi-hole returns <span class="kbd">0.0.0.0</span> instead of the real IP.</li>
+        <li><strong>Centralized control</strong>: one dashboard for blocklists, allowlists, stats.</li>
+        <li><strong>Applies to everything</strong>: any device that uses your Pi-hole as DNS benefits automatically.</li>
+      </ul>
+    </section>
+
+    <section class="callout">
+      <h2>Install (Raspberry Pi or Linux box)</h2>
+      <p>Run the official installer:</p>
+      <pre><code>curl -sSL https://install.pi-hole.net | bash</code></pre>
+      <p class="lede">Set a static LAN IP for the machine first. After install, the web UI is usually at <span class="kbd">http://pi.hole/admin</span> or <span class="kbd">http://&lt;your-pi-ip&gt;/admin</span>.</p>
+    </section>
+
+    <section class="callout">
+      <h2>Point devices at it</h2>
+      <ul>
+        <li><strong>Best:</strong> set your router’s LAN DNS to your Pi-hole’s IP (affects all clients).</li>
+        <li><strong>Or per device:</strong> set DNS manually on a computer/phone to your Pi-hole IP.</li>
+      </ul>
+    </section>
+
+    <section class="callout">
+      <h2>Recommended settings</h2>
+      <ul>
+        <li>Keep the <strong>default blocklists</strong>; add one good consolidated list (e.g., OISD) if you want more coverage.</li>
+        <li>Enable <strong>Query Logging: Anonymous</strong> if you don’t want per-client logs.</li>
+        <li>(Optional) Run a <strong>local upstream resolver</strong> like <em>Unbound</em> and point Pi-hole at <span class="kbd">127.0.0.1#5335</span> for privacy.</li>
+        <li>Use the <strong>Group Management → Domains</strong> to allowlist anything that breaks (rare).</li>
+      </ul>
+    </section>
+
+    <section class="callout">
+      <h2>Verify it’s working</h2>
+      <ol>
+        <li>Visit the Pi-hole dashboard → confirm queries and “blocked” counters change as you browse.</li>
+        <li>On a client device, run <span class="kbd">nslookup doubleclick.net</span> and confirm it resolves to <span class="kbd">0.0.0.0</span>.</li>
+      </ol>
+    </section>
+
+    <section class="callout">
+      <h2>Get Pi-hole</h2>
+      <ul>
+        <li><a href="https://pi-hole.net/" target="_blank" rel="noopener noreferrer">pi-hole.net</a></li>
+        <li><a href="https://github.com/pi-hole/pi-hole" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+      </ul>
+      <p class="lede">Disclosure: not affiliated.</p>
+    </section>
+
+    <nav class="callout" aria-label="Next reads">
+      <h2>Next up</h2>
+      <ul>
+        <li><a href="/librewolf.html">LibreWolf — Firefox, hardened</a></li>
+        <li><a href="/ublock-origin.html">uBlock Origin — network-level blocking</a></li>
+      </ul>
+    </nav>
+  </main>
+
+  <footer role="contentinfo">
+    <p>© <span id="year"></span> Third Degree Media™</p>
+    <script>(function(){var y=document.getElementById('year'); if(y) y.textContent=new Date().getFullYear();})();</script>
+  </footer>
+</body>
+</html>
