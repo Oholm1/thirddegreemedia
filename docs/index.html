@@ -107,6 +107,213 @@
   .tdm-link{display:inline-block;padding:.6rem 0;text-decoration:underline}
 </style>
 
+  <!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Codex Tabs – Drop‑in Component</title>
+  <style>
+    :root {
+      --bg: #0b0c10;
+      --fg: #e8e8ea;
+      --muted: #a6a6ad;
+      --accent: #6ee7b7; /* minty pine */
+      --ring: rgba(110, 231, 183, 0.45);
+      --card: #121318;
+      --border: #23242c;
+    }
+    @media (prefers-color-scheme: light) {
+      :root { --bg:#ffffff; --fg:#0b0c10; --muted:#3f3f46; --card:#f8fafc; --border:#e5e7eb; --accent:#047857; --ring:rgba(16,185,129,.25); }
+    }
+    html, body { height: 100%; }
+    body {
+      margin: 0; font: 16px/1.6 system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, sans-serif;
+      background: var(--bg); color: var(--fg);
+      display: grid; place-items: start center; padding: 2rem;
+    }
+    .codex {
+      width: min(1100px, 100%);
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0,0,0,.25);
+      overflow: clip;
+    }
+
+    /* Tablist */
+    .tabs {
+      display: flex; flex-wrap: wrap; gap: .25rem; padding: .5rem; background: transparent; border-bottom: 1px solid var(--border);
+    }
+    .tab {
+      -webkit-appearance: none; appearance: none;
+      border: 0; background: transparent; color: var(--muted);
+      padding: .75rem 1rem; border-radius: 10px; cursor: pointer; font-weight: 600;
+    }
+    .tab[aria-selected="true"] { color: var(--fg); background: linear-gradient(0deg, rgba(110,231,183,.1), rgba(110,231,183,.06)); }
+    .tab:focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; }
+
+    /* Panels */
+    .panels { padding: 1rem; }
+    .panel { display: none; padding: 1rem; }
+    .panel[aria-hidden="false"] { display: block; }
+
+    /* Card grid inside panels */
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1rem; }
+    .card { border: 1px solid var(--border); background: rgba(255,255,255,.02); border-radius: 12px; padding: 1rem; }
+    .card h3 { margin: 0 0 .5rem; font-size: 1rem; }
+    .card p { margin: 0 0 .5rem; color: var(--muted); }
+    .card a { color: var(--accent); text-decoration: none; font-weight: 600; }
+
+    /* Small screens: tabs become scrollable */
+    .tabs { overflow-x: auto; scrollbar-width: thin; }
+
+    /* Optional: sticky tabs */
+    .sticky { position: sticky; top: 0; z-index: 10; backdrop-filter: blur(6px); background: color-mix(in oklab, var(--card) 85%, transparent); }
+
+    /* Progressive enhancement: show everything if JS is off */
+    noscript .panel { display: block; }
+  </style>
+</head>
+<body>
+  <main class="codex" id="codex">
+    <div class="tabs sticky" role="tablist" aria-label="Codex Sections">
+      <button class="tab" role="tab" id="tab-privacy" aria-controls="panel-privacy" aria-selected="true">Privacy Toolkit</button>
+      <button class="tab" role="tab" id="tab-webdev" aria-controls="panel-webdev" aria-selected="false">Web Dev Snippets</button>
+      <button class="tab" role="tab" id="tab-dns" aria-controls="panel-dns" aria-selected="false">DNS / Email Guides</button>
+      <button class="tab" role="tab" id="tab-lore" aria-controls="panel-lore" aria-selected="false">Lore & Notes</button>
+    </div>
+
+    <section class="panels">
+      <section id="panel-privacy" class="panel" role="tabpanel" aria-labelledby="tab-privacy" aria-hidden="false">
+        <div class="grid">
+          <article class="card">
+            <h3>Mullvad Browser + VPN</h3>
+            <p>Tracker-free browsing and simple, no‑log VPN. Quickstart with safety defaults.</p>
+            <a href="#" target="_blank" rel="noopener">View Guide</a>
+          </article>
+          <article class="card">
+            <h3>uBlock Origin + Privacy Badger</h3>
+            <p>Harden ad/tracker blocking, cosmetic filters, and per‑site rulesets.</p>
+            <a href="#" target="_blank" rel="noopener">Setup Steps</a>
+          </article>
+          <article class="card">
+            <h3>Tor: Safer Defaults</h3>
+            <p>Safer mode, circuit basics, what not to do, and onion service tips.</p>
+            <a href="#" target="_blank" rel="noopener">Read Notes</a>
+          </article>
+        </div>
+      </section>
+
+      <section id="panel-webdev" class="panel" role="tabpanel" aria-labelledby="tab-webdev" aria-hidden="true">
+        <div class="grid">
+          <article class="card">
+            <h3>Comet Trail Animation</h3>
+            <p>Lightweight JS/CSS trail effect with perf‑friendly pooling.</p>
+            <a href="#" target="_blank" rel="noopener">Code Snippet</a>
+          </article>
+          <article class="card">
+            <h3>Accessible Skip Links</h3>
+            <p>Jump to content with keyboard semantics and focus styles.</p>
+            <a href="#" target="_blank" rel="noopener">Add to Base</a>
+          </article>
+          <article class="card">
+            <h3>JSON‑LD Templates</h3>
+            <p>Website + Person schema blocks for cleaner SEO without trackers.</p>
+            <a href="#" target="_blank" rel="noopener">Templates</a>
+          </article>
+        </div>
+      </section>
+
+      <section id="panel-dns" class="panel" role="tabpanel" aria-labelledby="tab-dns" aria-hidden="true">
+        <div class="grid">
+          <article class="card">
+            <h3>Proton Mail MX Records</h3>
+            <p>MX + SPF + DKIM + DMARC checklist for Proton + custom domain.</p>
+            <a href="#" target="_blank" rel="noopener">Checklist</a>
+          </article>
+          <article class="card">
+            <h3>DNS Hygiene</h3>
+            <p>Registrar vs. host, nameservers, and minimal‑tracking defaults.</p>
+            <a href="#" target="_blank" rel="noopener">Guide</a>
+          </article>
+        </div>
+      </section>
+
+      <section id="panel-lore" class="panel" role="tabpanel" aria-labelledby="tab-lore" aria-hidden="true">
+        <div class="grid">
+          <article class="card">
+            <h3>Pine‑Privacy Manifesto</h3>
+            <p>Your short credo: sovereign tech, no trackers, clean code.</p>
+            <a href="#" target="_blank" rel="noopener">Read</a>
+          </article>
+          <article class="card">
+            <h3>Changelog / Field Notes</h3>
+            <p>Chronicle builds, wins, and oddities; auto‑generates release notes.</p>
+            <a href="#" target="_blank" rel="noopener">View</a>
+          </article>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <script>
+    // Accessible Tabs with hash-deeplinking and keyboard support
+    (function () {
+      const tablist = document.querySelector('[role="tablist"]');
+      const tabs = Array.from(tablist.querySelectorAll('[role="tab"]'));
+      const panels = tabs.map(t => document.getElementById(t.getAttribute('aria-controls')));
+
+      function selectTab(idx, push = true) {
+        tabs.forEach((t, i) => {
+          const selected = i === idx;
+          t.setAttribute('aria-selected', String(selected));
+          t.tabIndex = selected ? 0 : -1;
+          panels[i].setAttribute('aria-hidden', String(!selected));
+        });
+        if (push) {
+          const id = tabs[idx].id.replace('tab-', '');
+          const hash = `#${id}`;
+          // Avoid scrolling jump
+          history.replaceState(null, '', hash);
+        }
+      }
+
+      // Click handling
+      tabs.forEach((tab, i) => tab.addEventListener('click', () => selectTab(i)));
+
+      // Keyboard handling (Arrow keys / Home / End)
+      tablist.addEventListener('keydown', (e) => {
+        const current = tabs.findIndex(t => t.getAttribute('aria-selected') === 'true');
+        let next = current;
+        if (e.key === 'ArrowRight') next = (current + 1) % tabs.length;
+        else if (e.key === 'ArrowLeft') next = (current - 1 + tabs.length) % tabs.length;
+        else if (e.key === 'Home') next = 0;
+        else if (e.key === 'End') next = tabs.length - 1;
+        else return;
+        e.preventDefault();
+        tabs[next].focus();
+        selectTab(next);
+      });
+
+      // Hash deep-linking (e.g., /codex.html#dns)
+      function initFromHash() {
+        const hash = location.hash.replace('#','');
+        if (!hash) return;
+        const idx = tabs.findIndex(t => t.id === `tab-${hash}`);
+        if (idx >= 0) selectTab(idx, false);
+      }
+
+      window.addEventListener('hashchange', initFromHash);
+      initFromHash();
+    })();
+  </script>
+
+  <noscript>
+    <style>.panel{display:block!important}</style>
+  </noscript>
+</body>
+</html>
 
   <!-- START: page content -->
   <main id="main" role="main" tabindex="-1">
