@@ -2,46 +2,11 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Digital LBRP — Auto Ritual</title>
-  <style>
-    :root{
-      --bg:#0b0f14; --fg:#d7e3ff; --muted:#9ab0ff; --accent:#6aa7ff; --fire:#ff7a66; --water:#7bb7ff; --air:#ffd86a; --earth:#88d47a;
-      --glow:0 0 12px rgba(130,170,255,.8), 0 0 28px rgba(90,140,255,.6);
-    }
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{margin:0;background:radial-gradient(1200px 800px at 50% 60%, #0e1420 30%, #070a0f 80%);color:var(--fg);font:16px/1.45 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,sans-serif;}
-    .wrap{display:grid;grid-template-rows:auto 1fr auto;min-height:100%}
-    header{display:flex;gap:.75rem;align-items:center;justify-content:space-between;padding:.8rem 1rem;border-bottom:1px solid rgba(255,255,255,.08);backdrop-filter:saturate(140%) blur(6px);position:sticky;top:0}
-    .title{font-weight:700;letter-spacing:.3px}
-    .controls{display:flex;gap:.75rem;align-items:center}
-    button,select,input[type="range"]{appearance:none;background:#101624;border:1px solid rgba(255,255,255,.12);color:var(--fg);padding:.5rem .75rem;border-radius:.65rem;cursor:pointer}
-    button:hover{border-color:rgba(255,255,255,.2)}
-    button[disabled]{opacity:.5;cursor:not-allowed}
-    main{display:grid;grid-template-columns: 280px 1fr;gap:1rem;padding:1rem}
-    aside{border:1px solid rgba(255,255,255,.08);border-radius:1rem;padding:1rem;background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.01));}
-    #log{height:160px;overflow:auto;border:1px dashed rgba(255,255,255,.15);border-radius:.75rem;padding:.5rem;background:rgba(0,0,0,.18)}
-    .screen{position:relative;border:1px solid rgba(255,255,255,.08);border-radius:1rem;overflow:hidden;background:radial-gradient(800px 500px at 50% 70%, rgba(50,70,110,.25), rgba(20,25,35,.25)),
-            radial-gradient(1200px 700px at 50% 50%, rgba(120,150,255,.08), transparent)}
-    svg{display:block;width:100%;height:72vh}
-    .hud{position:absolute;inset:0;pointer-events:none}
-    .hud .label{position:absolute;padding:.25rem .5rem;border-radius:.5rem;background:rgba(0,0,0,.35);border:1px solid rgba(255,255,255,.15);backdrop-filter:blur(4px);font-size:.85rem}
-    .label.east{top:8px;left:50%;transform:translateX(-50%)}
-    .label.south{right:8px;top:50%;transform:translateY(-50%)}
-    .label.west{bottom:8px;left:50%;transform:translateX(-50%)}
-    .label.north{left:8px;top:50%;transform:translateY(-50%)}
-    .status{position:absolute;bottom:10px;right:10px;font-size:.8rem;opacity:.8}
-
-    .chant{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);font-weight:700;font-size: clamp(18px, 4vw, 44px);letter-spacing:.06em;text-shadow:var(--glow);opacity:0}
-    .sigil{filter:drop-shadow(0 0 6px rgba(120,160,255,.7));}
-    .pentagram{stroke:var(--accent);stroke-width:3;fill:none;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(0 0 6px rgba(120,160,255,.7));}
-    .circle{stroke:rgba(140,170,255,.5);stroke-width:2;fill:none}
-    .archangel{font-size:clamp(12px, 2.5vw, 24px);opacity:.0}
-    .archangel .name{font-weight:700}
-    footer{padding:1rem;text-align:center;color:#9bb}
-    .small{font-size:.85rem;opacity:.85}
-  </style>
+  <!-- Optional: keep search engines from indexing -->
+  <meta name="robots" content="noindex,nofollow">
+  <link rel="stylesheet" href="./lbrp.css">
 </head>
 <body>
   <div class="wrap">
@@ -72,6 +37,7 @@
         <div id="log" class="small"></div>
         <p class="small">Tips: Space = Start/Pause · → Next · ← Back</p>
       </aside>
+
       <section class="screen">
         <svg id="stage" viewBox="-300 -240 600 480" aria-label="ritual stage" role="img">
           <defs>
@@ -98,224 +64,13 @@
     </main>
 
     <footer>
-      <div class="small">This is a symbolic/meditative animation inspired by the Lesser Banishing Ritual of the Pentagram. Use or adapt as you like. — v1.0</div>
+      <div class="small">
+        This is a symbolic/meditative animation inspired by the Lesser Banishing Ritual of the Pentagram. 
+        Use or adapt as you like. — v1.0
+      </div>
     </footer>
   </div>
 
-<script>
-(function(){
-  const stage = document.getElementById('stage');
-  const layerBase = document.getElementById('layer-base');
-  const layerDraw = document.getElementById('layer-draw');
-  const layerOverlay = document.getElementById('layer-overlay');
-  const chantEl = document.getElementById('chant');
-  const statusEl = document.getElementById('status');
-  const logEl = document.getElementById('log');
-  const stepsList = document.getElementById('steps');
-  const btnStart = document.getElementById('btnStart');
-  const btnPause = document.getElementById('btnPause');
-  const btnReset = document.getElementById('btnReset');
-  const speedCtl = document.getElementById('speed');
-  const muteCtl = document.getElementById('mute');
-
-  let playing = false;
-  let idx = 0;
-  let speed = 1;
-  let cancelNext = null;
-
-  function log(msg){ const t = new Date().toLocaleTimeString(); logEl.innerHTML += `[${t}] ${msg}<br>`; logEl.scrollTop = logEl.scrollHeight; }
-  function setStatus(msg){ statusEl.textContent = msg; }
-  function sleep(ms){ return new Promise(r=> setTimeout(r, ms / speed)); }
-
-  // Simple audio beeps via WebAudio
-  const audioCtx = new (window.AudioContext || window.webkitAudioContext || function(){})();
-  function beep(freq=440, dur=200, type='sine', gain=0.06){
-    if (!audioCtx || muteCtl.checked) return;
-    const o = audioCtx.createOscillator();
-    const g = audioCtx.createGain();
-    o.type = type; o.frequency.value = freq; o.connect(g);
-    g.connect(audioCtx.destination); g.gain.value = gain;
-    o.start(); setTimeout(()=>{ o.stop(); }, dur / speed);
-  }
-
-  // Geometry helpers
-  function polar(r, ang){ return [r*Math.cos(ang), r*Math.sin(ang)]; }
-  function starPath(R=120){
-    // 5-point star (pentagram) using typical banishing order start at lower left to top
-    const pts = [];
-    for(let i=0;i<5;i++){
-      const a = (-Math.PI/2) + i * (2*Math.PI/5); // outer points
-      pts.push(polar(R, a));
-    }
-    // order for a star (every 2nd point)
-    const order = [1,4,2,0,3]; // start at lower-leftish visually
-    const seq = order.map(i=>pts[i]);
-    let d = `M ${seq[0][0]} ${seq[0][1]}`;
-    for(let i=1;i<seq.length;i++){ d += ` L ${seq[i][0]} ${seq[i][1]}`; }
-    d += ` Z`;
-    return d;
-  }
-
-  function drawCircle(r=160){
-    const c = document.createElementNS('http://www.w3.org/2000/svg','circle');
-    c.setAttribute('class','circle'); c.setAttribute('cx','0'); c.setAttribute('cy','0'); c.setAttribute('r', r);
-    return c;
-  }
-
-  function pathEl(d){ const p = document.createElementNS('http://www.w3.org/2000/svg','path'); p.setAttribute('d', d); p.setAttribute('class','pentagram'); p.setAttribute('filter','url(#glow)'); return p; }
-
-  async function animateStroke(el, ms=1400){
-    const len = el.getTotalLength();
-    el.style.strokeDasharray = len;
-    el.style.strokeDashoffset = len;
-    el.getBoundingClientRect();
-    el.style.transition = `stroke-dashoffset ${ms/speed}ms ease-in-out`;
-    el.style.strokeDashoffset = '0';
-    await sleep(ms + 60);
-  }
-
-  async function flashChant(text, color='var(--muted)', ms=1200){
-    chantEl.textContent = text; chantEl.style.color = color; chantEl.style.opacity = 0;
-    chantEl.animate([{opacity:0, transform:'translate(-50%,-50%) scale(.95)'},{opacity:1, transform:'translate(-50%,-50%) scale(1)'},{opacity:0}], {duration: ms/speed, easing:'ease-in-out'});
-    beep(392, 180, 'sine'); await sleep(ms);
-  }
-
-  async function qabalisticCross(open=true){
-    setStatus(open? 'Centering — Qabalistic Cross' : 'Closing — Qabalistic Cross');
-    log(open? 'Qabalistic Cross (opening)' : 'Qabalistic Cross (closing)');
-    layerDraw.innerHTML = '';
-    // vertical + horizontal beams
-    const v = document.createElementNS('http://www.w3.org/2000/svg','line');
-    v.setAttribute('x1','0'); v.setAttribute('x2','0'); v.setAttribute('y1','-140'); v.setAttribute('y2','140');
-    const h = document.createElementNS('http://www.w3.org/2000/svg','line');
-    h.setAttribute('x1','-180'); h.setAttribute('x2','180'); h.setAttribute('y1','0'); h.setAttribute('y2','0');
-    for(const el of [v,h]){ el.setAttribute('stroke','var(--accent)'); el.setAttribute('stroke-width','6'); el.setAttribute('opacity','0.85'); el.setAttribute('filter','url(#glow)'); }
-    layerDraw.appendChild(v); layerDraw.appendChild(h);
-
-    await flashChant('Ateh (For Thine)');
-    await flashChant('Malkuth (The Kingdom)');
-    await flashChant('Ve-Geburah (The Power)');
-    await flashChant('Ve-Gedulah (The Glory)');
-    await flashChant('Le-Olam, Amen (Forever)');
-
-    v.remove(); h.remove();
-  }
-
-  async function banish(direction){
-    const map = {
-      east: { name: 'YHVH', color:'var(--air)', angle:0 },
-      south:{ name: 'ADONAI', color:'var(--fire)', angle:90 },
-      west: { name: 'EHEIEH', color:'var(--water)', angle:180 },
-      north:{ name: 'AGLA', color:'var(--earth)', angle:270 }
-    };
-    const cfg = map[direction];
-    setStatus(`Banishing — ${direction.toUpperCase()} (${cfg.name})`);
-    log(`Pentagram ${direction} — ${cfg.name}`);
-
-    layerDraw.innerHTML = '';
-    const circle = drawCircle(160); layerDraw.appendChild(circle);
-    const p = pathEl(starPath(120)); p.style.stroke = getComputedStyle(document.documentElement).getPropertyValue('--accent');
-    layerDraw.appendChild(p);
-
-    // Rotate the whole drawing group to face direction
-    const group = document.createElementNS('http://www.w3.org/2000/svg','g');
-    group.appendChild(circle); group.appendChild(p);
-    layerDraw.innerHTML = ''; layerDraw.appendChild(group);
-    group.setAttribute('transform', `rotate(${cfg.angle})`);
-
-    beep(523, 120, 'sine'); await animateStroke(p, 1500);
-    await flashChant(cfg.name, cfg.color, 1400);
-    await sleep(250);
-  }
-
-  async function archangels(){
-    setStatus('Archangels'); log('Archangels called'); layerDraw.innerHTML = '';
-    const angels = [
-      {label:'Before me', name:'RAPHAEL', x:0, y:-180, color:'var(--air)'},
-      {label:'Behind me', name:'GABRIEL', x:0, y:180, color:'var(--water)'},
-      {label:'On my right', name:'MICHAEL', x:180, y:0, color:'var(--fire)'},
-      {label:'On my left', name:'URIEL', x:-180, y:0, color:'var(--earth)'}
-    ];
-    for(const a of angels){
-      const g = document.createElementNS('http://www.w3.org/2000/svg','g');
-      g.setAttribute('class','archangel'); g.setAttribute('transform',`translate(${a.x},${a.y})`);
-      const halo = document.createElementNS('http://www.w3.org/2000/svg','circle');
-      halo.setAttribute('r','26'); halo.setAttribute('fill','none'); halo.setAttribute('stroke', a.color); halo.setAttribute('stroke-width','3');
-      const txt1 = document.createElementNS('http://www.w3.org/2000/svg','text');
-      txt1.setAttribute('y','-34'); txt1.setAttribute('text-anchor','middle'); txt1.setAttribute('fill', a.color); txt1.textContent = a.label;
-      const txt2 = document.createElementNS('http://www.w3.org/2000/svg','text');
-      txt2.setAttribute('y','6'); txt2.setAttribute('text-anchor','middle'); txt2.setAttribute('fill', a.color); txt2.setAttribute('class','name'); txt2.textContent = a.name;
-      g.appendChild(halo); g.appendChild(txt1); g.appendChild(txt2);
-      layerDraw.appendChild(g);
-
-      g.animate([{opacity:0, transform:`translate(${a.x}px,${a.y}px) scale(.7)`},{opacity:1, transform:`translate(${a.x}px,${a.y}px) scale(1)`}], {duration: 600/speed, easing:'ease-out'});
-      beep(440, 120, 'triangle'); await sleep(320);
-    }
-    await flashChant('For about me flames the Pentagram', 'var(--muted)', 1400);
-    await flashChant('Within me shines the Six-Rayed Star', 'var(--muted)', 1400);
-
-    // draw a simple hexagram
-    const hex = document.createElementNS('http://www.w3.org/2000/svg','path');
-    const r = 70; const a60 = Math.PI/3; const pts = [];
-    for(let i=0;i<6;i++){ pts.push(polar(r, -Math.PI/2 + i*a60)); }
-    // two triangles
-    const tri1 = `M ${pts[0][0]} ${pts[0][1]} L ${pts[2][0]} ${pts[2][1]} L ${pts[4][0]} ${pts[4][1]} Z`;
-    const tri2 = `M ${pts[1][0]} ${pts[1][1]} L ${pts[3][0]} ${pts[3][1]} L ${pts[5][0]} ${pts[5][1]} Z`;
-    hex.setAttribute('d', tri1 + ' ' + tri2);
-    hex.setAttribute('class','pentagram');
-    layerDraw.appendChild(hex);
-    await animateStroke(hex, 1200);
-  }
-
-  const program = [
-    () => qabalisticCross(true),
-    () => banish('east'),
-    () => banish('south'),
-    () => banish('west'),
-    () => banish('north'),
-    () => archangels(),
-    () => qabalisticCross(false)
-  ];
-
-  async function run(){
-    playing = true; btnStart.disabled = true; btnPause.disabled = false; btnReset.disabled = false; setStatus('Running…');
-    while (playing && idx < program.length){
-      // highlight step
-      [...stepsList.querySelectorAll('li')].forEach((li,i)=> li.style.color = i===idx? 'var(--accent)' : '');
-      try{
-        await program[idx]();
-      }catch(e){ console.error(e); log('Error: '+e.message); }
-      idx++;
-      if (!playing) break;
-      await sleep(500);
-    }
-    if (idx >= program.length){ setStatus('Complete'); log('Ritual complete ✧'); playing=false; btnStart.disabled=false; btnPause.disabled=true; }
-  }
-
-  function reset(){ idx=0; playing=false; layerDraw.innerHTML=''; chantEl.textContent=''; setStatus('Ready'); [...stepsList.querySelectorAll('li')].forEach(li=> li.style.color=''); }
-
-  btnStart.addEventListener('click', ()=>{ if (!playing){ run(); } });
-  btnPause.addEventListener('click', ()=>{ playing=false; btnStart.disabled=false; btnPause.disabled=true; setStatus('Paused'); log('Paused'); });
-  btnReset.addEventListener('click', ()=>{ reset(); btnReset.disabled=true; btnPause.disabled=true; btnStart.disabled=false; log('Reset'); });
-  speedCtl.addEventListener('input', e=>{ speed = parseFloat(e.target.value || '1'); setStatus(`Speed ×${speed.toFixed(1)}`); });
-
-  document.addEventListener('keydown', (e)=>{
-    if (e.code==='Space'){ e.preventDefault(); if (!playing) run(); else { playing=false; setStatus('Paused'); btnStart.disabled=false; btnPause.disabled=true; } }
-    if (e.code==='ArrowRight'){ playing=false; btnStart.disabled=false; btnPause.disabled=true; if (idx < program.length-1){ idx++; log('Step >>'); } }
-    if (e.code==='ArrowLeft'){ playing=false; btnStart.disabled=false; btnPause.disabled=true; if (idx > 0){ idx--; log('Step <<'); } }
-  });
-
-  // Seed base circle grid
-  function grid(){
-    const g = document.createElementNS('http://www.w3.org/2000/svg','g'); g.setAttribute('opacity','.25');
-    const rings=[60,120,180]; rings.forEach(r=> g.appendChild(drawCircle(r)));
-    // axes
-    const ax = document.createElementNS('http://www.w3.org/2000/svg','path'); ax.setAttribute('d','M -260 0 L 260 0 M 0 -200 L 0 200'); ax.setAttribute('stroke','rgba(150,170,220,.4)'); ax.setAttribute('stroke-width','1'); ax.setAttribute('stroke-dasharray','4 6'); g.appendChild(ax);
-    layerBase.appendChild(g);
-  }
-  grid();
-
-})();
-</script>
+  <script src="./lbrp.js" defer></script>
 </body>
 </html>
