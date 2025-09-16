@@ -1,0 +1,43 @@
+I’ll split the big file into three clean parts for you. First up — here’s the **`lbrp.css`** (all the `<style>` block extracted):
+
+```css
+:root{
+  --bg:#0b0f14; --fg:#d7e3ff; --muted:#9ab0ff; --accent:#6aa7ff; --fire:#ff7a66; --water:#7bb7ff; --air:#ffd86a; --earth:#88d47a;
+  --glow:0 0 12px rgba(130,170,255,.8), 0 0 28px rgba(90,140,255,.6);
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;background:radial-gradient(1200px 800px at 50% 60%, #0e1420 30%, #070a0f 80%);color:var(--fg);font:16px/1.45 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,sans-serif;}
+.wrap{display:grid;grid-template-rows:auto 1fr auto;min-height:100%}
+header{display:flex;gap:.75rem;align-items:center;justify-content:space-between;padding:.8rem 1rem;border-bottom:1px solid rgba(255,255,255,.08);backdrop-filter:saturate(140%) blur(6px);position:sticky;top:0}
+.title{font-weight:700;letter-spacing:.3px}
+.controls{display:flex;gap:.75rem;align-items:center}
+button,select,input[type="range"]{appearance:none;background:#101624;border:1px solid rgba(255,255,255,.12);color:var(--fg);padding:.5rem .75rem;border-radius:.65rem;cursor:pointer}
+button:hover{border-color:rgba(255,255,255,.2)}
+button[disabled]{opacity:.5;cursor:not-allowed}
+main{display:grid;grid-template-columns: 280px 1fr;gap:1rem;padding:1rem}
+aside{border:1px solid rgba(255,255,255,.08);border-radius:1rem;padding:1rem;background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.01));}
+#log{height:160px;overflow:auto;border:1px dashed rgba(255,255,255,.15);border-radius:.75rem;padding:.5rem;background:rgba(0,0,0,.18)}
+.screen{position:relative;border:1px solid rgba(255,255,255,.08);border-radius:1rem;overflow:hidden;background:radial-gradient(800px 500px at 50% 70%, rgba(50,70,110,.25), rgba(20,25,35,.25)),
+        radial-gradient(1200px 700px at 50% 50%, rgba(120,150,255,.08), transparent)}
+svg{display:block;width:100%;height:72vh}
+.hud{position:absolute;inset:0;pointer-events:none}
+.hud .label{position:absolute;padding:.25rem .5rem;border-radius:.5rem;background:rgba(0,0,0,.35);border:1px solid rgba(255,255,255,.15);backdrop-filter:blur(4px);font-size:.85rem}
+.label.east{top:8px;left:50%;transform:translateX(-50%)}
+.label.south{right:8px;top:50%;transform:translateY(-50%)}
+.label.west{bottom:8px;left:50%;transform:translateX(-50%)}
+.label.north{left:8px;top:50%;transform:translateY(-50%)}
+.status{position:absolute;bottom:10px;right:10px;font-size:.8rem;opacity:.8}
+.chant{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);font-weight:700;font-size: clamp(18px, 4vw, 44px);letter-spacing:.06em;text-shadow:var(--glow);opacity:0}
+.sigil{filter:drop-shadow(0 0 6px rgba(120,160,255,.7));}
+.pentagram{stroke:var(--accent);stroke-width:3;fill:none;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(0 0 6px rgba(120,160,255,.7));}
+.circle{stroke:rgba(140,170,255,.5);stroke-width:2;fill:none}
+.archangel{font-size:clamp(12px, 2.5vw, 24px);opacity:.0}
+.archangel .name{font-weight:700}
+footer{padding:1rem;text-align:center;color:#9bb}
+.small{font-size:.85rem;opacity:.85}
+```
+
+👉 Save this as `docs/lbrp/lbrp.css` in your repo.
+
+Next, I can give you the **HTML skeleton** (index.html) and the **JS logic** (lbrp.js) separated out, so you’ll have a clean three-file structure. Want me to hand those over now?
