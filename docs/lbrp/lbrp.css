@@ -41,3 +41,24 @@ footer{padding:1rem;text-align:center;color:#9bb}
 👉 Save this as `docs/lbrp/lbrp.css` in your repo.
 
 Next, I can give you the **HTML skeleton** (index.html) and the **JS logic** (lbrp.js) separated out, so you’ll have a clean three-file structure. Want me to hand those over now?
+/* High-contrast text for UI elements */
+body { color: #eaf0ff; }
+header .title,
+aside,
+footer,
+#log,
+.status,
+.hud .label { color: #ffffff; }
+
+/* Stronger label chip background so it pops on dark gradients */
+.hud .label {
+  background: rgba(0,0,0,0.65);
+  border-color: rgba(255,255,255,0.25);
+}
+
+/* Make the center chant extra legible */
+.chant {
+  text-shadow:
+    0 0 12px rgba(255,255,255,0.45),
+    0 0 28px rgba(120,160,255,0.6);
+}
