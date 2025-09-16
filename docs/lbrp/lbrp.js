@@ -69,11 +69,23 @@ Here’s the JavaScript portion extracted cleanly from the original `<script>…
     await sleep(ms + 60);
   }
 
-  async function flashChant(text, color='var(--muted)', ms=1200){
-    chantEl.textContent = text; chantEl.style.color = color; chantEl.style.opacity = 0;
-    chantEl.animate([{opacity:0, transform:'translate(-50%,-50%) scale(.95)'},{opacity:1, transform:'translate(-50%,-50%) scale(1)'},{opacity:0}], {duration: ms/speed, easing:'ease-in-out'});
-    beep(392, 180, 'sine'); await sleep(ms);
-  }
+async function flashChant(text, color='#ffffff', ms=2600){
+  chantEl.textContent = text;
+  chantEl.style.color = color;        // now always bright white
+  chantEl.style.opacity = 0;
+
+  chantEl.animate(
+    [
+      {opacity:0, transform:'translate(-50%,-50%) scale(.95)'},
+      {opacity:1, transform:'translate(-50%,-50%) scale(1)'},
+      {opacity:0}
+    ],
+    {duration: ms/speed, easing:'ease-in-out'}
+  );
+
+  beep(392, 180, 'sine');
+  await sleep(ms);
+}
 
   async function qabalisticCross(open=true){
     setStatus(open? 'Centering — Qabalistic Cross' : 'Closing — Qabalistic Cross');
