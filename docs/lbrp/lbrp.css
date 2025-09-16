@@ -62,3 +62,45 @@ footer,
     0 0 12px rgba(255,255,255,0.45),
     0 0 28px rgba(120,160,255,0.6);
 }
+/* === High-Contrast pass (force legible text) === */
+:root{
+  --fg:#ffffff;
+  --muted:#e6eeff;
+  --accent:#9bd0ff; /* brighter cyan for lines */
+}
+
+body { color: var(--fg); }
+
+header .title,
+aside,
+footer,
+#log,
+.status,
+.hud .label { color: #fff; }
+
+.hud .label{
+  background: rgba(0,0,0,0.7);
+  border-color: rgba(255,255,255,0.3);
+}
+
+/* Chant (center overlay) */
+.chant{
+  color:#fff;               /* force white */
+  font-weight:800;
+  text-shadow:
+    0 0 2px rgba(0,0,0,0.8),
+    0 0 12px rgba(255,255,255,0.55),
+    0 0 28px rgba(120,160,255,0.7);
+}
+
+/* SVG text must use 'fill' (color is ignored by SVG text) */
+svg text{
+  fill:#fff !important;
+  paint-order: stroke fill;
+  stroke: rgba(0,0,0,0.28);
+  stroke-width: 0.8px;      /* subtle outline for legibility */
+}
+
+/* Brighter lines */
+.pentagram{ stroke: var(--accent); stroke-width: 3.2; }
+.circle{ stroke: rgba(180,210,255,0.65); stroke-width: 2.2; }
