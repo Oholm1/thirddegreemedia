@@ -322,6 +322,8 @@ section:active, .callout:active, .card:active, .panel:active {
   --card-bg: #fff;
   --card-border: #e0e0e0;
   --accent: #ff6600;
+  --link: #0077cc;
+  --link-hover: #ff6600;
 }
 [data-theme="dark"] {
   --bg: #18181b;
@@ -329,6 +331,8 @@ section:active, .callout:active, .card:active, .panel:active {
   --card-bg: #23232a;
   --card-border: #222;
   --accent: #ff6600;
+  --link: #66ccff;
+  --link-hover: #ffcc00;
 }
 body {
   background: var(--bg);
@@ -343,8 +347,8 @@ h1, h2 {
   color: var(--accent);
 }
 a {
-  color: #66ccff;
+  color: var(--link);
 }
 a:hover {
-  color: #ffcc00;
+  color: var(--link-hover);
 }
