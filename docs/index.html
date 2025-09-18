@@ -597,6 +597,17 @@
 })();
 </script>
 
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Add haptic feedback to all clickable cards/sections
+  document.querySelectorAll('section, .callout, .card, .panel, .donate-button, a').forEach(function(el) {
+    el.addEventListener('touchstart', function() {
+      if (navigator.vibrate) navigator.vibrate(10);
+    }, {passive: true});
+  });
+});
+</script>
+
 
   </main>
   <!-- END: page content -->
