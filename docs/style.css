@@ -49,14 +49,19 @@
 html { -webkit-text-size-adjust: 100%; }
 html, body { margin:0; height:100%; }
 
-body{
+body {
   background: var(--bg);
   color: var(--fg);
-  font: 16px/1.6 ui-monospace, "Courier New", monospace;
+  font-family: 'Inter', 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, system-ui, sans-serif;
+  font-size: 1.08rem;
+  line-height: 1.7;
   max-width: 70ch;
   margin: 0 auto;
   padding: 40px;
   min-height: 100vh;
+  letter-spacing: 0.01em;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 /* Optional subtle luxe background for non-reduced-motion users */
@@ -143,13 +148,15 @@ section:hover, .callout:hover, .card:hover, .panel:hover {
 /* 5) Type */
 h1, h2 {
   color: var(--accent);
-  line-height: 1.25;
+  line-height: 1.18;
   margin-top: 0;
   position: relative;
+  font-family: inherit;
+  font-weight: 800;
+  letter-spacing: 0.01em;
 }
 h1 {
   font-size: 2.3rem;
-  letter-spacing: 1.5px;
   margin-bottom: 0.5em;
   text-shadow: 0 2px 12px #111, 0 0 2px #ff660055;
 }
@@ -195,8 +202,9 @@ h2 {
 a {
   position: relative;
   color: var(--link);
-  font-weight: bold;
-  text-decoration: none;
+  font-weight: 600;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 2px;
   transition: color 0.18s;
   z-index: 1;
 }
@@ -262,4 +270,19 @@ footer p{ font-size:.9em; color:var(--muted); text-align:center; margin:.2rem 0;
 .bg-white, .white-bg, [style*="background:#fff"], [style*="background: #fff"]{
   background: var(--card) !important; color: var(--fg) !important;
 }
-<link rel="stylesheet" href="/style.css?v=20250918d">
+
+p, ul, ol {
+  margin-bottom: 1.1em;
+  font-size: 1.05em;
+}
+
+ul, ol {
+  padding-left: 1.4em;
+}
+
+.muted, .sub, .meta, .note {
+  color: var(--muted);
+  font-size: 0.97em;
+  font-style: italic;
+  letter-spacing: 0.01em;
+}
