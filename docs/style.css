@@ -2,68 +2,96 @@
    Third Degree Media — Global CSS
    ================================ */
 
-/* Theme tokens */
-:root{
-  color-scheme: dark;
-  --bg:#0b0b0c;
-  --fg:#e9e9ee;
-  --muted:#9aa0a6;
-  --card:#111216;
-  --border:#23262b;
+/* 1) Theme tokens */
+:root {
+  color-scheme: light dark;
+  /* light defaults */
+  --bg: #f5f6fa;
+  --fg: #18181b;
+  --muted:#6b7280;
+  --card:#ffffff;
+  --border:#e0e0e0;
   --accent:#ff6600;
-  --link:#66ccff;
-  --link-hover:#ffcc00;
+  --link:#0077cc;
+  --link-hover:#ff6600;
+
+  /* extras used in components */
+  --card-bg: var(--card);
+  --card-border: var(--border);
 }
 
-/* Base & layout */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg:#18181b;
+    --fg:#e9e9ee;
+    --muted:#9aa0a6;
+    --card:#23232a;
+    --border:#22262b;
+    --link:#66ccff;
+    --link-hover:#ffcc00;
+  }
+}
+
+/* Optional explicit theme override via [data-theme] */
+[data-theme="light"] {
+  --bg:#f5f6fa; --fg:#18181b; --muted:#6b7280;
+  --card:#ffffff; --border:#e0e0e0; --link:#0077cc; --link-hover:#ff6600;
+}
+[data-theme="dark"] {
+  --bg:#18181b; --fg:#eee; --muted:#9aa0a6;
+  --card:#23232a; --border:#222; --link:#66ccff; --link-hover:#ffcc00;
+}
+
+/* 2) Base & layout */
 *,
 *::before,
 *::after { box-sizing: border-box; }
 html { -webkit-text-size-adjust: 100%; }
 html, body { margin:0; height:100%; }
+
 body{
   background: var(--bg);
   color: var(--fg);
-  font: 16px/1.6 ui-monospace,"Courier New",monospace;
+  font: 16px/1.6 ui-monospace, "Courier New", monospace;
   max-width: 70ch;
-  margin: 0 auto;              /* center column */
+  margin: 0 auto;
   padding: 40px;
-}
-
-/* --- Dynamic Visual Styles --- */
-body {
-  font-family: ui-monospace,"Courier New",monospace;
-  color: #eee;
-  background: linear-gradient(120deg, #18181b 80%, #23232a 100%);
-  background-size: cover;
-  margin: 0;
-  padding: 0;
   min-height: 100vh;
 }
 
+/* Optional subtle luxe background for non-reduced-motion users */
+@media (prefers-reduced-motion: no-preference) {
+  body {
+    /* very soft gradient—less GPU heavy than before */
+    background: radial-gradient(1200px 800px at 10% -10%, rgba(255,102,0,0.05), transparent 60%),
+                radial-gradient(1200px 800px at 110% 10%, rgba(102,204,255,0.05), transparent 60%),
+                var(--bg);
+  }
+}
+
+/* 3) Shell */
 header, footer {
   max-width: 900px;
-  margin: 2rem auto 1rem auto;
+  margin: 2rem auto 1rem;
   padding: 0 1.5rem;
 }
 
 header {
   text-align: center;
   padding-bottom: 1.5rem;
-  border-bottom: 2px solid #222;
-  background: linear-gradient(90deg, #18181b 60%, #23232a 100%);
-  border-radius: 0 0 18px 18px;
+  border-bottom: 2px solid var(--border);
+  border-radius: 0 0 18px 16px;
   box-shadow: 0 4px 24px rgba(0,0,0,0.12);
   position: relative;
+  background: linear-gradient(90deg, rgba(0,0,0,.06), rgba(0,0,0,.12));
 }
 
-/* Animated gradient bar under header */
 header::after {
   content: "";
   display: block;
   height: 4px;
   width: 100%;
-  margin: 1.2rem 0 0 0;
+  margin-top: 1.2rem;
   border-radius: 2px;
   background: linear-gradient(90deg, #ff6600, #ffcc00, #66ccff, #ff6600);
   background-size: 300% 100%;
@@ -73,6 +101,9 @@ header::after {
   0% { background-position: 0% 50%; }
   100% { background-position: 100% 50%; }
 }
+@media (prefers-reduced-motion: reduce) {
+  header::after { animation: none; }
+}
 
 main {
   display: grid;
@@ -81,37 +112,39 @@ main {
   max-width: 1200px;
   margin: 2rem auto;
   padding: 2rem 1.5rem;
-  background: rgba(20,20,20,0.92);
+  background: color-mix(in srgb, var(--bg) 92%, #000 8%);
   border-radius: 18px;
   box-shadow: 0 8px 32px rgba(0,0,0,0.18);
   position: relative;
   z-index: 1;
 }
 
+/* 4) Cards / sections */
 section, .callout, .card, .panel {
-  background: var(--card-bg);
-  border-color: var(--card-border);
+  background: var(--card);
+  border: 1px solid var(--border);
   color: var(--fg);
-  /* ...other styles... */
+  border-radius: 12px;
+  padding: 1rem;
+  transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
 }
 section:hover, .callout:hover, .card:hover, .panel:hover {
-  /* Only keep transform, box-shadow, border-color, etc. */
-  /* Do NOT set background here! */
   transform: translateY(-6px) scale(1.018);
   box-shadow: 0 12px 36px rgba(255,102,0,0.13);
-  border-color: #ff6600;
+  border-color: var(--accent);
 }
-@keyframes shadowPulse {
-  0% { box-shadow: 0 12px 36px rgba(255,102,0,0.13); }
-  50% { box-shadow: 0 20px 48px rgba(255,102,0,0.22); }
-  100% { box-shadow: 0 12px 36px rgba(255,102,0,0.13); }
+@media (prefers-reduced-motion: reduce) {
+  section:hover, .callout:hover, .card:hover, .panel:hover {
+    transform: none;
+    box-shadow: 0 8px 18px rgba(0,0,0,.12);
+  }
 }
 
+/* 5) Type */
 h1, h2 {
-  color: #ff6600;
+  color: var(--accent);
   line-height: 1.25;
   margin-top: 0;
-  z-index: 1;
   position: relative;
 }
 h1 {
@@ -126,7 +159,7 @@ h2 {
   text-shadow: 0 1px 6px #111, 0 0 1px #ff660033;
 }
 
-/* Buttons */
+/* 6) Buttons & links */
 .donate-button{
   background: linear-gradient(90deg, #ff6600 60%, #ffcc00 100%);
   color: #222;
@@ -139,8 +172,8 @@ h2 {
   transition: background 0.18s, color 0.18s, box-shadow 0.18s;
   box-shadow: 0 2px 8px #ff660033;
   border: none;
-  overflow: hidden;
   position: relative;
+  overflow: hidden;
 }
 .donate-button:hover {
   background: linear-gradient(90deg, #ffcc00 60%, #ff6600 100%);
@@ -149,8 +182,7 @@ h2 {
 }
 .donate-button:active::after {
   content: "";
-  position: absolute;
-  left: 50%; top: 50%;
+  position: absolute; left: 50%; top: 50%;
   width: 200%; height: 200%;
   background: rgba(255,255,255,0.15);
   border-radius: 50%;
@@ -158,14 +190,32 @@ h2 {
   animation: ripple 0.5s linear;
   pointer-events: none;
 }
-@keyframes ripple {
-  to { transform: translate(-50%, -50%) scale(1); opacity: 0; }
-}
+@keyframes ripple { to { transform: translate(-50%, -50%) scale(1); opacity: 0; } }
 
-/* Footer */
+a {
+  position: relative;
+  color: var(--link);
+  font-weight: bold;
+  text-decoration: none;
+  transition: color 0.18s;
+  z-index: 1;
+}
+a::after {
+  content: "";
+  position: absolute; left: 0; bottom: -2px;
+  width: 100%; height: 2px;
+  background: linear-gradient(90deg, #ff6600, #ffcc00, #66ccff);
+  border-radius: 2px;
+  transform: scaleX(0);
+  transition: transform 0.25s cubic-bezier(.4,0,.2,1);
+  z-index: -1;
+}
+a:hover { color: var(--link-hover); }
+a:hover::after { transform: scaleX(1); }
+
+/* 7) Utilities */
 footer p{ font-size:.9em; color:var(--muted); text-align:center; margin:.2rem 0; }
 
-/* Accessibility helpers */
 .skip-link{ position:absolute; left:-9999px; }
 .skip-link:focus{
   left:16px; top:16px; z-index:10000;
@@ -177,7 +227,29 @@ footer p{ font-size:.9em; color:var(--muted); text-align:center; margin:.2rem 0;
   overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0;
 }
 
-/* Mobile */
+/* 8) Components (badge, brand, etc.) */
+.lean-badge{ background:var(--bg); color:var(--fg); border:1px dashed var(--border);
+  border-radius:14px; padding:1.25rem 1.25rem 1rem; max-width:680px;
+  font:13.5px/1.45 ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;
+  box-shadow:0 1px 0 rgba(255,255,255,.04) inset, 0 6px 18px rgba(0,0,0,.25);
+}
+.lean-badge .sub{ color:var(--muted); }
+/* ...keep your existing badge KPI styles... */
+
+.brand{display:flex;align-items:center;gap:.6rem}
+.logo{width:48px;height:48px}
+@media (prefers-reduced-motion:no-preference){
+  .brand:hover .logo{transform:rotate(-6deg) scale(1.04); transition:transform .2s ease}
+}
+.screenshot{max-width:100%; height:auto; display:block;}
+.img-frame{background:#0f1115; border:1px solid #1b1f24; border-radius:8px; padding:6px;}
+.kv{display:grid; grid-template-columns:180px 1fr; gap:.4rem .8rem}
+.kv dt{color:var(--muted)} .kv dd{margin:0}
+.mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+
+.btn{display:inline-block;background:var(--accent);color:#111;border-radius:8px;padding:.5rem .8rem;font-weight:700;text-decoration:none}
+
+/* 9) Mobile */
 @media (max-width:600px){
   body{ padding:20px; font-size:1rem; line-height:1.7; }
   header, footer{ text-align:center; }
@@ -186,146 +258,7 @@ footer p{ font-size:.9em; color:var(--muted); text-align:center; margin:.2rem 0;
   .donate-button{ display:block; text-align:center; margin:1rem auto; }
 }
 
-/* Safety: neutralize explicit white backgrounds */
+/* 10) Safety */
 .bg-white, .white-bg, [style*="background:#fff"], [style*="background: #fff"]{
-  background: var(--card) !important;
-  color: var(--fg) !important;
-}
-
-/* ================================
-   Lean Speed & Privacy Badge
-   ================================ */
-
-:root{
-  --badge-bg:#0b0b0c;
-  --badge-fg:#e9e9ee;
-  --badge-accent:#8ef0c0;
-  --badge-muted:#8a8f98;
-  --badge-border:#22262b;
-}
-.lean-badge{
-  background:var(--badge-bg); color:var(--badge-fg);
-  border:1px dashed var(--badge-border); border-radius:14px;
-  padding:1.25rem 1.25rem 1rem; max-width:680px;
-  font:13.5px/1.45 ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;
-  box-shadow:0 1px 0 rgba(255,255,255,.04) inset, 0 6px 18px rgba(0,0,0,.25);
-}
-.lean-badge header{ display:flex; align-items:center; gap:.6rem; margin-bottom:.6rem; }
-.lean-badge .glyph{ font-size:1.2rem; }
-.lean-badge h3{ margin:0; font-size:1rem; letter-spacing:.2px; }
-.lean-badge .sub{ color:var(--badge-muted); font-size:.85rem; }
-.lean-badge .meters{ display:grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap:.5rem; margin:.75rem 0; }
-.lean-badge .kpi{ background:#111216; border:1px solid #1b1f24; border-radius:10px; padding:.6rem .7rem; }
-.lean-badge .kpi .label{ color:var(--badge-muted); font-size:.8rem; display:block; }
-.lean-badge .kpi .value{ font-variant-numeric: tabular-nums; font-weight:600; }
-.lean-badge .pill{ border:1px solid #1b1f24; background:#101217; border-radius:999px; padding:.28rem .6rem; font-size:.78rem; color:var(--badge-muted); }
-.lean-badge .truthy{ color:var(--badge-accent); border-color: rgba(142,240,192,.6); }
-.lean-badge .falsy{ color:#ff9c9c; border-color: rgba(255,122,122,.5); }
-.lean-badge .note{ color:var(--badge-muted); font-size:.78rem; margin-left:auto; }
-@media (max-width:520px){ .lean-badge .meters{ grid-template-columns:1fr; } }
-
-/* in /style.css */
-.brand{display:flex;align-items:center;gap:.6rem}
-.logo{width:48px;height:48px}
-@media (prefers-reduced-motion:no-preference){
-  .brand:hover .logo{transform:rotate(-6deg) scale(1.04); transition:transform .2s ease}
-}
-.screenshot { max-width: 100%; height: auto; display:block; }
-.img-frame  { background:#0f1115; border:1px solid #1b1f24; border-radius:8px; padding:6px; }
-.kv{display:grid;grid-template-columns:180px 1fr;gap:.4rem .8rem}
-.kv dt{color:var(--muted)}
-.kv dd{margin:0}
-.mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
-
-.btn{display:inline-block;background:var(--accent);color:#111;border-radius:8px;padding:.5rem .8rem;font-weight:700;text-decoration:none}
-
-.discord-button {
-  display: inline-block;
-  padding: 0.75rem 1.25rem;
-  background: #5865F2; /* Discord blurple */
-  color: #fff;
-  font-size: 1rem;
-  font-weight: 600;
-  border: none;
-  border-radius: 8px;
-  text-decoration: none;
-  transition: background 0.2s;
-}
-
-.discord-button:hover {
-  background: #4752C4;
-}
-
-a {
-  position: relative;
-  color: #66ccff;
-  font-weight: bold;
-  text-decoration: none;
-  transition: color 0.18s;
-  z-index: 1;
-}
-a::after {
-  content: "";
-  position: absolute;
-  left: 0; bottom: -2px;
-  width: 100%;
-  height: 2px;
-  background: linear-gradient(90deg, #ff6600, #ffcc00, #66ccff);
-  border-radius: 2px;
-  transform: scaleX(0);
-  transition: transform 0.25s cubic-bezier(.4,0,.2,1);
-  z-index: -1;
-}
-a:hover::after {
-  transform: scaleX(1);
-}
-
-@keyframes fadeInUp {
-  to {
-    opacity: 1;
-    transform: none;
-  }
-}
-
-/* Remove or comment out this block to stop sections from going black on active/tap: */
-section:active, .callout:active, .card:active, .panel:active {
-  /* filter: brightness(1.08); */
-}
-
-/* Add at the end of your CSS file */
-:root {
-  --bg: #f5f6fa;
-  --fg: #18181b;
-  --card-bg: #fff;
-  --card-border: #e0e0e0;
-  --accent: #ff6600;
-  --link: #0077cc;
-  --link-hover: #ff6600;
-}
-[data-theme="dark"] {
-  --bg: #18181b;
-  --fg: #eee;
-  --card-bg: #23232a;
-  --card-border: #222;
-  --accent: #ff6600;
-  --link: #66ccff;
-  --link-hover: #ffcc00;
-}
-body {
-  background: var(--bg);
-  color: var(--fg);
-}
-section, .callout, .card, .panel {
-  background: var(--card-bg);
-  border-color: var(--card-border);
-  color: var(--fg);
-}
-h1, h2 {
-  color: var(--accent);
-}
-a {
-  color: var(--link);
-}
-a:hover {
-  color: var(--link-hover);
+  background: var(--card) !important; color: var(--fg) !important;
 }
