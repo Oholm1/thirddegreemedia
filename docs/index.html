@@ -584,15 +584,35 @@
 
 <script nonce="r4nd0m">
 document.addEventListener('DOMContentLoaded', function() {
-  // Add haptic feedback to all clickable cards/sections
+  // Restore toggle state from localStorage
+  var hapticEnabled = localStorage.getItem('haptic') !== 'off';
+  var toggle = document.getElementById('haptic-toggle');
+  if (toggle) {
+    toggle.checked = hapticEnabled;
+    toggle.addEventListener('change', function() {
+      localStorage.setItem('haptic', this.checked ? 'on' : 'off');
+    });
+  }
+
+  // Add haptic feedback to all clickable elements
   document.querySelectorAll('section, .callout, .card, .panel, .donate-button, a').forEach(function(el) {
     el.addEventListener('touchstart', function() {
-      if (navigator.vibrate) navigator.vibrate(10);
+      // Only vibrate if enabled and supported
+      if (
+        (toggle ? toggle.checked : hapticEnabled) &&
+        navigator.vibrate
+      ) {
+        navigator.vibrate(10);
+      }
     }, {passive: true});
   });
 });
 </script>
 
+<label style="display:inline-flex;align-items:center;gap:0.5em;cursor:pointer;">
+  <input type="checkbox" id="haptic-toggle" style="accent-color:#ff6600;">
+  Haptic feedback
+</label>
 
   </main>
   <!-- END: page content -->
