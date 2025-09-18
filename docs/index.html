@@ -677,6 +677,34 @@ document.addEventListener('DOMContentLoaded', function() {
       });
     })();
   </script>
+ 
+ <script nonce="r4nd0m">
+(() => {
+  const root = document.documentElement;
+  const KEY = 'tdm-theme';
+
+  // decide initial theme
+  const saved = localStorage.getItem(KEY);
+  const sysPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const initial = saved || (sysPrefersDark ? 'dark' : 'light');
+
+  function apply(theme){
+    root.setAttribute('data-theme', theme);
+    localStorage.setItem(KEY, theme);
+    const btn = document.getElementById('themeToggle');
+    if (btn) btn.setAttribute('aria-pressed', theme === 'dark');
+  }
+
+  apply(initial);
+
+  // Listen for button clicks
+  document.getElementById('themeToggle')?.addEventListener('click', () => {
+    const next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    apply(next);
+  });
+})();
+</script>
+
 </body>
 </html>
 <!-- DEPLOY-MARKER-20250917-223053 -->

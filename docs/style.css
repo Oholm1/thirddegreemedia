@@ -262,3 +262,4 @@ footer p{ font-size:.9em; color:var(--muted); text-align:center; margin:.2rem 0;
 .bg-white, .white-bg, [style*="background:#fff"], [style*="background: #fff"]{
   background: var(--card) !important; color: var(--fg) !important;
 }
+<link rel="stylesheet" href="/style.css?v=20250918d">
