@@ -307,6 +307,8 @@ a:hover::after {
     transform: none;
   }
 }
+
+/* Remove or comment out this block to stop sections from going black on active/tap: */
 section:active, .callout:active, .card:active, .panel:active {
-  filter: brightness(1.08);
+  /* filter: brightness(1.08); */
 }
