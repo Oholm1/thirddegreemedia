@@ -314,3 +314,37 @@ a:hover::after {
 section:active, .callout:active, .card:active, .panel:active {
   /* filter: brightness(1.08); */
 }
+
+/* Add at the end of your CSS file */
+:root {
+  --bg: #f5f6fa;
+  --fg: #18181b;
+  --card-bg: #fff;
+  --card-border: #e0e0e0;
+  --accent: #ff6600;
+}
+[data-theme="dark"] {
+  --bg: #18181b;
+  --fg: #eee;
+  --card-bg: #23232a;
+  --card-border: #222;
+  --accent: #ff6600;
+}
+body {
+  background: var(--bg);
+  color: var(--fg);
+}
+section, .callout, .card, .panel {
+  background: var(--card-bg);
+  border-color: var(--card-border);
+  color: var(--fg);
+}
+h1, h2 {
+  color: var(--accent);
+}
+a {
+  color: #66ccff;
+}
+a:hover {
+  color: #ffcc00;
+}

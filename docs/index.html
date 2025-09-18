@@ -609,10 +609,36 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 
-<label style="display:inline-flex;align-items:center;gap:0.5em;cursor:pointer;">
-  <input type="checkbox" id="haptic-toggle" style="accent-color:#ff6600;">
-  Haptic feedback
-</label>
+<!-- Place this script after your haptic feedback script, before </body> -->
+<script nonce="r4nd0m">
+document.addEventListener('DOMContentLoaded', function() {
+  // Theme toggle logic
+  var themeToggle = document.getElementById('theme-toggle');
+  var darkMode = localStorage.getItem('theme') !== 'light';
+  if (themeToggle) {
+    themeToggle.checked = darkMode;
+    document.documentElement.setAttribute('data-theme', darkMode ? 'dark' : 'light');
+    themeToggle.addEventListener('change', function() {
+      var isDark = this.checked;
+      document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
+      localStorage.setItem('theme', isDark ? 'dark' : 'light');
+    });
+  } else {
+    document.documentElement.setAttribute('data-theme', darkMode ? 'dark' : 'light');
+  }
+});
+</script>
+
+<div style="display:flex;align-items:center;gap:1.5em;flex-wrap:wrap;margin:2em 0 1em 0;">
+  <label style="display:inline-flex;align-items:center;gap:0.5em;cursor:pointer;">
+    <input type="checkbox" id="haptic-toggle" style="accent-color:#ff6600;">
+    Haptic feedback
+  </label>
+  <label style="display:inline-flex;align-items:center;gap:0.5em;cursor:pointer;">
+    <input type="checkbox" id="theme-toggle" style="accent-color:#ff6600;">
+    Dark mode
+  </label>
+</div>
 
   </main>
   <!-- END: page content -->
