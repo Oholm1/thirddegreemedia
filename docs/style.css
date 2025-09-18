@@ -116,11 +116,13 @@ section::before, .callout::before, .card::before, .panel::before {
   pointer-events: none;
   transition: opacity 0.2s;
 }
+section.callout:hover,
+section:not(.lean-badge):not(.first-principles):hover,
 section:hover, .callout:hover, .card:hover, .panel:hover {
+  background: linear-gradient(120deg, #18181b 80%, #23232a 100%);
   transform: translateY(-6px) scale(1.018);
   box-shadow: 0 12px 36px rgba(255,102,0,0.13);
   border-color: #ff6600;
-  animation: shadowPulse 0.4s;
 }
 @keyframes shadowPulse {
   0% { box-shadow: 0 12px 36px rgba(255,102,0,0.13); }
