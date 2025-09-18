@@ -30,63 +30,132 @@ body{
   padding: 40px;
 }
 
-/* Background grid layer (cheap to paint) */
-body::before{
-  content:"";
-  position: fixed; inset:0; z-index:-1;
-  background: radial-gradient(rgba(255,255,255,.02) 1px, transparent 1px);
-  background-size:20px 20px;
+/* --- Dynamic Visual Styles --- */
+body {
+  font-family: ui-monospace,"Courier New",monospace;
+  color: #eee;
+  background: linear-gradient(135deg, #18181b 0%, #23232a 100%);
+  background-size: cover;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
 }
 
-/* Typography & links */
-h1,h2{ color: var(--accent); line-height:1.25; margin:0 0 .5rem; }
-a{ color: var(--link); font-weight:700; text-decoration:none; }
-a:hover{ color: var(--link-hover); text-decoration:underline; }
-:focus-visible{ outline:2px dashed var(--accent); outline-offset:2px; }
-
-/* Sections / cards */
-section, article, .card, .panel{
-  background: var(--card);
-  border: 1px dashed var(--border);
-  border-radius: 12px;
-  padding: 20px;
-  margin: 0 0 40px;
-  contain: layout paint;                /* avoids page-wide repaints on hover */
-  transition: border-color .2s ease;
+header, footer {
+  max-width: 900px;
+  margin: 2rem auto 1rem auto;
+  padding: 0 1.5rem;
 }
-section:hover{ border-color: var(--accent); }
 
-/* Callouts */
-.callout{ /* same as section, explicit hook */ }
-.callout-dark{
-  background: var(--card);
-  border: 1px dashed var(--border);
-  color: var(--fg);
+header {
+  text-align: center;
+  padding-bottom: 1.5rem;
+  border-bottom: 2px solid #222;
+  background: linear-gradient(90deg, #18181b 60%, #23232a 100%);
+  border-radius: 0 0 18px 18px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.12);
+  position: relative;
 }
-hr{ border:none; border-top:1px dashed var(--border); margin:2rem 0; }
 
-/* Lists, media, code */
-ul{ padding-left: 1.1rem; }
-img{ max-width:100%; height:auto; }
-code, pre{
-  background:#0f1115; color:var(--fg);
-  border:1px solid #1b1f24; border-radius:8px;
-  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+/* Animated gradient bar under header */
+header::after {
+  content: "";
+  display: block;
+  height: 4px;
+  width: 100%;
+  margin: 1.2rem 0 0 0;
+  border-radius: 2px;
+  background: linear-gradient(90deg, #ff6600, #ffcc00, #66ccff, #ff6600);
+  background-size: 300% 100%;
+  animation: gradientMove 6s linear infinite;
 }
-code{ padding:.2rem .4rem; }
-pre{ padding:.75rem 1rem; overflow:auto; }
+@keyframes gradientMove {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 100% 50%; }
+}
+
+main {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 2rem 1.5rem;
+  background: rgba(20,20,20,0.92);
+  border-radius: 18px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+  position: relative;
+  z-index: 1;
+}
+
+section, .callout, .card, .panel {
+  background: linear-gradient(120deg, #18181b 80%, #23232a 100%);
+  border: 1px solid #222;
+  border-radius: 18px;
+  box-shadow: 0 2px 18px rgba(0,0,0,0.13);
+  padding: 2rem 1.5rem 1.5rem 1.5rem;
+  margin: 0 0 1.5rem 0;
+  transition: transform 0.18s, box-shadow 0.18s, border-color 0.18s;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  overflow: hidden;
+}
+section::before, .callout::before, .card::before, .panel::before {
+  content: "";
+  position: absolute;
+  top: -40px; right: -40px;
+  width: 120px; height: 120px;
+  background: radial-gradient(circle at 60% 40%, #ff660033 0%, transparent 80%);
+  z-index: 0;
+  pointer-events: none;
+  transition: opacity 0.2s;
+}
+section:hover, .callout:hover, .card:hover, .panel:hover {
+  transform: translateY(-6px) scale(1.018);
+  box-shadow: 0 12px 36px rgba(255,102,0,0.13);
+  border-color: #ff6600;
+}
+
+h1, h2 {
+  color: #ff6600;
+  line-height: 1.25;
+  margin-top: 0;
+  z-index: 1;
+  position: relative;
+}
+h1 {
+  font-size: 2.3rem;
+  letter-spacing: 1.5px;
+  margin-bottom: 0.5em;
+  text-shadow: 0 2px 12px #111, 0 0 2px #ff660055;
+}
+h2 {
+  font-size: 1.3rem;
+  margin-bottom: 0.7rem;
+  text-shadow: 0 1px 6px #111, 0 0 1px #ff660033;
+}
 
 /* Buttons */
 .donate-button{
-  background: var(--accent);
-  color:#111;
-  padding:.6rem 1rem;
-  border-radius:8px;
-  font-weight:700;
-  text-decoration:none;
-  display:inline-block;
+  background: linear-gradient(90deg, #ff6600 60%, #ffcc00 100%);
+  color: #222;
+  padding: .7rem 1.2rem;
+  border-radius: 10px;
+  font-weight: bold;
+  text-decoration: none;
+  display: inline-block;
+  margin-top: 0.5em;
+  transition: background 0.18s, color 0.18s, box-shadow 0.18s;
+  box-shadow: 0 2px 8px #ff660033;
+  border: none;
 }
-.donate-button:hover{ filter: brightness(1.05); }
+.donate-button:hover {
+  background: linear-gradient(90deg, #ffcc00 60%, #ff6600 100%);
+  color: #18181b;
+  box-shadow: 0 4px 16px #ffcc0033;
+}
 
 /* Footer */
 footer p{ font-size:.9em; color:var(--muted); text-align:center; margin:.2rem 0; }
