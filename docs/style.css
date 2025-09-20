@@ -286,3 +286,12 @@ ul, ol {
   font-style: italic;
   letter-spacing: 0.01em;
 }
+#fake-tor-warning {
+  border: 2px solid #f39c12;
+  padding: 1em;
+  background: #fffbe6;
+}
+#fake-tor-warning h2 {
+  color: #d35400;
+  margin-top: 0;
+}
