@@ -293,4 +293,18 @@ ul, ol {
   border-radius: 12px;
   margin-block: 1.25rem;
 }
-#fake-tor-warning h2 { margin-top: 0; }
+#fake-tor-warning h2 {
+  margin-top: 0;
+  color: #d35400;
+  font-size: 1.2rem;
+  text-shadow: 0 1px 6px #111, 0 0 1px #ff660033;
+}
+.feed-status { opacity: .85; font-size: .95rem; }
+.feed-status.error { color: #b00020; }
+.section-head { display: flex; align-items: center; gap: .5rem; }
+.section-head button { padding: .35rem .6rem; border-radius: .5rem; border: 1px solid #ccc; background: #f6f6f6; cursor: pointer; }
+.section-head button:hover { background: #eee; }
+.feed-list { list-style: none; padding-left: 0; margin: .5rem 0 0; }
+.feed-item { margin: .4rem 0; }
+.feed-item a { font-weight: 600; }
+.feed-item .meta { font-size: .9rem; }    

@@ -1,0 +1,8 @@
+[
+  {"title":"Tor Browser (Official) Setup","url":"/tor-browser.html","date":"2025-09-20"},
+  {"title":"uBlock Origin: Private-by-default filtering","url":"/ublock-origin.html","date":"2025-09-15"},
+  {"title":"LibreWolf: hardened Firefox fork","url":"/librewolf.html","date":"2025-09-14"},
+  {"title":"Signal: private messaging basics","url":"/signal.html","date":"2025-09-10"},
+  {"title":"KeePassXC + YubiKey notes","url":"/keepassxc.html","date":"2025-09-09"},
+  {"title":"LocalCDN for fingerprint reduction","url":"/local-cdn.html","date":"2025-09-08"}
+]
