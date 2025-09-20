@@ -288,10 +288,9 @@ ul, ol {
 }
 #fake-tor-warning {
   border: 2px solid #f39c12;
-  padding: 1em;
   background: #fffbe6;
+  padding: 1rem;
+  border-radius: 12px;
+  margin-block: 1.25rem;
 }
-#fake-tor-warning h2 {
-  color: #d35400;
-  margin-top: 0;
-}
+#fake-tor-warning h2 { margin-top: 0; }
