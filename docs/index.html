@@ -862,6 +862,19 @@ document.addEventListener('DOMContentLoaded', function() {
 .reveal{opacity:0; transform:translateY(14px); transition:opacity .6s ease, transform .6s ease}
 .reveal.in{opacity:1; transform:none}
 
+/* Masonry gallery layout */
+.masonry{column-width: 260px; column-gap: 12px}
+.masonry a{break-inside: avoid; display:block; margin:0 0 12px}
+.masonry img{width:100%; height:auto; border-radius:10px; display:block}
+
+/* Hex mark icon */
+.hex-mark{
+  width:52px;height:52px; display:inline-block;
+  background: linear-gradient(135deg,#7b61ff,#00e1ff);
+  -webkit-mask: url('/unicursal-hexagram.svg') center/85% no-repeat;
+  mask: url('/unicursal-hexagram.svg') center/85% no-repeat;
+}
+
 /* Respect reduced motion preferences */
 @media (prefers-reduced-motion: reduce) {
   .reveal {
