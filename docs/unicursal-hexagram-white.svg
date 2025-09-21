@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024" role="img" aria-label="Unicursal hexagram">
+  <title>Unicursal Hexagram (Public Domain, White Stroke)</title>
+  <desc>A clean, single-path unicursal hexagram suitable for logo/print use. Dedicated to the public domain (CC0).</desc>
+  <g fill="none" stroke="#FFFFFF" stroke-width="72" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M 512.000,92.000 L 612.000,685.205 L 148.269,302.000 L 712.000,512.000 L 148.269,722.000 L 612.000,338.795 L 512.000,932.000 L 412.000,338.795 L 875.731,722.000 L 312.000,512.000 L 875.731,302.000 L 412.000,685.205 Z"/>
+  </g>
+</svg>
