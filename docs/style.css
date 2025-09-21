@@ -246,6 +246,22 @@ footer p{ font-size:.9em; color:var(--muted); text-align:center; margin:.2rem 0;
 
 .brand{display:flex;align-items:center;gap:.6rem}
 .logo{width:48px;height:48px}
+.logo {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: #ff6600;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+    }
+    .logo:hover {
+      color: #ffcc00;
+    }
+    .logo svg {
+      flex-shrink: 0;
+    }
 @media (prefers-reduced-motion:no-preference){
   .brand:hover .logo{transform:rotate(-6deg) scale(1.04); transition:transform .2s ease}
 }
@@ -307,4 +323,4 @@ ul, ol {
 .feed-list { list-style: none; padding-left: 0; margin: .5rem 0 0; }
 .feed-item { margin: .4rem 0; }
 .feed-item a { font-weight: 600; }
-.feed-item .meta { font-size: .9rem; }    
+.feed-item .meta { font-size: .9rem; }
