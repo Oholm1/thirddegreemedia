@@ -1,0 +1,1 @@
+brave-ledger-verification=YOUR_LONG_TOKEN
