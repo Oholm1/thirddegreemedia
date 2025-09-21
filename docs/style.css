@@ -304,14 +304,15 @@ ul, ol {
 }
 #fake-tor-warning {
   border: 2px solid #f39c12;
-  background: #fffbe6;
+  background: var(--card);
+  color: var(--fg);
   padding: 1rem;
   border-radius: 12px;
   margin-block: 1.25rem;
 }
 #fake-tor-warning h2 {
   margin-top: 0;
-  color: #d35400;
+  color: var(--accent);
   font-size: 1.2rem;
   text-shadow: 0 1px 6px #111, 0 0 1px #ff660033;
 }
