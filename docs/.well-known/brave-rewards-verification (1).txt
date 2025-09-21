@@ -1,0 +1,4 @@
+This is a Brave Creators publisher verification file.
+
+Domain: thirddegreemedia.com
+Token: c195e2fd642a6cc0e3c64c74c8288a37222aba98f210819be90c73d58c9388ae
