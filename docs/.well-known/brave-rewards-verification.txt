@@ -1,1 +1,1 @@
-brave-ledger-verification=YOUR_LONG_TOKEN
+brave-ledger-verification=7f485ae1cabaf257d37a08a20c27bcc93b2aaaac913e79816ea820c94327cb45
