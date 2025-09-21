@@ -339,3 +339,16 @@ ul, ol {
 .feed-item { margin: .4rem 0; }
 .feed-item a { font-weight: 600; }
 .feed-item .meta { font-size: .9rem; }
+
+/* Masonry gallery layout */
+.masonry{column-width: 260px; column-gap: 12px}
+.masonry a{break-inside: avoid; display:block; margin:0 0 12px}
+.masonry img{width:100%; height:auto; border-radius:10px; display:block}
+
+/* Hex mark icon */
+.hex-mark{
+  width:52px;height:52px; display:inline-block;
+  background: linear-gradient(135deg,#7b61ff,#00e1ff);
+  -webkit-mask: url('/unicursal-hexagram.svg') center/85% no-repeat;
+  mask: url('/unicursal-hexagram.svg') center/85% no-repeat;
+}

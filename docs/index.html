@@ -277,6 +277,7 @@
       </svg>
       <span>Third Degree Media</span>
     </a>
+    <span class="hex-mark" aria-hidden="true"></span>
     <p>Welcome to the sovereign node. The mythos begins here.</p>
   </header>
 
@@ -349,7 +350,7 @@
 
   <!-- START: page content -->
   <main id="main" role="main" tabindex="-1">
-    <section class="callout mullvad">
+    <section class="callout mullvad reveal">
       <h2>Codex</h2>
       <p>Documenting infrastructure rituals, domain claims, and glyphic milestones.</p>
       <p><a href="malware-purge.html">🦠 Rituals of Purge: Malware Encounters & Sovereign Remedies</a></p>
@@ -370,7 +371,7 @@
       <p><em>Fun Fact:</em> This homepage was coded using a pinecone, a VPN tunnel, and the distant hum of a fax machine.</p>
     </section>
 
-    <section aria-labelledby="connect-heading">
+    <section aria-labelledby="connect-heading" class="reveal">
       <h2 id="connect-heading">Connect</h2>
       <p>
         Follow the codex trail on
@@ -379,7 +380,7 @@
       </p>
     </section>
 
-    <section aria-labelledby="signals-heading">
+    <section aria-labelledby="signals-heading" class="reveal">
       <h2 id="signals-heading">Signal Channels</h2>
       <p>Encrypted whispers from the pines:</p>
       <ul>
@@ -389,7 +390,7 @@
     </section>
 
     <!-- Sovereign Stack Endorsement: Mullvad VPN -->
-    <section class="callout" aria-labelledby="mullvad-heading">
+    <section class="callout reveal" aria-labelledby="mullvad-heading">
       <h2 id="mullvad-heading">🛡️ Mullvad VPN — Cloak Your Signal in Pine-Scented Privacy</h2>
       <!-- Tip: host this logo locally as /img/mullvad.svg to keep 0 third-party requests -->
       <figure>
@@ -404,7 +405,7 @@
 
 
     
-    <section aria-labelledby="about-heading">
+    <section aria-labelledby="about-heading" class="reveal">
       <h2 id="about-heading">About</h2>
       <p>Architected by Daemonlogger, strategist, and sovereign steward of the off-grid web.</p>
       <p>When not codex-logging infrastructure rituals, Orrin can be found whispering to routers and bartering with squirrels.</p>
@@ -419,7 +420,7 @@
     </section>
 
     <!-- Donation Callout -->
-    <section class="callout" aria-labelledby="fuel-heading">
+    <section class="callout reveal" aria-labelledby="fuel-heading">
       <h2 id="fuel-heading">☕🍺 Fuel the Codex</h2>
       <p>If you enjoy these sovereign rituals and goofy glyphs, you can keep the cabin lights glowing by <strong>buying me an IPA</strong> (my favorite 🍺) or a <strong>coffee</strong> (for long nights of coding ☕).</p>
       <p><a href="https://buymeacoffee.com/daemonlogger" target="_blank" rel="noopener" class="donate-button">Buy me a beer or coffee →</a></p>
@@ -479,6 +480,18 @@
       <h2>More Privacy Tools We Trust</h2>
       <p>We endorse <strong>PrivacyGuides.org</strong> — a community-run directory of privacy-respecting tools. No ads, no tracking, just honest recommendations for those who value autonomy.</p>
       <p>Explore their codex at <a href="https://www.privacyguides.org" target="_blank" rel="noopener">privacyguides.org</a>.</p>
+    </section>
+
+    <!-- Gallery -->
+    <section class="callout reveal">
+      <h2>Gallery</h2>
+      <div class="masonry">
+        <a href="/img/photo1@2x.jpg"><img loading="lazy" src="/img/photo1.jpg" alt="Photo 1"></a>
+        <a href="/img/photo2@2x.jpg"><img loading="lazy" src="/img/photo2.jpg" alt="Photo 2"></a>
+        <a href="/img/photo3@2x.jpg"><img loading="lazy" src="/img/photo3.jpg" alt="Photo 3"></a>
+        <a href="/img/photo4@2x.jpg"><img loading="lazy" src="/img/photo4.jpg" alt="Photo 4"></a>
+        <!-- add more images as needed -->
+      </div>
     </section>
 
     <section id="noscript" class="callout">
@@ -826,6 +839,68 @@ document.addEventListener('DOMContentLoaded', function() {
     const next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
     apply(next);
   });
+})();
+</script>
+
+<!-- Lightbox -->
+<dialog id="lx" class="lightbox" aria-label="Image viewer">
+  <button class="close" aria-label="Close">✕</button>
+  <img id="lx-img" alt="">
+</dialog>
+
+<style nonce="r4nd0m">
+.gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px}
+.gallery img{width:100%;height:auto;border-radius:10px;display:block;transition:transform .25s ease}
+.gallery a:focus img,.gallery a:hover img{transform:scale(1.02)}
+.lightbox{border:0;padding:0;background:transparent}
+.lightbox::backdrop{background:rgba(0,0,0,.75)}
+.lightbox img{max-width:min(92vw,1200px);max-height:90vh;border-radius:12px;display:block}
+.lightbox .close{position:fixed;top:1rem;right:1rem;background:#0008;color:#fff;border:1px solid #fff3;
+  border-radius:999px;padding:.4rem .6rem;font:inherit;cursor:pointer}
+
+/* Reveal animations */
+.reveal{opacity:0; transform:translateY(14px); transition:opacity .6s ease, transform .6s ease}
+.reveal.in{opacity:1; transform:none}
+
+/* Respect reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+</style>
+
+<script nonce="r4nd0m">
+(() => {
+  const dlg = document.getElementById('lx');
+  const img = document.getElementById('lx-img');
+  document.querySelector('.gallery').addEventListener('click', e => {
+    const a = e.target.closest('a'); if(!a) return;
+    e.preventDefault();
+    img.src = a.href; img.alt = a.querySelector('img')?.alt || '';
+    if(!dlg.open) dlg.showModal();
+  });
+  dlg.querySelector('.close').addEventListener('click', ()=> dlg.close());
+  dlg.addEventListener('click', e => { if(e.target === dlg) dlg.close(); });
+  // Esc to close is automatic with <dialog>
+})();
+</script>
+
+<!-- Add the reveal script before closing </body> -->
+<script nonce="r4nd0m">
+(() => {
+  const els = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(en => { 
+      if(en.isIntersecting){ 
+        en.target.classList.add('in'); 
+        io.unobserve(en.target);
+      } 
+    });
+  }, { threshold: 0.12 });
+  els.forEach(el => io.observe(el));
 })();
 </script>
 
