@@ -5,41 +5,55 @@
 /* 1) Theme tokens */
 :root {
   color-scheme: light dark;
-  /* light defaults */
+  /* Light theme defaults */
   --bg: #f5f6fa;
   --fg: #18181b;
-  --muted:#6b7280;
-  --card:#ffffff;
-  --border:#e0e0e0;
-  --accent:#ff6600;
-  --link:#0077cc;
-  --link-hover:#ff6600;
+  --muted: #6b7280;
+  --card: #ffffff;
+  --border: #e0e0e0;
+  --accent: #ff6600;
+  --link: #0077cc;
+  --link-hover: #ff6600;
 
-  /* extras used in components */
+  /* Extras used in components */
   --card-bg: var(--card);
   --card-border: var(--border);
 }
 
+/* Dark theme via media query */
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg:#18181b;
-    --fg:#e9e9ee;
-    --muted:#9aa0a6;
-    --card:#23232a;
-    --border:#22262b;
-    --link:#66ccff;
-    --link-hover:#ffcc00;
+    --bg: #18181b;
+    --fg: #e9e9ee;
+    --muted: #9aa0a6;
+    --card: #23232a;
+    --border: #22262b;
+    --link: #66ccff;
+    --link-hover: #ffcc00;
   }
 }
 
-/* Optional explicit theme override via [data-theme] */
+/* Manual theme overrides (optional) */
 [data-theme="light"] {
-  --bg:#f5f6fa; --fg:#18181b; --muted:#6b7280;
-  --card:#ffffff; --border:#e0e0e0; --link:#0077cc; --link-hover:#ff6600;
+  --bg: #f5f6fa;
+  --fg: #18181b;
+  --muted: #6b7280;
+  --card: #ffffff;
+  --border: #e0e0e0;
+  --accent: #ff6600;
+  --link: #0077cc;
+  --link-hover: #ff6600;
 }
+
 [data-theme="dark"] {
-  --bg:#18181b; --fg:#eee; --muted:#9aa0a6;
-  --card:#23232a; --border:#222; --link:#66ccff; --link-hover:#ffcc00;
+  --bg: #18181b;
+  --fg: #e9e9ee;
+  --muted: #9aa0a6;
+  --card: #23232a;
+  --border: #22262b;
+  --accent: #ff6600;
+  --link: #66ccff;
+  --link-hover: #ffcc00;
 }
 
 /* 2) Base & layout */
