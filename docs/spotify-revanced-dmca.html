@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Spotify vs. ReVanced: What Happened and What It Means — Third Degree Media</title>
+  <meta name="description" content="A factual overview of the recent DMCA dispute between Spotify and the ReVanced project, why these patches break, and what to watch next." />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="canonical" href="https://thirddegreemedia.com/spotify-revanced-dmca.html" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Spotify vs. ReVanced: What Happened and What It Means" />
+  <meta property="og:description" content="A factual overview of the recent DMCA dispute between Spotify and the ReVanced project, why patches break, and what to watch next." />
+  <meta property="og:url" content="https://thirddegreemedia.com/spotify-revanced-dmca.html" />
+  <link rel="icon" href="/favicon.ico" />
+  <link rel="stylesheet" href="/style.css?v=5" />
+  <style>
+    .lede{color:var(--muted)}
+    .kbd{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;background:#0f1115;border:1px solid #1b1f24;padding:.14rem .36rem;border-radius:6px}
+    .stamp{font-size:.875rem;color:var(--muted)}
+    .callout{background:#11161d;border:1px solid #1e2833;border-radius:10px;padding:1rem 1.25rem;margin:1rem 0}
+    .hr-custom{height:1px;background:#1e2833;border:0;margin:2rem 0}
+  </style>
+</head>
+<body>
+  <header role="banner">
+    <h1>Spotify vs. ReVanced: What Happened and What It Means</h1>
+    <p class="lede">A factual overview of the recent DMCA dispute between Spotify and the ReVanced project, why these patches break, and what to watch next.</p>
+    <p class="stamp">Published: 2025-09-22</p>
+  </header>
+
+  <main id="main" role="main" tabindex="-1">
+    <section class="callout">
+      <h2>What Happened</h2>
+      <p>
+        In mid-September 2025, Spotify issued a DMCA takedown targeting ReVanced patches that aimed to unlock Premium-only behavior in the official Spotify Android app. Following the notice, ReVanced removed the affected "Unlock Premium" patch from its official distribution while it evaluates legal options. Public statements indicate the team is seeking legal advice and may consider further steps such as a counter-notice, which could escalate the dispute. 
+        See reporting and announcements linked in the sources at the end of this page.
+      </p>
+    </section>
+
+    <section class="callout">
+      <h2>What ReVanced Is (in Brief)</h2>
+      <p>
+        ReVanced is an open-source patching framework. Users supply their own app APKs and apply patches locally to alter client-side behavior (e.g., UI changes, ad suppression, or toggling features that the stock app normally limits). ReVanced does not distribute Spotify's app itself; it provides patch logic that modifies a user-provided APK.
+      </p>
+    </section>
+
+    <section class="callout">
+      <h2>Spotify's Position</h2>
+      <p>
+        Spotify's subscription model depends on keeping Premium features behind paywalls and monetizing free usage with advertising. From Spotify's perspective, patches that remove ads or unlock Premium features circumvent technical measures and violate its Terms of Service. That's the basis for using copyright/anti-circumvention tools (e.g., the DMCA) to request takedowns of code that facilitates those outcomes.
+      </p>
+    </section>
+
+    <section class="callout">
+      <h2>ReVanced's Position</h2>
+      <p>
+        ReVanced maintains that it distributes patches—not Spotify's code—and that users have a right to modify software running on their own devices. The project has indicated it will consult counsel and weigh options to restore or revise the patches in a way that it believes complies with applicable law and platform policies.
+      </p>
+    </section>
+
+    <section class="callout">
+      <h2>Why Spotify Patches Break So Often</h2>
+      <div style="background:#0f1115;border:1px solid #1b1f24;border-radius:8px;padding:.75rem;margin:1rem 0">
+        <strong>Short version:</strong> Spotify updates the app frequently. When internals change (feature flags, integrity checks, split APKs, signatures), previously working patches can stop functioning until the patch authors adapt.
+      </div>
+      <ul>
+        <li><strong>Client–server split:</strong> Some restrictions are client-side (ad UI, buttons), but others are enforced server-side (e.g., download entitlements). Client-side patches can't reliably bypass server checks.</li>
+        <li><strong>Integrity & attestation:</strong> Changes in signature checks or anti-tamper code can disable patched behavior even if installation "succeeds."</li>
+        <li><strong>Auto-updates:</strong> If the Play Store (or any store) updates Spotify in the background, a patched build can be overwritten or become incompatible.</li>
+      </ul>
+    </section>
+
+    <section class="callout">
+      <h2>Legal & Policy Notes (Neutral Summary)</h2>
+      <ul>
+        <li>Using modified clients likely violates Spotify's Terms of Service and can risk account sanctions.</li>
+        <li>Developers distributing patches argue they're not redistributing copyrighted binaries; rights owners argue the patches facilitate circumvention of technological protection measures.</li>
+        <li>Whether a specific patch is lawful depends on jurisdiction and facts (what's being modified, how, and whether any copyrighted code is included).</li>
+      </ul>
+    </section>
+
+    <section class="callout">
+      <h2>What to Watch Next</h2>
+      <ul>
+        <li><strong>ReVanced's legal path:</strong> Will there be a counter-notice to restore code on GitHub, or a reworked approach that avoids the contested elements?</li>
+        <li><strong>Platform moderation:</strong> GitHub's response to rights-holder complaints shapes how quickly code disappears and what returns after review.</li>
+        <li><strong>Alternatives & ecosystem:</strong> Open-source projects that don't try to spoof Premium (e.g., alternative players/clients) may avoid the sharpest legal conflicts but can still face policy friction.</li>
+      </ul>
+    </section>
+
+    <hr style="border:none;border-top:1px dashed #444;margin:2rem 0">
+
+    <section class="callout">
+      <h2>Further Reading (External Sources)</h2>
+      <ul>
+        <li><a href="https://torrentfreak.com/revanced-complies-with-spotify-takedown-but-explores-options-to-fight-back/" rel="noopener noreferrer" target="_blank">TorrentFreak: "ReVanced Complies With Spotify Takedown But Explores Options to Fight Back"</a></li>
+        <li><a href="https://www.heise.de/en/news/Spotify-files-DMCA-complaint-against-ReVanced-10642392.html" rel="noopener noreferrer" target="_blank">Heise: "Spotify files DMCA complaint against ReVanced"</a></li>
+        <li><a href="https://www.reddit.com/r/revancedapp/comments/1neoa8d/new_announcement_spotify_dmca_notice_seeking/" rel="noopener noreferrer" target="_blank">ReVanced community announcement thread (Reddit)</a></li>
+        <li><a href="https://github.com/ReVanced/revanced-patches" rel="noopener noreferrer" target="_blank">ReVanced Patches (GitHub)</a></li>
+        <li><a href="https://github.com/KRTirtho/spotube" rel="noopener noreferrer" target="_blank">Spotube (open-source client)</a></li>
+      </ul>
+      <p style="font-size:.875rem;color:var(--muted);margin-top:1rem">Note: Links are provided for context and reporting; they do not imply endorsement of any specific tool or practice.</p>
+    </section>
+
+    <nav role="navigation" aria-label="Related articles">
+      <h3>Related Reading</h3>
+      <ul>
+        <li><a href="/ublock-origin.html">uBlock Origin — Network-level blocking, done right</a></li>
+        <li><a href="/tor-browser.html">Tor Browser — anonymity, not just privacy</a></li>
+        <li><a href="/librewolf.html">LibreWolf — Firefox, hardened</a></li>
+      </ul>
+    </nav>
+  </main>
+
+  <footer role="contentinfo">
+    <p>© <span id="year"></span> Third Degree Media™</p>
+    <p>All opinions are the author's. This article is provided for informational purposes only.</p>
+    <script nonce="r4nd0m">(function(){var y=document.getElementById('year'); if(y) y.textContent=new Date().getFullYear();})();</script>
+  </footer>
+</body>
+</html>
