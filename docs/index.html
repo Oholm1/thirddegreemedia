@@ -588,102 +588,231 @@
 
     <script nonce="r4nd0m">
 (function () {
-  const $  = (id) => document.getElementById(id);
-  const nf = (v, d=0) => Number.isFinite(v) ? v.toFixed(d) : '—';
+  'use strict';
+  
+  // Helper functions
+  const $ = (id) => document.getElementById(id);
+  const nf = (v, d = 0) => Number.isFinite(v) && v >= 0 ? v.toFixed(d) : '—';
   const bfmt = (b) => {
-    if (!Number.isFinite(b)) return '—';
-    const u = ['B','KB','MB','GB']; let i=0, n=b;
-    while (n>=1024 && i<u.length-1) { n/=1024; i++; }
-    return `${n.toFixed(n>=100?0:n>=10?1:2)} ${u[i]}`;
+    if (!Number.isFinite(b) || b < 0) return '—';
+    const units = ['B', 'KB', 'MB', 'GB'];
+    let i = 0, n = b;
+    while (n >= 1024 && i < units.length - 1) {
+      n /= 1024;
+      i++;
+    }
+    return `${n.toFixed(n >= 100 ? 0 : n >= 10 ? 1 : 2)} ${units[i]}`;
   };
 
-  const navEntry = () => performance.getEntriesByType('navigation')[0] || null;
+  // Get navigation entry with fallback
+  const getNavEntry = () => {
+    try {
+      return performance.getEntriesByType('navigation')[0] || null;
+    } catch (e) {
+      console.warn('Navigation Timing API not supported');
+      return null;
+    }
+  };
 
-  function updateTTFB_DCL_Load() {
-    const nav = navEntry(); if (!nav) return;
+  // Update timing metrics
+  function updateTimingMetrics() {
+    const nav = getNavEntry();
+    if (!nav) {
+      // Fallback for older browsers
+      const ttfbEl = $('kpi-ttfb');
+      const dclEl = $('kpi-dcl');
+      const loadEl = $('kpi-load');
+      
+      if (ttfbEl) ttfbEl.textContent = '—';
+      if (dclEl) dclEl.textContent = '—';
+      if (loadEl) loadEl.textContent = '—';
+      return;
+    }
 
-    // TTFB & DCL are safe to set anytime
-    $('kpi-ttfb') && ($('kpi-ttfb').textContent = nf(nav.responseStart - nav.startTime, 0) + ' ms');
-    $('kpi-dcl')  && ($('kpi-dcl').textContent  = nf(nav.domContentLoadedEventEnd - nav.startTime, 0) + ' ms');
+    // TTFB (Time to First Byte)
+    const ttfb = nav.responseStart - nav.startTime;
+    const ttfbEl = $('kpi-ttfb');
+    if (ttfbEl) ttfbEl.textContent = nf(ttfb, 0) + ' ms';
 
-    // Load may be 0 if read too early or on bfcache
+    // DOMContentLoaded
+    const dcl = nav.domContentLoadedEventEnd - nav.startTime;
+    const dclEl = $('kpi-dcl');
+    if (dclEl) dclEl.textContent = nf(dcl, 0) + ' ms';
+
+    // Load Event
     let load = nav.loadEventEnd - nav.startTime;
-    if (!load || load < 0) {
+    if (!load || load <= 0) {
       if (document.readyState === 'complete') {
-        // fallback approximation if loadEventEnd isn't populated (e.g., bfcache)
-        load = performance.now() - nav.startTime;
+        // Fallback: use current time if load event hasn't fired
+        load = performance.now();
       } else {
-        return; // wait and try again after onload
+        return; // Wait for load event
       }
     }
-    $('kpi-load') && ($('kpi-load').textContent = nf(load, 0) + ' ms');
+    const loadEl = $('kpi-load');
+    if (loadEl) loadEl.textContent = nf(load, 0) + ' ms';
   }
 
-  // Initial attempt (TTFB/DCL now; Load may still be 0)
-  updateTTFB_DCL_Load();
+  // LCP (Largest Contentful Paint) with better error handling
+  let lcpValue = null;
+  function setupLCP() {
+    try {
+      if ('PerformanceObserver' in window) {
+        const lcpObserver = new PerformanceObserver((list) => {
+          try {
+            const entries = list.getEntries();
+            if (entries.length > 0) {
+              const lastEntry = entries[entries.length - 1];
+              lcpValue = lastEntry.startTime;
+            }
+          } catch (e) {
+            console.warn('LCP measurement error:', e);
+          }
+        });
+        
+        lcpObserver.observe({ type: 'largest-contentful-paint', buffered: true });
+      }
+    } catch (e) {
+      console.warn('LCP not supported:', e);
+    }
+  }
 
-  // LCP
-  let lcpVal;
-  try {
-    const po = new PerformanceObserver((list) => {
-      const entries = list.getEntries();
-      const last = entries[entries.length - 1];
-      if (last) lcpVal = last.startTime;
+  function updateLCP() {
+    const lcpEl = $('kpi-lcp');
+    if (lcpEl) {
+      lcpEl.textContent = lcpValue !== null ? nf(lcpValue, 0) + ' ms' : '—';
+    }
+  }
+
+  // Resource analysis with better error handling
+  function analyzeResources() {
+    try {
+      const resources = performance.getEntriesByType('resource');
+      const origin = location.origin;
+      let totalBytes = 0, jsBytes = 0, reqCount = 0, thirdPartyCount = 0;
+      const thirdPartyDomains = new Set();
+
+      for (const resource of resources) {
+        reqCount++;
+        
+        // Calculate bytes more reliably
+        const bytes = resource.transferSize > 0 
+          ? resource.transferSize 
+          : (resource.encodedBodySize || 0);
+        
+        totalBytes += bytes;
+        
+        if (resource.initiatorType === 'script') {
+          jsBytes += bytes;
+        }
+        
+        try {
+          const url = new URL(resource.name, origin);
+          if (url.origin !== origin) {
+            thirdPartyCount++;
+            thirdPartyDomains.add(url.origin);
+          }
+        } catch (e) {
+          // Skip malformed URLs
+        }
+      }
+
+      return {
+        totalBytes,
+        jsBytes,
+        reqCount,
+        thirdPartyCount,
+        thirdPartyDomains: [...thirdPartyDomains].slice(0, 5)
+      };
+    } catch (e) {
+      console.warn('Resource Timing API error:', e);
+      return {
+        totalBytes: 0,
+        jsBytes: 0,
+        reqCount: 0,
+        thirdPartyCount: 0,
+        thirdPartyDomains: []
+      };
+    }
+  }
+
+  // Update all metrics
+  function updateAllMetrics() {
+    // Update timing metrics
+    updateTimingMetrics();
+    
+    // Update LCP
+    updateLCP();
+    
+    // Update resource metrics
+    const resourceData = analyzeResources();
+    
+    const reqsEl = $('kpi-reqs');
+    if (reqsEl) reqsEl.textContent = resourceData.reqCount;
+    
+    const bytesEl = $('kpi-bytes');
+    if (bytesEl) bytesEl.textContent = bfmt(resourceData.totalBytes);
+    
+    const jsEl = $('kpi-js');
+    if (jsEl) jsEl.textContent = bfmt(resourceData.jsBytes);
+    
+    const thirdPartyEl = $('kpi-3p');
+    if (thirdPartyEl) {
+      const domainList = resourceData.thirdPartyDomains.length > 0 
+        ? ` (${resourceData.thirdPartyDomains.join(', ')})` 
+        : '';
+      thirdPartyEl.textContent = resourceData.thirdPartyCount + domainList;
+    }
+
+    // Update privacy pills
+    updatePrivacyPills(resourceData);
+  }
+
+  function updatePrivacyPills(resourceData) {
+    // Cookies check
+    const hasCookies = document.cookie && document.cookie.trim().length > 0;
+    const cookiePill = $('pill-cookies');
+    if (cookiePill) {
+      cookiePill.textContent = `Cookies: ${hasCookies ? 'present' : 'none'}`;
+      cookiePill.className = 'pill ' + (hasCookies ? 'falsy' : 'truthy');
+    }
+    
+    // Third-party check
+    const hasThirdParty = resourceData.thirdPartyCount > 0;
+    const thirdPartyPill = $('pill-trackers');
+    if (thirdPartyPill) {
+      thirdPartyPill.textContent = `Third-party: ${hasThirdParty ? resourceData.thirdPartyCount : 'none'}`;
+      thirdPartyPill.className = 'pill ' + (hasThirdParty ? 'falsy' : 'truthy');
+    }
+  }
+
+  // Initialize everything
+  function initialize() {
+    setupLCP();
+    
+    // Initial update
+    setTimeout(updateAllMetrics, 100);
+    
+    // Update after page load
+    if (document.readyState === 'loading') {
+      addEventListener('DOMContentLoaded', () => setTimeout(updateAllMetrics, 100));
+    }
+    
+    addEventListener('load', () => {
+      setTimeout(updateAllMetrics, 100);
+      setTimeout(updateAllMetrics, 1000); // Second update for late resources
     });
-    po.observe({ type: 'largest-contentful-paint', buffered: true });
-    addEventListener('load', () => { setTimeout(() => {
-      $('kpi-lcp') && ($('kpi-lcp').textContent = nf(lcpVal, 0) + ' ms');
-    }, 0); });
-  } catch (_) {
-    $('kpi-lcp') && ($('kpi-lcp').textContent = '—');
+    
+    // Handle back/forward cache
+    addEventListener('pageshow', (e) => {
+      if (e.persisted) {
+        setTimeout(updateAllMetrics, 100);
+      }
+    });
   }
 
-  // Resources + privacy pills
-  function readResources() {
-    const res = performance.getEntriesByType('resource');
-    const origin = location.origin;
-    let totalBytes = 0, jsBytes = 0, reqs = 0, thirdParty = 0;
-    const thirdSet = new Set();
-    for (const r of res) {
-      reqs++;
-      const bytes = Number.isFinite(r.transferSize) && r.transferSize > 0 ? r.transferSize : (r.encodedBodySize || 0);
-      totalBytes += bytes;
-      if (r.initiatorType === 'script') jsBytes += bytes;
-      try {
-        const u = new URL(r.name, origin);
-        if (u.origin !== origin) { thirdParty++; thirdSet.add(u.origin); }
-      } catch {}
-    }
-    return { totalBytes, jsBytes, reqs, thirdParty, thirdDomains: [...thirdSet].slice(0, 6) };
-  }
-
-  function finalize() {
-    const r = readResources(); if (!r) return;
-    $('kpi-reqs')  && ($('kpi-reqs').textContent  = r.reqs);
-    $('kpi-bytes') && ($('kpi-bytes').textContent = bfmt(r.totalBytes));
-    $('kpi-js')    && ($('kpi-js').textContent    = bfmt(r.jsBytes));
-    $('kpi-3p')    && ($('kpi-3p').textContent    = r.thirdParty + (r.thirdDomains.length ? ` (${r.thirdDomains.join(', ')})` : ''));
-
-    const hasCookies = (document.cookie || '').trim().length > 0;
-    const pillC = $('pill-cookies'), pillT = $('pill-trackers');
-    if (pillC) { pillC.textContent = `Cookies: ${hasCookies ? 'present' : 'none'}`; pillC.classList.add(hasCookies ? 'falsy' : 'truthy'); }
-    const no3p = r.thirdParty === 0;
-    if (pillT) { pillT.textContent = `Third-party: ${no3p ? 'none' : r.thirdParty}`; pillT.classList.add(no3p ? 'truthy' : 'falsy'); }
-  }
-
-  // Re-run after load so Load is populated
-  addEventListener('load', () => {
-    setTimeout(updateTTFB_DCL_Load, 0);
-    setTimeout(finalize, 0);
-  });
-
-  // Handle bfcache restores
-  addEventListener('pageshow', (e) => {
-    if (e.persisted) {
-      setTimeout(updateTTFB_DCL_Load, 0);
-      setTimeout(finalize, 0);
-    }
-  });
+  // Start the module
+  initialize();
 })();
 </script>
 
