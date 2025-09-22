@@ -894,8 +894,8 @@ document.addEventListener('DOMContentLoaded', function() {
 .lightbox .close{position:fixed;top:1rem;right:1rem;background:#0008;color:#fff;border:1px solid #fff3;
   border-radius:999px;padding:.4rem .6rem;font:inherit;cursor:pointer}
 
-/* Reveal animations */
-.reveal{opacity:0; transform:translateY(14px); transition:opacity .6s ease, transform .6s ease}
+/* Reveal animations - disabled, show content by default */
+.reveal{opacity:1; transform:none; transition:opacity .6s ease, transform .6s ease}
 .reveal.in{opacity:1; transform:none}
 
 /* Masonry gallery layout */
