@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lean Privacy Debug Test</title>
+    <style>
+        body { font-family: monospace; padding: 20px; background: #111; color: #eee; }
+        .badge { background: #222; border: 1px solid #444; padding: 20px; margin: 20px 0; border-radius: 10px; }
+        .metric { margin: 10px 0; }
+        .value { color: #4f4; font-weight: bold; }
+        .pill { display: inline-block; padding: 5px 10px; margin: 5px; border-radius: 15px; border: 1px solid #444; }
+        .truthy { color: #4f4; border-color: #4f4; }
+        .falsy { color: #f44; border-color: #f44; }
+    </style>
+</head>
+<body>
+    <h1>🔧 Lean Privacy Test Debug</h1>
+    
+    <div class="badge">
+        <h3>Performance Metrics</h3>
+        <div class="metric">TTFB: <span class="value" id="ttfb">Loading...</span></div>
+        <div class="metric">DOMContentLoaded: <span class="value" id="dcl">Loading...</span></div>
+        <div class="metric">Load: <span class="value" id="load">Loading...</span></div>
+        <div class="metric">LCP: <span class="value" id="lcp">Loading...</span></div>
+        <div class="metric">Resources: <span class="value" id="resources">Loading...</span></div>
+        <div class="metric">Total Bytes: <span class="value" id="bytes">Loading...</span></div>
+        <div class="metric">JS Bytes: <span class="value" id="js-bytes">Loading...</span></div>
+        <div class="metric">Third-party: <span class="value" id="third-party">Loading...</span></div>
+    </div>
+    
+    <div class="badge">
+        <h3>Privacy Status</h3>
+        <div class="pill" id="cookies">Cookies: Checking...</div>
+        <div class="pill" id="trackers">Third-party: Checking...</div>
+    </div>
+    
+    <div class="badge">
+        <h3>Debug Console</h3>
+        <div id="debug-log" style="font-size: 12px; max-height: 300px; overflow-y: auto; background: #000; padding: 10px; border-radius: 5px;"></div>
+    </div>
+
+    <script>
+    (function() {
+        const log = (msg) => {
+            console.log(msg);
+            const debugLog = document.getElementById('debug-log');
+            if (debugLog) {
+                debugLog.innerHTML += new Date().toLocaleTimeString() + ': ' + msg + '<br>';
+                debugLog.scrollTop = debugLog.scrollHeight;
+            }
+        };
+
+        log('🚀 Starting Lean Privacy Debug Test');
+
+        // Test if Performance API is available
+        if (!window.performance) {
+            log('❌ Performance API not available');
+            return;
+        }
+
+        log('✅ Performance API available');
+
+        // Test navigation timing
+        function testNavTiming() {
+            try {
+                const nav = performance.getEntriesByType('navigation')[0];
+                if (!nav) {
+                    log('❌ No navigation entry found');
+                    return;
+                }
+
+                log('✅ Navigation entry found');
+                
+                const ttfb = nav.responseStart - nav.startTime;
+                const dcl = nav.domContentLoadedEventEnd - nav.startTime;
+                const load = nav.loadEventEnd - nav.startTime;
+
+                document.getElementById('ttfb').textContent = ttfb.toFixed(0) + ' ms';
+                document.getElementById('dcl').textContent = dcl.toFixed(0) + ' ms';
+                document.getElementById('load').textContent = load > 0 ? load.toFixed(0) + ' ms' : 'Pending...';
+
+                log(`📊 TTFB: ${ttfb}ms, DCL: ${dcl}ms, Load: ${load}ms`);
+            } catch (e) {
+                log('❌ Error testing navigation timing: ' + e.message);
+            }
+        }
+
+        // Test resource timing
+        function testResourceTiming() {
+            try {
+                const resources = performance.getEntriesByType('resource');
+                log(`📦 Found ${resources.length} resources`);
+
+                let totalBytes = 0, jsBytes = 0, thirdPartyCount = 0;
+                const origin = location.origin;
+
+                resources.forEach((r, i) => {
+                    const bytes = r.transferSize || r.encodedBodySize || 0;
+                    totalBytes += bytes;
+                    
+                    if (r.initiatorType === 'script') {
+                        jsBytes += bytes;
+                    }
+
+                    try {
+                        const url = new URL(r.name);
+                        if (url.origin !== origin) {
+                            thirdPartyCount++;
+                            log(`🔍 Third-party resource: ${url.hostname}`);
+                        }
+                    } catch (e) {
+                        // Invalid URL
+                    }
+                });
+
+                document.getElementById('resources').textContent = resources.length;
+                document.getElementById('bytes').textContent = (totalBytes / 1024).toFixed(1) + ' KB';
+                document.getElementById('js-bytes').textContent = (jsBytes / 1024).toFixed(1) + ' KB';
+                document.getElementById('third-party').textContent = thirdPartyCount;
+
+                log(`📊 Resources: ${resources.length}, Bytes: ${totalBytes}, Third-party: ${thirdPartyCount}`);
+            } catch (e) {
+                log('❌ Error testing resource timing: ' + e.message);
+            }
+        }
+
+        // Test LCP
+        function testLCP() {
+            try {
+                if ('PerformanceObserver' in window) {
+                    const observer = new PerformanceObserver((list) => {
+                        const entries = list.getEntries();
+                        const lcp = entries[entries.length - 1];
+                        if (lcp) {
+                            document.getElementById('lcp').textContent = lcp.startTime.toFixed(0) + ' ms';
+                            log(`🎯 LCP: ${lcp.startTime}ms`);
+                        }
+                    });
+                    observer.observe({ type: 'largest-contentful-paint', buffered: true });
+                    log('✅ LCP observer setup');
+                } else {
+                    log('❌ PerformanceObserver not available');
+                    document.getElementById('lcp').textContent = 'Not supported';
+                }
+            } catch (e) {
+                log('❌ Error setting up LCP: ' + e.message);
+            }
+        }
+
+        // Test privacy checks
+        function testPrivacy() {
+            // Cookies
+            const hasCookies = document.cookie.length > 0;
+            const cookieEl = document.getElementById('cookies');
+            cookieEl.textContent = `Cookies: ${hasCookies ? 'Present' : 'None'}`;
+            cookieEl.className = 'pill ' + (hasCookies ? 'falsy' : 'truthy');
+            log(`🍪 Cookies: ${hasCookies ? 'Present' : 'None'}`);
+
+            // Third-party (will update after resources are analyzed)
+        }
+
+        // Run tests
+        log('🔄 Running initial tests...');
+        testNavTiming();
+        testResourceTiming();
+        testLCP();
+        testPrivacy();
+
+        // Update after page loads
+        window.addEventListener('load', () => {
+            log('🏁 Page loaded, updating metrics...');
+            setTimeout(() => {
+                testNavTiming();
+                testResourceTiming();
+            }, 100);
+        });
+
+        log('✅ Debug test setup complete');
+    })();
+    </script>
+</body>
+</html>

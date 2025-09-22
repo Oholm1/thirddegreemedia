@@ -587,280 +587,120 @@
     </div>
 
     <script nonce="r4nd0m">
-(function () {
+// 🔧 Lean Privacy Test Module - Simple & Reliable Version
+(function() {
   'use strict';
   
-  console.log('🔧 Lean Privacy Test Module - Starting...');
-  
-  // Helper functions
-  const $ = (id) => {
-    const el = document.getElementById(id);
-    if (!el) console.warn(`Element with id '${id}' not found`);
-    return el;
-  };
-  
-  const nf = (v, d = 0) => Number.isFinite(v) && v >= 0 ? v.toFixed(d) : '—';
-  const bfmt = (b) => {
-    if (!Number.isFinite(b) || b < 0) return '—';
-    const units = ['B', 'KB', 'MB', 'GB'];
-    let i = 0, n = b;
-    while (n >= 1024 && i < units.length - 1) {
-      n /= 1024;
-      i++;
-    }
-    return `${n.toFixed(n >= 100 ? 0 : n >= 10 ? 1 : 2)} ${units[i]}`;
-  };
+  console.log('� Lean Privacy Module Starting...');
 
-  // Get navigation entry with fallback
-  const getNavEntry = () => {
-    try {
-      const entries = performance.getEntriesByType('navigation');
-      return entries.length > 0 ? entries[0] : null;
-    } catch (e) {
-      console.warn('Navigation Timing API not supported', e);
-      return null;
-    }
-  };
-
-  // Update timing metrics
-  function updateTimingMetrics() {
-    console.log('📊 Updating timing metrics...');
-    const nav = getNavEntry();
+  function updateMetrics() {
+    console.log('⚡ Updating metrics...');
     
-    if (!nav) {
-      console.warn('No navigation entry available');
-      $('kpi-ttfb')?.textContent && ($('kpi-ttfb').textContent = 'N/A');
-      $('kpi-dcl')?.textContent && ($('kpi-dcl').textContent = 'N/A');
-      $('kpi-load')?.textContent && ($('kpi-load').textContent = 'N/A');
-      return;
-    }
-
-    // TTFB (Time to First Byte)
-    const ttfb = nav.responseStart - nav.startTime;
-    const ttfbEl = $('kpi-ttfb');
-    if (ttfbEl) {
-      ttfbEl.textContent = nf(ttfb, 0) + ' ms';
-      console.log(`TTFB: ${ttfb}ms`);
-    }
-
-    // DOMContentLoaded
-    const dcl = nav.domContentLoadedEventEnd - nav.startTime;
-    const dclEl = $('kpi-dcl');
-    if (dclEl) {
-      dclEl.textContent = nf(dcl, 0) + ' ms';
-      console.log(`DCL: ${dcl}ms`);
-    }
-
-    // Load Event
-    let load = nav.loadEventEnd - nav.startTime;
-    if (!load || load <= 0) {
-      if (document.readyState === 'complete') {
-        // Fallback: use current time if load event hasn't fired
-        load = performance.now();
-      } else {
-        console.log('Load event not yet fired, skipping...');
-        return;
-      }
-    }
-    const loadEl = $('kpi-load');
-    if (loadEl) {
-      loadEl.textContent = nf(load, 0) + ' ms';
-      console.log(`Load: ${load}ms`);
-    }
-  }
-
-  // LCP (Largest Contentful Paint) with better error handling
-  let lcpValue = null;
-  function setupLCP() {
-    try {
-      if ('PerformanceObserver' in window) {
-        const lcpObserver = new PerformanceObserver((list) => {
-          try {
-            const entries = list.getEntries();
-            if (entries.length > 0) {
-              const lastEntry = entries[entries.length - 1];
-              lcpValue = lastEntry.startTime;
-              console.log(`LCP updated: ${lcpValue}ms`);
-            }
-          } catch (e) {
-            console.warn('LCP measurement error:', e);
-          }
-        });
-        
-        lcpObserver.observe({ type: 'largest-contentful-paint', buffered: true });
-        console.log('🎯 LCP observer setup complete');
-      }
-    } catch (e) {
-      console.warn('LCP not supported:', e);
-    }
-  }
-
-  function updateLCP() {
-    const lcpEl = $('kpi-lcp');
-    if (lcpEl) {
-      lcpEl.textContent = lcpValue !== null ? nf(lcpValue, 0) + ' ms' : 'Measuring...';
-    }
-  }
-
-  // Resource analysis with better error handling
-  function analyzeResources() {
-    try {
-      const resources = performance.getEntriesByType('resource');
-      const origin = location.origin;
-      let totalBytes = 0, jsBytes = 0, reqCount = 0, thirdPartyCount = 0;
-      const thirdPartyDomains = new Set();
-
-      console.log(`📦 Analyzing ${resources.length} resources...`);
-
-      for (const resource of resources) {
-        reqCount++;
-        
-        // Calculate bytes more reliably
-        const bytes = resource.transferSize > 0 
-          ? resource.transferSize 
-          : (resource.encodedBodySize || 0);
-        
-        totalBytes += bytes;
-        
-        if (resource.initiatorType === 'script') {
-          jsBytes += bytes;
-        }
-        
-        try {
-          const url = new URL(resource.name, origin);
-          if (url.origin !== origin) {
-            thirdPartyCount++;
-            thirdPartyDomains.add(url.hostname);
-          }
-        } catch (e) {
-          // Skip malformed URLs
-        }
-      }
-
-      const result = {
-        totalBytes,
-        jsBytes,
-        reqCount,
-        thirdPartyCount,
-        thirdPartyDomains: [...thirdPartyDomains].slice(0, 5)
-      };
-      
-      console.log('📊 Resource analysis:', result);
-      return result;
-    } catch (e) {
-      console.warn('Resource Timing API error:', e);
-      return {
-        totalBytes: 0,
-        jsBytes: 0,
-        reqCount: 0,
-        thirdPartyCount: 0,
-        thirdPartyDomains: []
-      };
-    }
-  }
-
-  // Update all metrics
-  function updateAllMetrics() {
-    console.log('🔄 Updating all metrics...');
+    // Quick element check
+    const elements = {
+      ttfb: document.getElementById('kpi-ttfb'),
+      dcl: document.getElementById('kpi-dcl'), 
+      load: document.getElementById('kpi-load'),
+      lcp: document.getElementById('kpi-lcp'),
+      reqs: document.getElementById('kpi-reqs'),
+      bytes: document.getElementById('kpi-bytes'),
+      js: document.getElementById('kpi-js'),
+      thirdParty: document.getElementById('kpi-3p'),
+      cookies: document.getElementById('pill-cookies'),
+      trackers: document.getElementById('pill-trackers')
+    };
     
     // Check if elements exist
-    const elements = ['kpi-ttfb', 'kpi-lcp', 'kpi-dcl', 'kpi-load', 'kpi-reqs', 'kpi-bytes', 'kpi-js', 'kpi-3p'];
-    elements.forEach(id => {
-      if (!document.getElementById(id)) {
-        console.error(`Missing element: ${id}`);
-      }
+    Object.entries(elements).forEach(([key, el]) => {
+      if (!el) console.warn(`Missing element: ${key}`);
     });
-    
-    // Update timing metrics
-    updateTimingMetrics();
-    
-    // Update LCP
-    updateLCP();
-    
-    // Update resource metrics
-    const resourceData = analyzeResources();
-    
-    const reqsEl = $('kpi-reqs');
-    if (reqsEl) reqsEl.textContent = resourceData.reqCount;
-    
-    const bytesEl = $('kpi-bytes');
-    if (bytesEl) bytesEl.textContent = bfmt(resourceData.totalBytes);
-    
-    const jsEl = $('kpi-js');
-    if (jsEl) jsEl.textContent = bfmt(resourceData.jsBytes);
-    
-    const thirdPartyEl = $('kpi-3p');
-    if (thirdPartyEl) {
-      const domainList = resourceData.thirdPartyDomains.length > 0 
-        ? ` (${resourceData.thirdPartyDomains.join(', ')})` 
-        : '';
-      thirdPartyEl.textContent = resourceData.thirdPartyCount + domainList;
-    }
 
-    // Update privacy pills
-    updatePrivacyPills(resourceData);
-    console.log('✅ Metrics update complete');
-  }
+    try {
+      // Navigation Timing
+      const nav = performance.getEntriesByType('navigation')[0];
+      if (nav) {
+        const ttfb = Math.round(nav.responseStart - nav.startTime);
+        const dcl = Math.round(nav.domContentLoadedEventEnd - nav.startTime);
+        const load = Math.round(nav.loadEventEnd - nav.startTime);
+        
+        if (elements.ttfb) elements.ttfb.textContent = ttfb + ' ms';
+        if (elements.dcl) elements.dcl.textContent = dcl + ' ms';  
+        if (elements.load) elements.load.textContent = (load > 0 ? load : '—') + ' ms';
+        
+        console.log(`Timings: TTFB=${ttfb}ms, DCL=${dcl}ms, Load=${load}ms`);
+      }
 
-  function updatePrivacyPills(resourceData) {
-    // Cookies check
-    const hasCookies = document.cookie && document.cookie.trim().length > 0;
-    const cookiePill = $('pill-cookies');
-    if (cookiePill) {
-      cookiePill.textContent = `Cookies: ${hasCookies ? 'present' : 'none'}`;
-      cookiePill.className = 'pill ' + (hasCookies ? 'falsy' : 'truthy');
-      console.log(`🍪 Cookies: ${hasCookies ? 'present' : 'none'}`);
-    }
-    
-    // Third-party check
-    const hasThirdParty = resourceData.thirdPartyCount > 0;
-    const thirdPartyPill = $('pill-trackers');
-    if (thirdPartyPill) {
-      thirdPartyPill.textContent = `Third-party: ${hasThirdParty ? resourceData.thirdPartyCount : 'none'}`;
-      thirdPartyPill.className = 'pill ' + (hasThirdParty ? 'falsy' : 'truthy');
-      console.log(`🔒 Third-party: ${hasThirdParty ? resourceData.thirdPartyCount : 'none'}`);
-    }
-  }
-
-  // Initialize everything
-  function initialize() {
-    console.log('🚀 Initializing Lean Privacy Test Module...');
-    
-    // Set up LCP monitoring
-    setupLCP();
-    
-    // Immediate update (for elements available now)
-    setTimeout(() => {
-      console.log('⚡ Running immediate update...');
-      updateAllMetrics();
-    }, 50);
-    
-    // Update after DOM ready (if not already ready)
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', () => {
-        console.log('📄 DOM ready, updating metrics...');
-        setTimeout(updateAllMetrics, 50);
+      // Resource Timing
+      const resources = performance.getEntriesByType('resource');
+      let totalBytes = 0, jsBytes = 0, thirdPartyCount = 0;
+      const origin = location.origin;
+      
+      resources.forEach(r => {
+        const bytes = r.transferSize || r.encodedBodySize || 0;
+        totalBytes += bytes;
+        if (r.initiatorType === 'script') jsBytes += bytes;
+        
+        try {
+          if (new URL(r.name).origin !== origin) thirdPartyCount++;
+        } catch(e) {}
       });
-    }
-    
-    // Update after page load
-    window.addEventListener('load', () => {
-      console.log('🏁 Page loaded, final metrics update...');
-      setTimeout(updateAllMetrics, 100);
-      setTimeout(updateAllMetrics, 1000); // Second update for late resources
-    });
-    
-    // Handle back/forward cache
-    window.addEventListener('pageshow', (e) => {
-      if (e.persisted) {
-        console.log('🔄 Page restored from cache, updating metrics...');
-        setTimeout(updateAllMetrics, 100);
-      }
-    });
-  }
+      
+      if (elements.reqs) elements.reqs.textContent = resources.length;
+      if (elements.bytes) elements.bytes.textContent = (totalBytes/1024).toFixed(1) + ' KB';
+      if (elements.js) elements.js.textContent = (jsBytes/1024).toFixed(1) + ' KB';
+      if (elements.thirdParty) elements.thirdParty.textContent = thirdPartyCount;
+      
+      console.log(`Resources: ${resources.length}, Bytes: ${(totalBytes/1024).toFixed(1)}KB, Third-party: ${thirdPartyCount}`);
 
-  // Start the module
-  initialize();
+      // Privacy Pills
+      const hasCookies = document.cookie.length > 0;
+      if (elements.cookies) {
+        elements.cookies.textContent = `Cookies: ${hasCookies ? 'present' : 'none'}`;
+        elements.cookies.className = 'pill ' + (hasCookies ? 'falsy' : 'truthy');
+      }
+      
+      if (elements.trackers) {
+        elements.trackers.textContent = `Third-party: ${thirdPartyCount > 0 ? thirdPartyCount : 'none'}`;
+        elements.trackers.className = 'pill ' + (thirdPartyCount > 0 ? 'falsy' : 'truthy');
+      }
+      
+    } catch (e) {
+      console.error('Metrics update error:', e);
+    }
+
+    // LCP (if supported)
+    if ('PerformanceObserver' in window && elements.lcp) {
+      try {
+        const observer = new PerformanceObserver(list => {
+          const entries = list.getEntries();
+          if (entries.length > 0) {
+            const lcp = entries[entries.length - 1];
+            elements.lcp.textContent = Math.round(lcp.startTime) + ' ms';
+          }
+        });
+        observer.observe({ type: 'largest-contentful-paint', buffered: true });
+      } catch (e) {
+        if (elements.lcp) elements.lcp.textContent = '—';
+      }
+    } else if (elements.lcp) {
+      elements.lcp.textContent = '—';
+    }
+  }
+  
+  // Run immediately if DOM is ready
+  if (document.readyState !== 'loading') {
+    updateMetrics();
+  } else {
+    document.addEventListener('DOMContentLoaded', updateMetrics);
+  }
+  
+  // Update again after full page load
+  window.addEventListener('load', () => {
+    setTimeout(updateMetrics, 100);
+    setTimeout(updateMetrics, 1000);
+  });
+  
+  console.log('✅ Lean Privacy Module Ready');
 })();
 </script>
 
