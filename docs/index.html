@@ -590,8 +590,15 @@
 (function () {
   'use strict';
   
+  console.log('🔧 Lean Privacy Test Module - Starting...');
+  
   // Helper functions
-  const $ = (id) => document.getElementById(id);
+  const $ = (id) => {
+    const el = document.getElementById(id);
+    if (!el) console.warn(`Element with id '${id}' not found`);
+    return el;
+  };
+  
   const nf = (v, d = 0) => Number.isFinite(v) && v >= 0 ? v.toFixed(d) : '—';
   const bfmt = (b) => {
     if (!Number.isFinite(b) || b < 0) return '—';
@@ -607,37 +614,42 @@
   // Get navigation entry with fallback
   const getNavEntry = () => {
     try {
-      return performance.getEntriesByType('navigation')[0] || null;
+      const entries = performance.getEntriesByType('navigation');
+      return entries.length > 0 ? entries[0] : null;
     } catch (e) {
-      console.warn('Navigation Timing API not supported');
+      console.warn('Navigation Timing API not supported', e);
       return null;
     }
   };
 
   // Update timing metrics
   function updateTimingMetrics() {
+    console.log('📊 Updating timing metrics...');
     const nav = getNavEntry();
+    
     if (!nav) {
-      // Fallback for older browsers
-      const ttfbEl = $('kpi-ttfb');
-      const dclEl = $('kpi-dcl');
-      const loadEl = $('kpi-load');
-      
-      if (ttfbEl) ttfbEl.textContent = '—';
-      if (dclEl) dclEl.textContent = '—';
-      if (loadEl) loadEl.textContent = '—';
+      console.warn('No navigation entry available');
+      $('kpi-ttfb')?.textContent && ($('kpi-ttfb').textContent = 'N/A');
+      $('kpi-dcl')?.textContent && ($('kpi-dcl').textContent = 'N/A');
+      $('kpi-load')?.textContent && ($('kpi-load').textContent = 'N/A');
       return;
     }
 
     // TTFB (Time to First Byte)
     const ttfb = nav.responseStart - nav.startTime;
     const ttfbEl = $('kpi-ttfb');
-    if (ttfbEl) ttfbEl.textContent = nf(ttfb, 0) + ' ms';
+    if (ttfbEl) {
+      ttfbEl.textContent = nf(ttfb, 0) + ' ms';
+      console.log(`TTFB: ${ttfb}ms`);
+    }
 
     // DOMContentLoaded
     const dcl = nav.domContentLoadedEventEnd - nav.startTime;
     const dclEl = $('kpi-dcl');
-    if (dclEl) dclEl.textContent = nf(dcl, 0) + ' ms';
+    if (dclEl) {
+      dclEl.textContent = nf(dcl, 0) + ' ms';
+      console.log(`DCL: ${dcl}ms`);
+    }
 
     // Load Event
     let load = nav.loadEventEnd - nav.startTime;
@@ -646,11 +658,15 @@
         // Fallback: use current time if load event hasn't fired
         load = performance.now();
       } else {
-        return; // Wait for load event
+        console.log('Load event not yet fired, skipping...');
+        return;
       }
     }
     const loadEl = $('kpi-load');
-    if (loadEl) loadEl.textContent = nf(load, 0) + ' ms';
+    if (loadEl) {
+      loadEl.textContent = nf(load, 0) + ' ms';
+      console.log(`Load: ${load}ms`);
+    }
   }
 
   // LCP (Largest Contentful Paint) with better error handling
@@ -664,6 +680,7 @@
             if (entries.length > 0) {
               const lastEntry = entries[entries.length - 1];
               lcpValue = lastEntry.startTime;
+              console.log(`LCP updated: ${lcpValue}ms`);
             }
           } catch (e) {
             console.warn('LCP measurement error:', e);
@@ -671,6 +688,7 @@
         });
         
         lcpObserver.observe({ type: 'largest-contentful-paint', buffered: true });
+        console.log('🎯 LCP observer setup complete');
       }
     } catch (e) {
       console.warn('LCP not supported:', e);
@@ -680,7 +698,7 @@
   function updateLCP() {
     const lcpEl = $('kpi-lcp');
     if (lcpEl) {
-      lcpEl.textContent = lcpValue !== null ? nf(lcpValue, 0) + ' ms' : '—';
+      lcpEl.textContent = lcpValue !== null ? nf(lcpValue, 0) + ' ms' : 'Measuring...';
     }
   }
 
@@ -691,6 +709,8 @@
       const origin = location.origin;
       let totalBytes = 0, jsBytes = 0, reqCount = 0, thirdPartyCount = 0;
       const thirdPartyDomains = new Set();
+
+      console.log(`📦 Analyzing ${resources.length} resources...`);
 
       for (const resource of resources) {
         reqCount++;
@@ -710,20 +730,23 @@
           const url = new URL(resource.name, origin);
           if (url.origin !== origin) {
             thirdPartyCount++;
-            thirdPartyDomains.add(url.origin);
+            thirdPartyDomains.add(url.hostname);
           }
         } catch (e) {
           // Skip malformed URLs
         }
       }
 
-      return {
+      const result = {
         totalBytes,
         jsBytes,
         reqCount,
         thirdPartyCount,
         thirdPartyDomains: [...thirdPartyDomains].slice(0, 5)
       };
+      
+      console.log('📊 Resource analysis:', result);
+      return result;
     } catch (e) {
       console.warn('Resource Timing API error:', e);
       return {
@@ -738,6 +761,16 @@
 
   // Update all metrics
   function updateAllMetrics() {
+    console.log('🔄 Updating all metrics...');
+    
+    // Check if elements exist
+    const elements = ['kpi-ttfb', 'kpi-lcp', 'kpi-dcl', 'kpi-load', 'kpi-reqs', 'kpi-bytes', 'kpi-js', 'kpi-3p'];
+    elements.forEach(id => {
+      if (!document.getElementById(id)) {
+        console.error(`Missing element: ${id}`);
+      }
+    });
+    
     // Update timing metrics
     updateTimingMetrics();
     
@@ -766,6 +799,7 @@
 
     // Update privacy pills
     updatePrivacyPills(resourceData);
+    console.log('✅ Metrics update complete');
   }
 
   function updatePrivacyPills(resourceData) {
@@ -775,6 +809,7 @@
     if (cookiePill) {
       cookiePill.textContent = `Cookies: ${hasCookies ? 'present' : 'none'}`;
       cookiePill.className = 'pill ' + (hasCookies ? 'falsy' : 'truthy');
+      console.log(`🍪 Cookies: ${hasCookies ? 'present' : 'none'}`);
     }
     
     // Third-party check
@@ -783,29 +818,42 @@
     if (thirdPartyPill) {
       thirdPartyPill.textContent = `Third-party: ${hasThirdParty ? resourceData.thirdPartyCount : 'none'}`;
       thirdPartyPill.className = 'pill ' + (hasThirdParty ? 'falsy' : 'truthy');
+      console.log(`🔒 Third-party: ${hasThirdParty ? resourceData.thirdPartyCount : 'none'}`);
     }
   }
 
   // Initialize everything
   function initialize() {
+    console.log('🚀 Initializing Lean Privacy Test Module...');
+    
+    // Set up LCP monitoring
     setupLCP();
     
-    // Initial update
-    setTimeout(updateAllMetrics, 100);
+    // Immediate update (for elements available now)
+    setTimeout(() => {
+      console.log('⚡ Running immediate update...');
+      updateAllMetrics();
+    }, 50);
     
-    // Update after page load
+    // Update after DOM ready (if not already ready)
     if (document.readyState === 'loading') {
-      addEventListener('DOMContentLoaded', () => setTimeout(updateAllMetrics, 100));
+      document.addEventListener('DOMContentLoaded', () => {
+        console.log('📄 DOM ready, updating metrics...');
+        setTimeout(updateAllMetrics, 50);
+      });
     }
     
-    addEventListener('load', () => {
+    // Update after page load
+    window.addEventListener('load', () => {
+      console.log('🏁 Page loaded, final metrics update...');
       setTimeout(updateAllMetrics, 100);
       setTimeout(updateAllMetrics, 1000); // Second update for late resources
     });
     
     // Handle back/forward cache
-    addEventListener('pageshow', (e) => {
+    window.addEventListener('pageshow', (e) => {
       if (e.persisted) {
+        console.log('🔄 Page restored from cache, updating metrics...');
         setTimeout(updateAllMetrics, 100);
       }
     });
