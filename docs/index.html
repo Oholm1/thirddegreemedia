@@ -33,6 +33,10 @@
   <link rel="stylesheet" href="https://unpkg.com/@picocss/pico@2/css/pico.classless.min.css">
   <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
   
+  <!-- News widget -->
+  <link rel="stylesheet" href="/css/news-widget.css">
+  <script defer src="/js/news-widget.js"></script>
+  
   <!-- Favicon -->
   <link rel="icon" href="/favicon.ico" sizes="any">
   <link rel="icon" href="/unicursal-hexagram.svg" type="image/svg+xml">
@@ -573,6 +577,13 @@
       <h2>More Privacy Tools We Trust</h2>
       <p>We endorse <strong>PrivacyGuides.org</strong> — a community-run directory of privacy-respecting tools. No ads, no tracking, just honest recommendations for those who value autonomy.</p>
       <p>Explore their codex at <a href="https://www.privacyguides.org" target="_blank" rel="noopener">privacyguides.org</a>.</p>
+    </section>
+
+    <!-- Privacy News Feed -->
+    <section class="callout reveal">
+      <h2>📡 Signal Feed — Privacy & Civil Liberties News</h2>
+      <p>Curated feeds from EFF, Tor Project, ProPublica, Mullvad, and Mozilla Security. No tracking, no third-party requests—just the latest signals from the privacy resistance.</p>
+      <div id="news-root"></div>
     </section>
 
     <!-- Gallery -->
