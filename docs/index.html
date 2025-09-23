@@ -518,11 +518,33 @@
       </p>
 
       <div style="margin:12px 0;">
-        <audio controls style="width:100%;max-width:400px;">
+        <audio controls style="width:100%;max-width:400px;" id="kaxe-player">
+          <source src="https://live.kaxe.org/kaxe" type="audio/mpeg">
+          <source src="https://kaxe.streamguys1.com/kaxe" type="audio/mpeg">
           <source src="https://kaxe.streamguys1.com/kaxe.mp3" type="audio/mpeg">
           Your browser does not support the audio element.
         </audio>
+        <div id="audio-status" style="font-size:0.9rem;opacity:0.7;margin-top:4px;"></div>
       </div>
+      
+      <script>
+        const audioPlayer = document.getElementById('kaxe-player');
+        const statusDiv = document.getElementById('audio-status');
+        
+        audioPlayer.addEventListener('error', function(e) {
+          statusDiv.textContent = 'Stream temporarily unavailable - visit KAXE.org to listen directly';
+          statusDiv.style.color = '#ffcc66';
+        });
+        
+        audioPlayer.addEventListener('loadstart', function(e) {
+          statusDiv.textContent = 'Loading KAXE stream...';
+        });
+        
+        audioPlayer.addEventListener('canplay', function(e) {
+          statusDiv.textContent = 'Ready to play KAXE Northern Community Radio';
+          statusDiv.style.color = '#7cc7ff';
+        });
+      </script>
 
       <p style="margin-top:12px;">
         → <a href="https://www.kaxe.org/" target="_blank" rel="noopener" style="color:#ffcc66;text-decoration:none;">Visit KAXE.org</a> 
