@@ -29,6 +29,10 @@
   <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
   <link rel="stylesheet" href="/style.css?v=6" />
   
+  <!-- Interactive widgets -->
+  <link rel="stylesheet" href="https://unpkg.com/@picocss/pico@2/css/pico.classless.min.css">
+  <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  
   <!-- Favicon -->
   <link rel="icon" href="/favicon.ico" sizes="any">
   <link rel="icon" href="/unicursal-hexagram.svg" type="image/svg+xml">
@@ -611,6 +615,49 @@
         <a href="/img/photo3@2x.jpg"><img loading="lazy" src="/img/photo3.jpg" alt="Photo 3"></a>
         <a href="/img/photo4@2x.jpg"><img loading="lazy" src="/img/photo4.jpg" alt="Photo 4"></a>
         <!-- add more images as needed -->
+      </div>
+    </section>
+
+    <!-- Interactive Widgets -->
+    <section x-data="{open:false}" style="background:#0b0d10;color:#e7edf3;border:1px solid #1e2833;border-radius:12px;padding:16px;margin:24px 0;">
+      <header style="display:flex;gap:.5rem;align-items:center;cursor:pointer" @click="open=!open">
+        <h3 style="margin:0;color:#7cc7ff">🔧 Advanced Privacy Tools</h3>
+        <button style="margin-left:auto;background:transparent;border:1px solid #1e2833;color:#7cc7ff;padding:4px 8px;border-radius:6px;cursor:pointer">
+          <span x-show="!open">expand</span>
+          <span x-show="open">collapse</span>
+        </button>
+      </header>
+      <div x-show="open" x-transition style="margin-top:12px;">
+        <p>Deep tools for digital sovereignty:</p>
+        <ul>
+          <li><strong>Tails OS</strong> - Amnesic live operating system for maximum privacy</li>
+          <li><strong>Qubes OS</strong> - Security through compartmentalization</li>
+          <li><strong>I2P Network</strong> - Anonymous peer-to-peer communication layer</li>
+          <li><strong>Briar Messenger</strong> - Decentralized messaging without servers</li>
+        </ul>
+      </div>
+    </section>
+
+    <section x-data="{open:false}" style="background:#0b0d10;color:#e7edf3;border:1px solid #1e2833;border-radius:12px;padding:16px;margin:24px 0;">
+      <header style="display:flex;gap:.5rem;align-items:center;cursor:pointer" @click="open=!open">
+        <h3 style="margin:0;color:#ffcc66">📡 Network Status</h3>
+        <button style="margin-left:auto;background:transparent;border:1px solid #1e2833;color:#ffcc66;padding:4px 8px;border-radius:6px;cursor:pointer">
+          <span x-show="!open">expand</span>
+          <span x-show="open">collapse</span>
+        </button>
+      </header>
+      <div x-show="open" x-transition style="margin-top:12px;">
+        <p>Third Degree Media infrastructure status:</p>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin:12px 0;">
+          <div style="background:#0f1318;border:1px solid #1e2833;border-radius:8px;padding:8px;">
+            <div style="opacity:.7;font-size:.9rem;">Website</div>
+            <div style="color:#00ff88;font-weight:600;">Online</div>
+          </div>
+          <div style="background:#0f1318;border:1px solid #1e2833;border-radius:8px;padding:8px;">
+            <div style="opacity:.7;font-size:.9rem;">Snowflake Proxy</div>
+            <div style="color:#00ff88;font-weight:600;">Active</div>
+          </div>
+        </div>
       </div>
     </section>
 
