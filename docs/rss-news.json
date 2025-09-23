@@ -1,0 +1,40 @@
+{
+  "last_updated": "2025-09-23T18:30:00Z",
+  "items": [
+    {
+      "title": "EFF Challenges Government Surveillance Overreach",
+      "url": "https://www.eff.org/deeplinks/2025/09/eff-challenges-surveillance",
+      "source": "EFF",
+      "date": "2025-09-23T15:00:00Z",
+      "summary": "The Electronic Frontier Foundation files legal challenge against expanded government surveillance programs that lack proper oversight and threaten digital privacy rights."
+    },
+    {
+      "title": "Tor Browser 13.5 Released with Enhanced Security",
+      "url": "https://blog.torproject.org/new-release-tor-browser-135",
+      "source": "Tor Project", 
+      "date": "2025-09-23T12:30:00Z",
+      "summary": "Latest Tor Browser release includes improved circuit security, updated NoScript integration, and enhanced protection against browser fingerprinting attacks."
+    },
+    {
+      "title": "Investigation: How Police Facial Recognition Systems Fail",
+      "url": "https://www.propublica.org/article/police-facial-recognition-failures",
+      "source": "ProPublica Nerd/News",
+      "date": "2025-09-22T20:15:00Z", 
+      "summary": "New analysis reveals widespread accuracy problems in police facial recognition systems, with misidentification rates particularly high for minority communities."
+    },
+    {
+      "title": "Mullvad VPN Adds New Privacy Features",
+      "url": "https://mullvad.net/en/blog/new-privacy-features-2025",
+      "source": "Mullvad",
+      "date": "2025-09-22T14:00:00Z",
+      "summary": "Mullvad introduces enhanced DAITA traffic analysis protection and expanded server network to provide users with stronger anonymity and improved performance."
+    },
+    {
+      "title": "Mozilla Fights Tracking in Firefox 119",
+      "url": "https://blog.mozilla.org/security/2025/09/firefox-119-tracking-protection",
+      "source": "Mozilla Security Blog", 
+      "date": "2025-09-21T16:45:00Z",
+      "summary": "Firefox 119 introduces stricter default tracking protection settings and improved fingerprinting resistance to better protect user privacy across the web."
+    }
+  ]
+}
