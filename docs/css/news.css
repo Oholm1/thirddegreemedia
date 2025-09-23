@@ -11,3 +11,5 @@
 .tdm-meta { display: flex; gap: .5rem; font-size: .85rem; opacity: .85; margin-top: .25rem; }
 .tdm-summary { margin-top: .4rem; line-height: 1.4; }
 .tdm-empty, .tdm-skel { opacity: .7; padding: .5rem; }
+.tdm-card-image { margin: .5rem 0; }
+.tdm-news-img { width: 100%; max-width: 200px; height: auto; border-radius: .5rem; border: 1px solid #333; }

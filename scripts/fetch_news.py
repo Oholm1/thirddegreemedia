@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
 """
-Fetch privacy/civil-liberty/news RSS feeds → docs/news.json (static).
+Fetch privacy/civil-liberty/news RSS feeds → docs/news_feed.json (static).
 - Keeps it private: users fetch only your JSON, not 3rd-party feeds.
 - Safe defaults: dedup by URL, trims very long summaries, sorts by date desc.
 - Add/remove feeds in FEEDS below.
+- Optionally fetches images via Openverse API (use --images flag).
 """
-import json, re, time, hashlib
+import json, re, time, hashlib, os, sys, argparse
 from datetime import datetime, timezone
 from urllib.request import Request, urlopen
 from urllib.error import URLError, HTTPError
@@ -14,6 +15,7 @@ from pathlib import Path
 
 # ---- Configure here ---------------------------------------------------------
 OUTPUT = Path(__file__).resolve().parents[1] / "docs" / "news_feed.json"
+IMAGE_DIR = Path(__file__).resolve().parents[1] / "docs" / "assets" / "news_images"
 MAX_ITEMS_PER_FEED = 15
 MAX_SUMMARY_CHARS = 260
 USER_AGENT = "ThirdDegreeMedia/1.0 (+https://thirddegreemedia.com)"
@@ -92,8 +94,41 @@ def parse_feed_xml(xml_bytes: bytes, fallback_source: str):
         items.append({"title": title, "url": link, "source": fallback_source, "date": date_iso, "summary": summary})
     return items
 
+def fetch_image_for_story(title, summary, source, outdir):
+    """
+    Try to fetch an image for a news story using the legal_news_image script.
+    Returns relative path to image or None if not found/error.
+    """
+    try:
+        # Import legal_news_image functions (if dependencies available)
+        from legal_news_image import choose_and_save
+        
+        # Create tags based on source and content
+        tags = [source.lower(), "privacy", "technology", "news"]
+        
+        # Try to fetch image
+        html, meta = choose_and_save(title, summary, tags, str(outdir))
+        
+        # Return relative path for web use
+        thumb_path = meta.get("thumb_path", "")
+        if thumb_path:
+            # Convert absolute path to relative web path
+            web_path = thumb_path.replace(str(Path(__file__).resolve().parents[1] / "docs"), "").replace("\\", "/")
+            if web_path.startswith("/"):
+                web_path = web_path[1:]
+            return web_path
+    except Exception as e:
+        # Silently fail if image fetch doesn't work (missing deps, API error, etc)
+        pass
+    
+    return None
+
 def main():
+    parser = argparse.ArgumentParser(description="Fetch RSS news feeds with optional image integration")
+    parser.add_argument("--images", action="store_true", help="Fetch images for news stories (requires additional deps)")
+    args = parser.parse_args()
     all_items = {}
+    
     for source, url in FEEDS:
         try:
             xml_bytes = fetch(url)
@@ -101,6 +136,13 @@ def main():
             for it in items:
                 if not it["title"] or not it["url"]:
                     continue
+                
+                # Try to fetch image if requested
+                if args.images:
+                    image_path = fetch_image_for_story(it["title"], it["summary"], source, IMAGE_DIR)
+                    if image_path:
+                        it["image"] = image_path
+                
                 # Dedup by URL hash
                 key = hashlib.sha1(it["url"].encode("utf-8")).hexdigest()
                 # Keep newest if collision

@@ -1,0 +1,6 @@
+# Optional dependencies for news image fetching
+# Install with: pip install -r requirements-images.txt
+
+requests>=2.28.0
+python-slugify>=8.0.0
+Pillow>=9.0.0

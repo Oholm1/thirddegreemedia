@@ -63,16 +63,37 @@
       return;
     }
     state.filtered.forEach(item => {
-      const card = el("article", { class: "tdm-card" }, [
+      const cardContent = [
         el("header", { class: "tdm-card-head" }, [
           el("a", { href: item.url, target: "_blank", rel: "noopener", class: "tdm-title" }, [item.title]),
         ]),
         el("div", { class: "tdm-meta" }, [
           el("span", { class: "tdm-source" }, [item.source]),
           el("time", { class: "tdm-date", datetime: item.date }, [fmtDate(item.date)])
-        ]),
+        ])
+      ];
+
+      // Add image if available
+      if (item.image) {
+        cardContent.push(
+          el("div", { class: "tdm-card-image" }, [
+            el("img", { 
+              src: item.image, 
+              alt: item.title, 
+              loading: "lazy", 
+              decoding: "async",
+              class: "tdm-news-img"
+            })
+          ])
+        );
+      }
+
+      // Add summary
+      cardContent.push(
         item.summary ? el("p", { class: "tdm-summary" }, [item.summary]) : el("p", { class: "tdm-summary tdm-muted" }, ["(No summary)"])
-      ]);
+      );
+
+      const card = el("article", { class: "tdm-card" }, cardContent);
       list.appendChild(card);
     });
     swap(list);
