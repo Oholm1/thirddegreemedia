@@ -121,5 +121,19 @@
   </section>
 
 </main>
+
+<!-- Scroll position preservation for back navigation -->
+<script>
+(() => {
+  // Store scroll position when clicking links to other pages
+  document.addEventListener('click', (e) => {
+    const link = e.target.closest('a[href]');
+    if (link && link.hostname === window.location.hostname) {
+      sessionStorage.setItem('tdm-scroll', window.scrollY);
+    }
+  });
+})();
+</script>
+
 </body>
 </html>

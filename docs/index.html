@@ -1015,6 +1015,32 @@ document.addEventListener('DOMContentLoaded', function() {
 })();
 </script>
 
+<!-- Scroll position preservation -->
+<script nonce="r4nd0m">
+(() => {
+  // Enable browser's built-in scroll restoration
+  if ('scrollRestoration' in history) {
+    history.scrollRestoration = 'auto';
+  }
+  
+  // Store scroll position when leaving page
+  window.addEventListener('beforeunload', () => {
+    sessionStorage.setItem('tdm-scroll', window.scrollY);
+  });
+  
+  // Restore scroll position when returning
+  window.addEventListener('load', () => {
+    const saved = sessionStorage.getItem('tdm-scroll');
+    if (saved && window.location.hash === '') {
+      setTimeout(() => {
+        window.scrollTo(0, parseInt(saved, 10));
+        sessionStorage.removeItem('tdm-scroll');
+      }, 100);
+    }
+  });
+})();
+</script>
+
 </body>
 </html>
 <!-- DEPLOY-MARKER-20250917-223053 -->
