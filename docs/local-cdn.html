@@ -17,7 +17,7 @@
     .lede { font-size: 1.05rem; color: var(--muted); }
     .grid { display: grid; gap: 1rem; }
     @media (min-width: 760px) { .cols-2 { grid-template-columns: 1fr 1fr; } }
-    .kbd { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace; background:#0f1115; border:1px solid #1b1f24; padding:.15rem .35rem; border-radius:6px; }
+    .kbd { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace; background:#0f1115; border:1px solid #1b1f24; padding:.15rem .35rem; border-radius:6px; word-break: break-all; overflow-wrap: break-word; }
     .muted { color: var(--muted); }
     .stamp { font-size:.875rem; color: var(--muted); }
   </style>
@@ -45,7 +45,7 @@
         <div>
           <h3>How it looks in the wild</h3>
           <ol>
-            <li>Site requests <span class="kbd">https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js</span></li>
+            <li>Site requests <span class="kbd">https://cdnjs.cloudflare.com/.../jquery.min.js</span></li>
             <li>LocalCDN recognizes it and serves a matching local copy.</li>
             <li>No network hit to cdnjs/Google/StackPath; functionality unchanged.</li>
           </ol>
