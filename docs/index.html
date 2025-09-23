@@ -518,33 +518,16 @@
       </p>
 
       <div style="margin:12px 0;">
-        <audio controls style="width:100%;max-width:400px;" id="kaxe-player">
-          <source src="https://live.kaxe.org/kaxe" type="audio/mpeg">
-          <source src="https://kaxe.streamguys1.com/kaxe" type="audio/mpeg">
-          <source src="https://kaxe.streamguys1.com/kaxe.mp3" type="audio/mpeg">
-          Your browser does not support the audio element.
-        </audio>
-        <div id="audio-status" style="font-size:0.9rem;opacity:0.7;margin-top:4px;"></div>
+        <div style="background:#0b0d10;color:#e7edf3;padding:12px;border:1px solid #1e2833;border-radius:10px;max-width:520px">
+          <div style="margin-bottom:6px;font-weight:600">KAXE / Northern Community Radio — Live</div>
+          <audio controls preload="none" style="width:100%">
+            <source src="https://live.streamguys1.com:2753/kaxe" type="audio/mpeg">
+          </audio>
+          <div style="margin-top:8px;font-size:.9rem;opacity:.8">
+            Having trouble? <a href="https://live.streamguys1.com:2753/kaxe" target="_blank" rel="noopener" style="color:#7cc7ff">Open stream directly</a>.
+          </div>
+        </div>
       </div>
-      
-      <script>
-        const audioPlayer = document.getElementById('kaxe-player');
-        const statusDiv = document.getElementById('audio-status');
-        
-        audioPlayer.addEventListener('error', function(e) {
-          statusDiv.textContent = 'Stream temporarily unavailable - visit KAXE.org to listen directly';
-          statusDiv.style.color = '#ffcc66';
-        });
-        
-        audioPlayer.addEventListener('loadstart', function(e) {
-          statusDiv.textContent = 'Loading KAXE stream...';
-        });
-        
-        audioPlayer.addEventListener('canplay', function(e) {
-          statusDiv.textContent = 'Ready to play KAXE Northern Community Radio';
-          statusDiv.style.color = '#7cc7ff';
-        });
-      </script>
 
       <p style="margin-top:12px;">
         → <a href="https://www.kaxe.org/" target="_blank" rel="noopener" style="color:#ffcc66;text-decoration:none;">Visit KAXE.org</a> 
