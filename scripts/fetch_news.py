@@ -13,7 +13,7 @@ import xml.etree.ElementTree as ET
 from pathlib import Path
 
 # ---- Configure here ---------------------------------------------------------
-OUTPUT = Path(__file__).resolve().parents[1] / "docs" / "rss-news.json"
+OUTPUT = Path(__file__).resolve().parents[1] / "docs" / "news_feed.json"
 MAX_ITEMS_PER_FEED = 15
 MAX_SUMMARY_CHARS = 260
 USER_AGENT = "ThirdDegreeMedia/1.0 (+https://thirddegreemedia.com)"

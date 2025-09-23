@@ -2,7 +2,7 @@
 /* Usage: include on any page that has a <div id="news-root"></div> */
 
 (function () {
-  const JSON_URL = "/rss-news.json"; // served statically
+  const JSON_URL = "/news_feed.json"; // served statically
   const root = document.getElementById("news-root");
   if (!root) return;
 
