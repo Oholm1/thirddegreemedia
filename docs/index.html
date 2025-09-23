@@ -442,33 +442,57 @@
       <p>Whether codex-logging router placements or mythologizing VPN tunnels, this site stands as a glyphic archive for those who value freedom over friction, and sovereignty over convenience.</p>
     </section>
 
-    <!-- Snowflake Proxy -->
-    <section id="snowflake" style="background:#0a0a0a; color:#e0e0e0; padding:2em; border-radius:12px; margin:2em 0; font-family:monospace;">
-      <h2 style="color:#7fffd4; text-transform:uppercase; letter-spacing:2px;">Snowflake Proxy</h2>
-      <p>
-        <strong>Snowflake</strong> is a <span style="color:#7fffd4;">censorship-busting tool</span> built by the
-        <a href="https://snowflake.torproject.org/" target="_blank" rel="noopener noreferrer" style="color:#7fffd4; text-decoration:none;">
-          Tor Project
-        </a>.
-        It lets people in heavily censored regions slip past firewalls by disguising their connection as a simple video call.
+    <!-- Snowflake Live Stats -->
+    <section id="snowflake-live" style="background:#0b0d10;color:#e7edf3;border:1px solid #1e2833;border-radius:12px;padding:16px;margin:24px 0;font-family:system-ui,Segoe UI,Roboto,Arial,sans-serif;">
+      <h3 style="margin:0 0 8px;color:#7cc7ff;letter-spacing:0.5px;">Snowflake: Live Censorship Bypass</h3>
+      <p style="margin:6px 0 12px;opacity:.9">
+        This node helps people in censored regions reach the open internet via Tor's Snowflake bridges.
       </p>
-      <p>
-        I run a <em>24/7 Snowflake proxy</em> on my infrastructure. That means when someone in a country where the internet is blocked
-        opens Tor, their encrypted traffic may pass through my server — and out into the open world.
+
+      <div id="sf-stats" style="display:flex;gap:16px;flex-wrap:wrap">
+        <div style="flex:1;min-width:170px;background:#0f1318;border:1px solid #1e2833;border-radius:10px;padding:10px;">
+          <div style="opacity:.7;font-size:.9rem;">Connections (last hour)</div>
+          <div id="sf-hour" style="font-size:1.6rem;font-weight:700;">—</div>
+        </div>
+        <div style="flex:1;min-width:170px;background:#0f1318;border:1px solid #1e2833;border-radius:10px;padding:10px;">
+          <div style="opacity:.7;font-size:.9rem;">Connections (today)</div>
+          <div id="sf-today" style="font-size:1.6rem;font-weight:700;">—</div>
+        </div>
+        <div style="flex:1;min-width:170px;background:#0f1318;border:1px solid #1e2833;border-radius:10px;padding:10px;">
+          <div style="opacity:.7;font-size:.9rem;">Relayed Up (today)</div>
+          <div id="sf-up" style="font-size:1.6rem;font-weight:700;">— MiB</div>
+        </div>
+        <div style="flex:1;min-width:170px;background:#0f1318;border:1px solid #1e2833;border-radius:10px;padding:10px;">
+          <div style="opacity:.7;font-size:.9rem;">Relayed Down (today)</div>
+          <div id="sf-down" style="font-size:1.6rem;font-weight:700;">— MiB</div>
+        </div>
+      </div>
+
+      <div id="sf-updated" style="margin-top:10px;opacity:.7;font-size:.9rem;">Updated: —</div>
+
+      <p style="margin-top:12px;">
+        <a href="https://snowflake.torproject.org/" target="_blank" rel="noopener" style="color:#7cc7ff;text-decoration:none;">What is Snowflake?</a>
       </p>
-      <blockquote style="border-left:3px solid #7fffd4; padding-left:1em; margin:1em 0; font-style:italic;">
-        This isn't theory. Every hour, dozens of real connections pass through my node. Each one is a human voice breaking past censorship.
-      </blockquote>
-      <p>
-        Why do I support it? Because <span style="color:#7fffd4;">free communication is a right, not a privilege</span>. 
-        Running a Snowflake proxy is safe, anonymous, and powerful. The more of us who run them, the harder it is for 
-        censors to keep the world in the dark.
-      </p>
-      <p style="margin-top:1.5em;">
-        → <a href="https://snowflake.torproject.org/" target="_blank" rel="noopener noreferrer" style="color:#fff; background:#7fffd4; padding:0.5em 1em; border-radius:8px; text-decoration:none; font-weight:bold;">
-          Learn more &amp; run your own Snowflake
-        </a>
-      </p>
+
+      <script>
+        async function loadSnowflakeStatus(){
+          try{
+            const res = await fetch('/status/snowflake.json', {cache: 'no-store'});
+            if(!res.ok) throw new Error('fetch failed');
+            const d = await res.json();
+            document.getElementById('sf-hour').textContent  = d.last_hour_connections ?? '0';
+            document.getElementById('sf-today').textContent = d.today_connections ?? '0';
+            document.getElementById('sf-up').textContent    = (d.today_up_mib ?? 0) + ' MiB';
+            document.getElementById('sf-down').textContent  = (d.today_down_mib ?? 0) + ' MiB';
+            document.getElementById('sf-updated').textContent = 'Updated: ' + (d.updated_at ?? '—');
+          }catch(e){
+            document.getElementById('sf-updated').textContent = 'Status unavailable right now.';
+          }
+        }
+        loadSnowflakeStatus();
+        // Refresh every 2 minutes
+        setInterval(loadSnowflakeStatus, 120000);
+      </script>
     </section>
 
     <!-- Donation Callout -->
