@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Firefox — Privacy, Customizability, and Power</title>
+  <meta name="description" content="Why Firefox remains the foundation of digital sovereignty: open-source, customizable, and genuinely committed to user privacy over profit." />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="canonical" href="https://thirddegreemedia.com/firefox.html" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Firefox — Privacy, Customizability, and Power" />
+  <meta property="og:description" content="The browser that refuses to compromise: open-source architecture, extensive customization, and genuine privacy commitment." />
+  <meta property="og:url" content="https://thirddegreemedia.com/firefox.html" />
+  <link rel="icon" href="/favicon.ico" />
+  <link rel="stylesheet" href="/style.css?v=5" />
+  <style>
+    /* Page-specific styling */
+    .lede { font-size: 1.05rem; color: var(--muted); }
+    .grid { display: grid; gap: 1.5rem; }
+    @media (min-width: 760px) { .cols-2 { grid-template-columns: 1fr 1fr; } }
+    .highlight { background: var(--accent-bg); padding: 1rem; border-radius: 8px; border-left: 4px solid var(--accent); }
+    .warning { background: #2d1b0e; border-left: 4px solid #ff6b35; padding: 1rem; border-radius: 8px; }
+    .code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace; background:#0f1115; border:1px solid #1b1f24; padding:.25rem .5rem; border-radius:4px; }
+    .stamp { font-size:.875rem; color: var(--muted); }
+  </style>
+</head>
+<body>
+  <header role="banner">
+    <nav aria-label="Site navigation">
+      <a href="/" rel="home">← Third Degree Media</a>
+    </nav>
+    <h1>🦊 Firefox — Privacy, Customizability, and Power</h1>
+    <p class="lede">The browser that refuses to compromise: open-source architecture, extensive customization, and genuine privacy commitment in a world of surveillance capitalism.</p>
+    <p class="stamp">Updated: 2025-09-23</p>
+  </header>
+
+  <main id="main" role="main" tabindex="-1">
+    <section class="callout">
+      <h2>Why Firefox Still Matters</h2>
+      <p>In a web dominated by Chromium monoculture, Firefox stands as the last major independent browser engine. It's not just an alternative—it's a statement that the web belongs to users, not corporations.</p>
+      
+      <div class="highlight">
+        <h3>🔥 What Sets Firefox Apart</h3>
+        <ul>
+          <li><strong>Independent Engine</strong> — Gecko engine developed by Mozilla, not Google</li>
+          <li><strong>Open Source</strong> — Complete source code available, auditable, and forkable</li>
+          <li><strong>Privacy by Design</strong> — Enhanced Tracking Protection enabled by default</li>
+          <li><strong>Extensible Architecture</strong> — Rich add-on ecosystem with powerful WebExtensions API</li>
+          <li><strong>Non-Profit Backing</strong> — Mozilla Foundation prioritizes users over profit</li>
+          <li><strong>Standards Leadership</strong> — Actively shapes web standards for user benefit</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="callout">
+      <h2>Essential Privacy Configuration</h2>
+      <p>Firefox ships with decent privacy defaults, but true sovereignty requires deeper configuration. Here's how to unlock its full potential:</p>
+      
+      <div class="grid cols-2">
+        <div>
+          <h3>🛡️ Enhanced Tracking Protection</h3>
+          <p>Navigate to <span class="code">Settings > Privacy & Security</span></p>
+          <ul>
+            <li><strong>Strict Mode</strong> — Maximum tracking protection</li>
+            <li><strong>Block All Cookies</strong> — Or use "Cross-site tracking cookies"</li>
+            <li><strong>HTTPS-Only Mode</strong> — Force encrypted connections</li>
+            <li><strong>DNS over HTTPS</strong> — Encrypt DNS queries</li>
+          </ul>
+        </div>
+        <div>
+          <h3>⚙️ Advanced Configuration</h3>
+          <p>Type <span class="code">about:config</span> in the address bar:</p>
+          <ul>
+            <li><span class="code">privacy.resistFingerprinting</span> → <strong>true</strong></li>
+            <li><span class="code">network.cookie.sameSite.laxByDefault</span> → <strong>true</strong></li>
+            <li><span class="code">dom.security.https_only_mode</span> → <strong>true</strong></li>
+            <li><span class="code">network.dns.disablePrefetch</span> → <strong>true</strong></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="callout">
+      <h2>Power-User Extensions</h2>
+      <p>Firefox's extension ecosystem is where it truly shines. These add-ons transform Firefox into a privacy powerhouse:</p>
+      
+      <div class="grid cols-2">
+        <div>
+          <h3>🧱 Essential Privacy Stack</h3>
+          <ul>
+            <li><strong>uBlock Origin</strong> — Supreme content blocking</li>
+            <li><strong>NoScript</strong> — Granular JavaScript control</li>
+            <li><strong>ClearURLs</strong> — Remove tracking parameters</li>
+            <li><strong>Decentraleyes</strong> — Local CDN emulation</li>
+            <li><strong>Privacy Badger</strong> — Intelligent tracker blocking</li>
+          </ul>
+        </div>
+        <div>
+          <h3>🔧 Productivity & Security</h3>
+          <ul>
+            <li><strong>Bitwarden</strong> — Password manager integration</li>
+            <li><strong>Multi-Account Containers</strong> — Isolate browsing contexts</li>
+            <li><strong>Temporary Containers</strong> — Automatic isolation</li>
+            <li><strong>FoxyProxy</strong> — Advanced proxy management</li>
+            <li><strong>Vim Vixen</strong> — Keyboard-driven navigation</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="callout">
+      <h2>Firefox Hardening Profiles</h2>
+      <p>For maximum privacy, consider specialized Firefox configurations:</p>
+      
+      <div class="warning">
+        <h3>⚠️ Hardened Alternatives</h3>
+        <ul>
+          <li><strong>LibreWolf</strong> — Pre-hardened Firefox with privacy-first defaults</li>
+          <li><strong>Tor Browser</strong> — Firefox-based with Tor network integration</li>
+          <li><strong>Mullvad Browser</strong> — Tor Browser without Tor, hardened for VPN use</li>
+          <li><strong>Arkenfox user.js</strong> — Comprehensive privacy configuration script</li>
+        </ul>
+      </div>
+      
+      <p>These alternatives take Firefox's foundation and push privacy configuration to the extreme, often at the cost of some web compatibility.</p>
+    </section>
+
+    <section class="callout">
+      <h2>Container Mastery</h2>
+      <p>Firefox's container technology is revolutionary for compartmentalizing your digital life:</p>
+      
+      <div class="highlight">
+        <h3>🏗️ Container Strategies</h3>
+        <ul>
+          <li><strong>Work Container</strong> — All professional browsing isolated</li>
+          <li><strong>Social Media Container</strong> — Prevent cross-site tracking</li>
+          <li><strong>Shopping Container</strong> — Keep commercial tracking contained</li>
+          <li><strong>Banking Container</strong> — Maximum security for financial sites</li>
+          <li><strong>Temporary Containers</strong> — Automatic isolation for untrusted sites</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="callout">
+      <h2>Performance & Customization</h2>
+      <p>Firefox isn't just about privacy—it's about making the web work for you:</p>
+      
+      <div class="grid cols-2">
+        <div>
+          <h3>🚀 Performance Tweaks</h3>
+          <ul>
+            <li><strong>Hardware Acceleration</strong> — Enable GPU rendering</li>
+            <li><strong>Content Process Limit</strong> — Balance speed vs. memory</li>
+            <li><strong>Preloading</strong> — Intelligent page prefetching</li>
+            <li><strong>Memory Management</strong> — Automatic tab unloading</li>
+          </ul>
+        </div>
+        <div>
+          <h3>🎨 Interface Customization</h3>
+          <ul>
+            <li><strong>userChrome.css</strong> — Custom interface styling</li>
+            <li><strong>Compact Mode</strong> — Maximize vertical space</li>
+            <li><strong>Custom Shortcuts</strong> — Personalized key bindings</li>
+            <li><strong>Toolbar Customization</strong> — Your tools, your way</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <footer role="contentinfo">
+      <p><strong>Download Firefox:</strong> Get the latest version from <a href="https://www.mozilla.org/firefox/" target="_blank" rel="noopener noreferrer">mozilla.org/firefox</a> — always download directly from Mozilla to ensure authenticity.</p>
+      
+      <p><em>Firefox® is a trademark of the Mozilla Foundation. This site is not affiliated with or endorsed by Mozilla or the Mozilla Foundation. All trademarks and logos are the property of their respective owners.</em></p>
+      
+      <p><a href="/">← Back to Third Degree Media</a></p>
+    </footer>
+  </main>
+</body>
+</html>
