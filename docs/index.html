@@ -34,8 +34,9 @@
   <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
   
   <!-- News widget -->
-  <link rel="stylesheet" href="/css/news-widget.css">
-  <script defer src="/js/news-widget.js"></script>
+  <link rel="preload" href="/rss-news.json" as="fetch" crossorigin="anonymous">
+  <link rel="stylesheet" href="/css/news.css">
+  <script defer src="/js/news.js"></script>
   
   <!-- Favicon -->
   <link rel="icon" href="/favicon.ico" sizes="any">
@@ -580,9 +581,8 @@
     </section>
 
     <!-- Privacy News Feed -->
-    <section class="callout reveal">
-      <h2>📡 Signal Feed — Privacy & Civil Liberties News</h2>
-      <p>Curated feeds from EFF, Tor Project, ProPublica, Mullvad, and Mozilla Security. No tracking, no third-party requests—just the latest signals from the privacy resistance.</p>
+    <section aria-labelledby="privacy-news-heading">
+      <h2 id="privacy-news-heading">Privacy & Digital Rights – Latest Headlines</h2>
       <div id="news-root"></div>
     </section>
 
