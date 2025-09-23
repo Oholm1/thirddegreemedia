@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Stingrays in Minnesota: What They Are, What the Law Requires, and What to Watch</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="A factual overview of cell-site simulators ("Stingrays") in Minnesota: how they work, state law on warrants, transparency issues, and practical questions for local oversight." />
+
+  <!-- Optional: light styling that matches your lean, dark theme -->
+  <style>
+    :root {
+      --bg:#0b0d10; --fg:#e7edf3; --muted:#b7c5d3;
+      --panel:#0f1318; --line:#1e2833; --accent:#7cc7ff;
+    }
+    body{margin:0;background:var(--bg);color:var(--fg);font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;line-height:1.65}
+    main{max-width:860px;margin:0 auto;padding:32px 20px}
+    h1,h2{line-height:1.25;margin:0 0 10px}
+    h1{font-size:clamp(1.6rem,2.6vw,2.2rem)}
+    h2{font-size:clamp(1.2rem,2.1vw,1.4rem);margin-top:28px}
+    p{margin:10px 0}
+    a{color:var(--accent);text-decoration:none}
+    a:hover{text-decoration:underline}
+    .lede{opacity:.9;margin:6px 0 16px}
+    .callout{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin:16px 0}
+    .list{margin:0 0 0 18px}
+    .hr{height:1px;background:var(--line);border:0;margin:24px 0}
+    .footnotes{font-size:.93rem;color:var(--muted)}
+    .footnotes ol{margin-left:18px}
+    .meta{opacity:.75;font-size:.92rem;margin-top:24px}
+  </style>
+
+  <!-- (Optional) social previews -->
+  <meta property="og:title" content="Stingrays in Minnesota: What They Are, What the Law Requires, and What to Watch" />
+  <meta property="og:description" content="A factual overview of cell-site simulators ("Stingrays") in Minnesota: how they work, state law on warrants, transparency issues, and practical questions for local oversight." />
+  <meta property="og:type" content="article" />
+  <meta property="og:image" content="https://thirddegreemedia.com/images/glyph-circuit.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+</head>
+<body>
+<main>
+
+  <header>
+    <h1>Stingrays in Minnesota: What They Are, What the Law Requires, and What to Watch</h1>
+    <p class="lede">
+      "Stingray" devices—more formally, <em>cell-site simulators</em>—mimic a cell tower so nearby phones try to connect. They can reveal identifiers and help locate a device, but they also touch many bystanders. Minnesota has a clear statute requiring warrants for real-time device location—with narrow exceptions—yet transparency remains a challenge.
+    </p>
+  </header>
+
+  <section>
+    <h2>What a Stingray Does (Plain English)</h2>
+    <p>
+      A Stingray (also called an IMSI catcher) pretends to be a cell tower so phones in range will connect. That lets an operator learn device identifiers and estimate a phone's location in real time. Because all phones nearby may briefly interact, bystander data can be swept up too. <sup><a href="#fn1">1</a></sup>
+    </p>
+  </section>
+
+  <section>
+    <h2>Minnesota's Legal Baseline: A Warrant Is Required</h2>
+    <p>
+      Minnesota law (<strong>§ 626A.42</strong>) prohibits government entities from obtaining an electronic device's location information—<em>including unique identifier location</em>—without a tracking warrant supported by probable cause, subject to limited exceptions such as exigent circumstances. Warrants are time-limited (generally ≤ 60 days, with similar limits for extensions), include notice provisions, and require reporting. <sup><a href="#fn2">2</a></sup>
+    </p>
+    <div class="callout">
+      <strong>Bottom line:</strong> under Minnesota statute, deploying a cell-site simulator to capture real-time device or identifier location requires a warrant, absent exigency.
+    </div>
+  </section>
+
+  <section>
+    <h2>Federal Policies (Context, Not Binding on Locals)</h2>
+    <p>
+      Since 2015, the U.S. Department of Justice has required federal agents to obtain warrants for cell-site simulator use (with limited exceptions), and to delete non-target data. Updated DOJ guidance likewise emphasizes deletion and minimization. These are <em>policies</em> for federal use—not laws that bind local police—but they set a reference point. <sup><a href="#fn3">3</a></sup> <sup><a href="#fn4">4</a></sup>
+    </p>
+  </section>
+
+  <section>
+    <h2>Transparency Problems: Sealing, NDAs, and Public Insight</h2>
+    <p>
+      Even with a warrant requirement on the books, public oversight can lag. Past Twin Cities reporting found that Stingray-related tracking warrants were sometimes sealed or hard to access, despite the statute's notice and unsealing framework. <sup><a href="#fn5">5</a></sup> <sup><a href="#fn6">6</a></sup>
+    </p>
+    <p>
+      Separately, ACLU investigations have highlighted FBI nondisclosure agreements that pressure state and local agencies to keep cell-site simulator use quiet, complicating transparency. <sup><a href="#fn7">7</a></sup> <sup><a href="#fn8">8</a></sup>
+    </p>
+    <p>
+      Minnesota's State Court Administrator publishes periodic warrant reports under Chapter 626A, which can improve visibility—but they don't always give granular detail on cell-site simulators. <sup><a href="#fn9">9</a></sup>
+    </p>
+  </section>
+
+  <section>
+    <h2>Related Trend: Location Dragnets Under Scrutiny</h2>
+    <p>
+      Beyond Stingrays, courts are wrestling with "reverse location" or geofence warrants. In 2024, a case before the Minnesota Supreme Court drew amicus briefs arguing that broad geofences violate constitutional protections—reflecting a general trend toward treating location data collection as a search requiring probable cause. <sup><a href="#fn10">10</a></sup> <sup><a href="#fn11">11</a></sup>
+    </p>
+  </section>
+
+  <section>
+    <h2>Practical Questions Minnesotans Can Ask</h2>
+    <ul class="list">
+      <li><strong>Warrants:</strong> How many <em>§ 626A.42</em> tracking warrants for real-time device/identifier location were obtained in the last 12 months? <sup><a href="#fn2">2</a></sup></li>
+      <li><strong>Equipment:</strong> Does the agency own or borrow a cell-site simulator? From whom? Under what NDA terms? <sup><a href="#fn7">7</a></sup></li>
+      <li><strong>Minimization & deletion:</strong> What policies govern bystander data and deletion (even if modeled on DOJ practices)? <sup><a href="#fn3">3</a></sup> <sup><a href="#fn4">4</a></sup></li>
+      <li><strong>Notice & sealing:</strong> After cases close, are affected individuals notified as required? If warrants remain sealed, why? <sup><a href="#fn2">2</a></sup> <sup><a href="#fn5">5</a></sup></li>
+    </ul>
+  </section>
+
+  <div class="hr"></div>
+
+  <section class="footnotes" id="sources">
+    <h2>Sources</h2>
+    <ol>
+      <li id="fn1">General overview of cell-site simulator operation and bystander impacts; see e.g., ACLU explainer; Minnesota legal CLE discussing CSS operation. <a href="https://www.minncle.org/eaccess/1012771701/604_Pacyga.pdf" target="_blank" rel="noopener">Minnesota CLE PDF</a>.</li>
+      <li id="fn2"><strong>Minn. Stat. § 626A.42</strong> (Electronic device location information): warrant, notice, reporting, limits, exceptions. Official text: <a href="https://www.revisor.mn.gov/statutes/cite/626A.42" target="_blank" rel="noopener">revisor.mn.gov</a>. See also chapter context: <a href="https://www.revisor.mn.gov/statutes/cite/626A" target="_blank" rel="noopener">Chapter 626A</a>; alternate codifications: <a href="https://codes.findlaw.com/mn/.../mn-st-sect-626a-42" target="_blank" rel="noopener">FindLaw</a>, <a href="https://law.justia.com/codes/minnesota/chapters-625-634/chapter-626a/" target="_blank" rel="noopener">Justia</a>.</li>
+      <li id="fn3">U.S. DOJ policy (2015): warrants generally required; deletion/minimization guidance. <a href="https://www.justice.gov/d9/press-releases/attachments/2015/09/03/doj_cell-site_simulator_policy_9-3-15.pdf" target="_blank" rel="noopener">PDF</a>.</li>
+      <li id="fn4">DOJ interim/updated guidance (policy details incl. deletion cadence). <a href="https://www.justice.gov/d9/2024-01/12.21.23.%20--%20Cell%20Site%20Simulator%20-%20Interim.pdf" target="_blank" rel="noopener">PDF (2024)</a> and FOIA-released policy material <a href="https://www.justice.gov/oip/media/1391586/dl?inline=" target="_blank" rel="noopener">PDF</a>.</li>
+      <li id="fn5">Local transparency reporting: <em>FOX 9</em> investigation on sealed Stingray warrants despite state law. <a href="https://www.fox9.com/news/state-of-surveillance-stingray-warrants-sealed-despite-changes-in-minnesota-law" target="_blank" rel="noopener">fox9.com</a>.</li>
+      <li id="fn6"><em>Star Tribune</em> follow-up on sealed warrants and lack of notice to targets. <a href="https://www.startribune.com/despite-change-in-minn-law-cellphone-tracking-warrants-still-under-wraps/409236155" target="_blank" rel="noopener">startribune.com</a>.</li>
+      <li id="fn7">ACLU-MN on FBI nondisclosure agreements affecting local CSS transparency. <a href="https://www.aclu-mn.org/en/news/surreal-stingray-secrecy-uncovering-fbis-surveillance-tech-secrecy-agreements" target="_blank" rel="noopener">aclu-mn.org</a>.</li>
+      <li id="fn8">ACLU national FOIA litigation over FBI CSS NDAs and secrecy. <a href="https://www.aclu.org/cases/aclu-v-fbi-foia-case-for-fbi-records-related-to-nondisclosure-agreements-for-cell-site-simulators" target="_blank" rel="noopener">aclu.org</a>.</li>
+      <li id="fn9">Minnesota State Court Administrator's report summarizing Chapter 626A warrant activity. <a href="https://www.lrl.mn.gov/docs/2024/mandated/241537.pdf" target="_blank" rel="noopener">PDF (2024)</a>.</li>
+      <li id="fn10">EFF amicus in Minnesota Supreme Court geofence case (location-data searches scrutiny). <a href="https://www.eff.org/deeplinks/2024/07/eff-tells-minnesota-supreme-court-strike-down-geofence-warrant-fourth-circuit" target="_blank" rel="noopener">eff.org</a>.</li>
+      <li id="fn11">Underlying amicus brief (EFF/NACDL/MACDL). <a href="https://www.eff.org/files/2024/07/19/state_v._contreras-sanchez_eff_nacdl_macdl_amicus.pdf" target="_blank" rel="noopener">PDF</a>.</li>
+    </ol>
+    <p class="meta">Notes: Federal DOJ policies guide federal use and are persuasive but do not bind Minnesota agencies. Minnesota law governs local practice unless superseded by other valid law or court order.</p>
+  </section>
+
+</main>
+</body>
+</html>
