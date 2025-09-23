@@ -11,206 +11,141 @@
   <meta property="og:description" content="Deep dive into surveillance technology: Pegasus spyware, facial recognition systems, and the oversight gaps that threaten digital privacy rights." />
   <meta property="og:url" content="https://thirddegreemedia.com/surveillance-tech-scandals.html" />
   <link rel="icon" href="/favicon.ico" />
-  <link rel="stylesheet" href="/style.css?v=5" />
+  
+  <!-- Clean styling matching stingrays article -->
   <style>
-    /* Page-specific styling */
-    .lede { font-size: 1.05rem; color: var(--muted); line-height: 1.6; }
-    .grid { display: grid; gap: 1.5rem; }
-    @media (min-width: 760px) { .cols-2 { grid-template-columns: 1fr 1fr; } }
-    .highlight { background: var(--accent-bg); padding: 1.2rem; border-radius: 8px; border-left: 4px solid var(--accent); }
-    .warning { background: #2d1b0e; border-left: 4px solid #ff6b35; padding: 1.2rem; border-radius: 8px; }
-    .action-box { background: #1a2b1a; border-left: 4px solid #4ade80; padding: 1.2rem; border-radius: 8px; }
-    .case-study { background: #1a1a2e; border-left: 4px solid #6366f1; padding: 1.2rem; border-radius: 8px; margin: 1rem 0; }
-    .stamp { font-size:.875rem; color: var(--muted); }
-    .footnote { font-size: 0.9rem; color: var(--muted); margin-top: 2rem; }
+    :root {
+      --bg:#0b0d10; --fg:#e7edf3; --muted:#b7c5d3;
+      --panel:#0f1318; --line:#1e2833; --accent:#7cc7ff;
+    }
+    body{margin:0;background:var(--bg);color:var(--fg);font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;line-height:1.65}
+    main{max-width:860px;margin:0 auto;padding:32px 20px}
+    h1,h2{line-height:1.25;margin:0 0 10px}
+    h1{font-size:clamp(1.6rem,2.6vw,2.2rem)}
+    h2{font-size:clamp(1.2rem,2.1vw,1.4rem);margin-top:28px}
+    p{margin:10px 0}
+    a{color:var(--accent);text-decoration:none}
+    a:hover{text-decoration:underline}
+    .lede{opacity:.9;margin:6px 0 16px}
+    .callout{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin:16px 0}
+    .list{margin:0 0 0 18px}
+    .hr{height:1px;background:var(--line);border:0;margin:24px 0}
+    .footnotes{font-size:.93rem;color:var(--muted)}
+    .footnotes ol{margin-left:18px}
+    .meta{opacity:.75;font-size:.92rem;margin-top:24px}
   </style>
 </head>
 <body>
-  <header role="banner">
-    <nav aria-label="Site navigation">
-      <a href="/" rel="home">← Third Degree Media</a>
-    </nav>
+<main>
+
+  <header>
     <h1>🔍 Spyware, Face-Recognition & Oversight: What These Tech Scandals Show Us</h1>
-    <p class="lede">Understanding powerful surveillance tools like Pegasus spyware and Clearview AI facial recognition—and why Minnesotans should pay attention to digital privacy rights and oversight gaps.</p>
-    <p class="stamp">Updated: 2025-09-23</p>
+    <p class="lede">
+      Understanding powerful surveillance tools like Pegasus spyware and Clearview AI facial recognition—and why Minnesotans should pay attention to digital privacy rights and oversight gaps.
+    </p>
   </header>
 
-  <main id="main" role="main" tabindex="-1">
-    <section class="callout">
-      <h2>What Is This Stuff Anyway?</h2>
-      <p>We're talking about powerful surveillance tools: commercial spyware, facial recognition, phone-hacking technologies that can quietly invade privacy—tracking location, reading messages, listening through microphones, matching your face to photos online, sometimes all without you knowing.</p>
-      
-      <div class="warning">
-        <h3>⚠️ The Scope of Modern Surveillance</h3>
-        <p>These aren't theoretical threats. They're deployed tools actively used by governments, law enforcement, and intelligence agencies worldwide—including potentially in your own state.</p>
-      </div>
-    </section>
+  <section>
+    <h2>What Is This Stuff Anyway?</h2>
+    <p>We're talking about powerful surveillance tools: commercial spyware, facial recognition, phone-hacking technologies that can quietly invade privacy—tracking location, reading messages, listening through microphones, matching your face to photos online, sometimes all without you knowing.</p>
+    
+    <div class="callout">
+      <strong>⚠️ The Scope of Modern Surveillance:</strong> These aren't theoretical threats. They're deployed tools actively used by governments, law enforcement, and intelligence agencies worldwide—including potentially in your own state.
+    </div>
+  </section>
 
-    <section class="callout">
-      <h2>Major Cases to Know</h2>
-      
-      <div class="case-study">
-        <h3>🎯 Pegasus (NSO Group)</h3>
-        <p><strong>Pegasus is spyware made by the Israeli company NSO Group.</strong> It's designed to be installed secretly on mobile phones (iPhones, Androids) and gives the user—or the government paying for it—very deep access: messages, calls, camera, microphone, location, and more. (<a href="https://en.wikipedia.org/wiki/Pegasus_%28spyware%29" target="_blank" rel="noopener noreferrer">Wikipedia: Pegasus spyware overview</a>)</p>
-        
-        <p>It has been used around the world—not always for terrorism or crime. Activists, journalists, political opponents, even foreign diplomats have reported their phones being compromised. (<a href="https://en.wikipedia.org/wiki/Pegasus_Project_%28investigation%29" target="_blank" rel="noopener noreferrer">Wikipedia: Pegasus Project investigation</a>)</p>
-        
-        <h4>🏛️ Legal Fallout in the U.S.</h4>
-        <ul>
-          <li><strong>WhatsApp Victory:</strong> WhatsApp sued NSO and, in a recent decision, a U.S. court found NSO liable for installing Pegasus via a WhatsApp vulnerability, targeting ~1,400 people. (<a href="https://www.theverge.com/news/662242/meta-nso-group-pegasus-whatsapp-hack-damages" target="_blank" rel="noopener noreferrer">The Verge: Meta/WhatsApp lawsuit against NSO</a>)</li>
-          <li><strong>FBI Involvement:</strong> The FBI explored (or tested) Pegasus for possible criminal investigations. Whether they fully used it in domestic law enforcement remains unclear. (<a href="https://epic.org/report-fbi-explored-using-spyware-pegasus-for-criminal-investigations/" target="_blank" rel="noopener noreferrer">EPIC: FBI explored using Pegasus spyware</a>)</li>
-        </ul>
-      </div>
+  <section>
+    <h2>Major Cases to Know</h2>
+    
+    <h2>🎯 Pegasus (NSO Group)</h2>
+    <p><strong>Pegasus is spyware made by the Israeli company NSO Group.</strong> It's designed to be installed secretly on mobile phones (iPhones, Androids) and gives the user—or the government paying for it—very deep access: messages, calls, camera, microphone, location, and more. <sup><a href="#fn1">1</a></sup></p>
+    
+    <p>It has been used around the world—not always for terrorism or crime. Activists, journalists, political opponents, even foreign diplomats have reported their phones being compromised. <sup><a href="#fn2">2</a></sup></p>
+    
+    <p><strong>Legal Fallout in the U.S.:</strong></p>
+    <ul class="list">
+      <li><strong>WhatsApp Victory:</strong> WhatsApp sued NSO and, in a recent decision, a U.S. court found NSO liable for installing Pegasus via a WhatsApp vulnerability, targeting ~1,400 people. <sup><a href="#fn3">3</a></sup></li>
+      <li><strong>FBI Involvement:</strong> The FBI explored (or tested) Pegasus for possible criminal investigations. Whether they fully used it in domestic law enforcement remains unclear. <sup><a href="#fn4">4</a></sup></li>
+    </ul>
+  </section>
 
-      <div class="case-study">
-        <h3>👁️ Clearview AI & Facial Recognition in Minnesota</h3>
-        <p><strong>Clearview AI is a service that allows law enforcement to upload a photo and try to match it against a massive database</strong> of images scraped from the internet—news sites, social media, public websites.</p>
-        
-        <div class="highlight">
-          <h4>📍 Minnesota Usage</h4>
-          <p>In Minnesota, at least <strong>42 law enforcement entities</strong> were reported to have used Clearview AI at one point. However, many found it ineffective (or didn't get results) and some dropped the service. (<a href="https://www.governing.com/security/clearview-ai-yields-few-results-for-minnesota-police" target="_blank" rel="noopener noreferrer">Governing: Clearview AI in Minnesota police agencies</a>)</p>
-        </div>
-        
-        <p>Concerns include errors, misidentification (especially across race/lighting/camera angles), retention of face data, transparency issues, and oversight gaps. Local policies have tried to ban facial recognition or restrict its use. (<a href="https://minnesotareformer.com/2021/01/21/minneapolis-to-weigh-ban-on-police-use-of-facial-recognition-software/" target="_blank" rel="noopener noreferrer">Minnesota Reformer: Minneapolis debates banning facial recognition</a>)</p>
-      </div>
-    </section>
+  <section>
+    <h2>👁️ Clearview AI & Facial Recognition in Minnesota</h2>
+    <p><strong>Clearview AI is a service that allows law enforcement to upload a photo and try to match it against a massive database</strong> of images scraped from the internet—news sites, social media, public websites.</p>
+    
+    <div class="callout">
+      <strong>📍 Minnesota Usage:</strong> In Minnesota, at least <strong>42 law enforcement entities</strong> were reported to have used Clearview AI at one point. However, many found it ineffective (or didn't get results) and some dropped the service. <sup><a href="#fn5">5</a></sup>
+    </div>
+    
+    <p>Concerns include errors, misidentification (especially across race/lighting/camera angles), retention of face data, transparency issues, and oversight gaps. Local policies have tried to ban facial recognition or restrict its use. <sup><a href="#fn6">6</a></sup></p>
+  </section>
 
-    <section class="callout">
-      <h2>Why This Matters (Especially in Minnesota)</h2>
-      
-      <div class="grid cols-2">
-        <div>
-          <h3>🕵️ Unchecked Power & Lack of Transparency</h3>
-          <p>These tools are often secret. Governments use them under NDAs or sealed warrants, or they don't publicly report how or how much they use them. That can lead to overreach or abuse.</p>
-        </div>
-        <div>
-          <h3>🛡️ Risk to Privacy and Civil Liberties</h3>
-          <p>If you don't know whether your phone or face could be surveilled, you lose the ability to choose privacy. Especially vulnerable: activists, journalists, marginalized communities.</p>
-        </div>
-        <div>
-          <h3>❌ Potential for Mistakes</h3>
-          <p>False matches, misidentification, bugs/exploits, or "bystanders" getting caught up in surveillance sweeps are all real risks with serious consequences.</p>
-        </div>
-        <div>
-          <h3>⚖️ Legal & Oversight Gaps</h3>
-          <p>Laws lag behind technology. Even when there are rules, oversight (courts, public transparency) is often weak or lacking—warrant requirements, data storage, access controls, public reporting.</p>
-        </div>
-      </div>
-    </section>
+  <section>
+    <h2>Why This Matters (Especially in Minnesota)</h2>
+    
+    <p><strong>🕵️ Unchecked Power & Lack of Transparency:</strong> These tools are often secret. Governments use them under NDAs or sealed warrants, or they don't publicly report how or how much they use them. That can lead to overreach or abuse.</p>
+    
+    <p><strong>🛡️ Risk to Privacy and Civil Liberties:</strong> If you don't know whether your phone or face could be surveilled, you lose the ability to choose privacy. Especially vulnerable: activists, journalists, marginalized communities.</p>
+    
+    <p><strong>❌ Potential for Mistakes:</strong> False matches, misidentification, bugs/exploits, or "bystanders" getting caught up in surveillance sweeps are all real risks with serious consequences.</p>
+    
+    <p><strong>⚖️ Legal & Oversight Gaps:</strong> Laws lag behind technology. Even when there are rules, oversight (courts, public transparency) is often weak or lacking—warrant requirements, data storage, access controls, public reporting.</p>
+  </section>
 
-    <section class="callout">
-      <h2>What's Been Happening in Minnesota</h2>
-      
-      <div class="highlight">
-        <h3>🔍 Known Facts</h3>
-        <ul>
-          <li>Minnesota law enforcement agencies have used tools like Clearview AI—but many didn't get usable leads and have declined long-term commitment</li>
-          <li>Minneapolis considered banning police use of facial recognition, pushed by civil rights groups</li>
-          <li>Rural areas and smaller agencies often have less public oversight and pressure</li>
-        </ul>
-      </div>
+  <section>
+    <h2>What's Been Happening in Minnesota</h2>
+    
+    <div class="callout">
+      <strong>🔍 Known Facts:</strong>
+      <ul class="list">
+        <li>Minnesota law enforcement agencies have used tools like Clearview AI—but many didn't get usable leads and have declined long-term commitment</li>
+        <li>Minneapolis considered banning police use of facial recognition, pushed by civil rights groups</li>
+        <li>Rural areas and smaller agencies often have less public oversight and pressure</li>
+      </ul>
+    </div>
 
-      <div class="warning">
-        <h3>🤔 Unknown Factors</h3>
-        <p>A lot is not yet known or disclosed:</p>
-        <ul>
-          <li>How often are phone-hacking/spyware tools like Pegasus used (if at all) in Minnesota by state or local agencies?</li>
-          <li>What are the internal policies (if any) about when and how to use them?</li>
-          <li>How long is surveillance data kept? Who reviews it? Are citizens told when their data was used?</li>
-          <li>What oversight mechanisms exist for rural agencies with less public scrutiny?</li>
-        </ul>
-      </div>
-    </section>
+    <p><strong>🤔 Unknown Factors:</strong> A lot is not yet known or disclosed: How often are phone-hacking/spyware tools like Pegasus used (if at all) in Minnesota by state or local agencies? What are the internal policies (if any) about when and how to use them? How long is surveillance data kept? Who reviews it? Are citizens told when their data was used? What oversight mechanisms exist for rural agencies with less public scrutiny?</p>
+  </section>
 
-    <section class="callout">
-      <h2>What You Can Do & Ask</h2>
-      
-      <div class="action-box">
-        <h3>🗣️ Ask Your Local Agencies</h3>
-        <p><strong>Contact your local sheriff, police, and state agencies:</strong></p>
-        <ul>
-          <li>Do you use Pegasus, Predator, Clearview, or any similar spyware/facial recognition?</li>
-          <li>If yes, how many times per year? Under what rules?</li>
-          <li>Are there warrants required? Can I see the policy or usage logs?</li>
-          <li>What oversight and accountability measures are in place?</li>
-        </ul>
-      </div>
+  <section>
+    <h2>Practical Questions Minnesotans Can Ask</h2>
+    <ul class="list">
+      <li><strong>Usage:</strong> Do you use Pegasus, Predator, Clearview, or any similar spyware/facial recognition? If yes, how many times per year? Under what rules? <sup><a href="#fn7">7</a></sup></li>
+      <li><strong>Oversight:</strong> Are there warrants required? Can I see the policy or usage logs? What accountability measures are in place?</li>
+      <li><strong>Transparency:</strong> Records requests, FOIA, or Minnesota's MGDPA can force disclosure of contracts, warranties, policies, and deployment numbers <sup><a href="#fn8">8</a></sup></li>
+      <li><strong>Legislation:</strong> Support laws that regulate commercial spyware or facial recognition—require warrants, public reporting, or outright bans</li>
+    </ul>
+  </section>
 
-      <div class="grid cols-2">
-        <div>
-          <h3>📜 Watch for Legislation</h3>
-          <p>Many states are considering (or have passed) laws that regulate commercial spyware or facial recognition—require warrants, public reporting, or outright bans. <strong>Support these laws.</strong></p>
-        </div>
-        <div>
-          <h3>🔍 Push for Transparency</h3>
-          <p>Records requests, FOIA, or state equivalents (Minnesota's MGDPA) can force disclosure of contracts, warranties, policies, and deployment numbers.</p>
-        </div>
-        <div>
-          <h3>🔒 Protect Your Digital Security</h3>
-          <ul>
-            <li>Use encrypted messaging where possible</li>
-            <li>Keep your phone updated</li>
-            <li>Enable two-factor authentication</li>
-            <li>Avoid suspicious links and attachments</li>
-          </ul>
-        </div>
-        <div>
-          <h3>🏛️ Engage Politically</h3>
-          <p>Contact your representatives about surveillance oversight, privacy rights, and transparency requirements for law enforcement technology.</p>
-        </div>
-      </div>
-    </section>
+  <section>
+    <h2>Recent Legal Developments</h2>
+    <p><strong>NSO Group Liability:</strong> A U.S. court ruled that NSO's Pegasus violated the law by installing spyware via WhatsApp, targeting many people. <sup><a href="#fn3">3</a></sup></p>
+    
+    <p><strong>Clearview AI Challenges:</strong> The company faces several legal challenges and class action suits over its biometric face data and privacy practices. <sup><a href="#fn9">9</a></sup></p>
+    
+    <div class="callout">
+      <strong>Bottom line:</strong> These tools can be powerful in fighting crime or terrorism—but they also open doors for abuse. Without strong transparency, oversight, and rules, there's a real risk we don't even know where the line is. The silence around surveillance technology is not accidental—it's a feature that enables overreach.
+    </div>
+  </section>
 
-    <section class="callout">
-      <h2>Key Recent Developments</h2>
-      
-      <div class="highlight">
-        <h3>⚖️ Legal Victories & Ongoing Battles</h3>
-        <ul>
-          <li><strong>NSO Group Liability:</strong> A U.S. court ruled that NSO's Pegasus violated the law by installing spyware via WhatsApp, targeting many people</li>
-          <li><strong>Clearview AI Challenges:</strong> The company faces several legal challenges and class action suits over its biometric face data and privacy practices (<a href="https://www.regulatoryoversight.com/2025/04/51-75m-settlement-in-clearview-ai-biometric-privacy-litigation-illustrates-creative-resolution-for-startups-facing-parallel-litigation-and-enforcement-action/" target="_blank" rel="noopener noreferrer">Regulatory Oversight: Clearview AI biometric privacy settlement</a>)</li>
-          <li><strong>Regulatory Scrutiny:</strong> Multiple enforcement investigations are examining the privacy implications of mass facial recognition databases</li>
-        </ul>
-      </div>
-    </section>
+  <div class="hr"></div>
 
-    <section class="callout">
-      <h2>Bottom Line</h2>
-      
-      <div class="warning">
-        <p><strong>These tools can be powerful in fighting crime or terrorism—but they also open doors for abuse.</strong> Without strong transparency, oversight, and rules, there's a real risk we don't even know where the line is.</p>
-      </div>
-      
-      <p>Especially in Minnesota, which has rural areas, small agencies, and sometimes limited public pressure, surveillance capabilities can expand quietly without adequate oversight.</p>
-      
-      <div class="action-box">
-        <h3>🛡️ Protecting Rights Requires Action</h3>
-        <p>If we want to protect digital rights, people need to know:</p>
-        <ul>
-          <li>Are these tools in use in our communities?</li>
-          <li>How often are they deployed?</li>
-          <li>Under what rules and oversight?</li>
-          <li>What recourse exists when misuse happens?</li>
-        </ul>
-        <p><strong>The silence around surveillance technology is not accidental—it's a feature that enables overreach.</strong></p>
-      </div>
-    </section>
+  <section class="footnotes" id="sources">
+    <h2>Sources</h2>
+    <ol>
+      <li id="fn1">Wikipedia overview of Pegasus spyware. <a href="https://en.wikipedia.org/wiki/Pegasus_%28spyware%29" target="_blank" rel="noopener">Wikipedia: Pegasus spyware</a></li>
+      <li id="fn2">Pegasus Project investigation findings. <a href="https://en.wikipedia.org/wiki/Pegasus_Project_%28investigation%29" target="_blank" rel="noopener">Wikipedia: Pegasus Project</a></li>
+      <li id="fn3">WhatsApp lawsuit against NSO Group. <a href="https://www.theverge.com/news/662242/meta-nso-group-pegasus-whatsapp-hack-damages" target="_blank" rel="noopener">The Verge</a></li>
+      <li id="fn4">FBI exploration of Pegasus spyware. <a href="https://epic.org/report-fbi-explored-using-spyware-pegasus-for-criminal-investigations/" target="_blank" rel="noopener">EPIC</a></li>
+      <li id="fn5">Clearview AI usage by Minnesota police. <a href="https://www.governing.com/security/clearview-ai-yields-few-results-for-minnesota-police" target="_blank" rel="noopener">Governing Magazine</a></li>
+      <li id="fn6">Minneapolis facial recognition ban debate. <a href="https://minnesotareformer.com/2021/01/21/minneapolis-to-weigh-ban-on-police-use-of-facial-recognition-software/" target="_blank" rel="noopener">Minnesota Reformer</a></li>
+      <li id="fn7">Local law enforcement transparency and accountability measures for surveillance technology deployment.</li>
+      <li id="fn8">Minnesota Government Data Practices Act for public records requests. <a href="https://www.revisor.mn.gov/statutes/cite/13" target="_blank" rel="noopener">Minnesota Statutes Chapter 13</a></li>
+      <li id="fn9">Clearview AI biometric privacy litigation settlement. <a href="https://www.regulatoryoversight.com/2025/04/51-75m-settlement-in-clearview-ai-biometric-privacy-litigation-illustrates-creative-resolution-for-startups-facing-parallel-litigation-and-enforcement-action/" target="_blank" rel="noopener">Regulatory Oversight</a></li>
+    </ol>
+    <p class="meta">This article synthesizes publicly available information about surveillance technology deployment and oversight. Individual cases and usage statistics may vary by jurisdiction and time period.</p>
+  </section>
 
-    <footer role="contentinfo">
-      <div class="footnote">
-        <h3>🔗 Key Resources</h3>
-        <ul>
-          <li><strong>NSO Group/Pegasus:</strong> Wikipedia, Congress.gov, Just Security, EPIC</li>
-          <li><strong>Clearview AI:</strong> Governing Magazine, Minnesota Reformer, regulatory oversight reports</li>
-          <li><strong>Legal Developments:</strong> The Verge, Amnesty International, court filings</li>
-          <li><strong>Minnesota Records:</strong> Minnesota Government Data Practices Act (MGDPA) for public records requests</li>
-        </ul>
-      </div>
-      
-      <p><em>This article synthesizes publicly available information about surveillance technology deployment and oversight. Individual cases and usage statistics may vary by jurisdiction and time period.</em></p>
-      
-      <p><a href="/">← Back to Third Degree Media</a></p>
-    </footer>
-  </main>
+</main>
 </body>
 </html>
