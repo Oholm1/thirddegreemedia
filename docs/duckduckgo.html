@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>DuckDuckGo: Why It Matters for Privacy</title>
+  <meta name="description" content="How DDG reduces data exhaust while keeping everyday search usable. Learn about !bangs, email protection, and app tracking protection." />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="canonical" href="https://thirddegreemedia.com/duckduckgo.html" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="DuckDuckGo: Why It Matters for Privacy" />
+  <meta property="og:description" content="How DDG reduces data exhaust while keeping everyday search usable. Learn about !bangs, email protection, and app tracking protection." />
+  <meta property="og:url" content="https://thirddegreemedia.com/duckduckgo.html" />
+  <link rel="icon" href="/favicon.ico" />
+  
+  <!-- Mobile-friendly dark theme styling -->
+  <style>
+    :root {
+      --bg:#0b0d10; --fg:#e7edf3; --muted:#b7c5d3;
+      --panel:#0f1318; --line:#1e2833; --accent:#7cc7ff;
+      --callout-bg:#fff7e6; --callout-border:#ffb300; --callout-text:#0b0b0b;
+    }
+    body{margin:0;background:var(--bg);color:var(--fg);font-family:'JetBrains Mono','Fira Code','Courier New','SF Mono','Monaco','Inconsolata','Consolas',monospace;line-height:1.65}
+    main{max-width:900px;margin:0 auto;padding:28px 20px}
+    h1{font-size:clamp(1.8rem,3vw,2.1rem);line-height:1.25;margin:.2rem 0 1rem;color:var(--accent);text-shadow:0 0 10px #7cc7ffaa,0 0 20px #7cc7ff44;letter-spacing:0.02em;font-weight:600;text-transform:uppercase}
+    h2{font-size:clamp(1.2rem,2.2vw,1.35rem);line-height:1.25;margin:1.8rem 0 .6rem;color:var(--accent);text-shadow:0 0 8px #7cc7ffaa;letter-spacing:0.02em;font-weight:600;text-transform:uppercase}
+    h3{font-size:clamp(1.05rem,1.8vw,1.1rem);line-height:1.25;margin:1.2rem 0 .4rem;color:var(--fg);letter-spacing:0.01em}
+    p{margin:.7rem 0}
+    a{color:var(--accent);text-decoration:none;border-bottom:1px dotted var(--accent)}
+    a:hover{background:rgba(124,199,255,0.1)}
+    code,kbd,pre{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:.12rem .35rem;font-size:.9em;color:var(--accent)}
+    pre{padding:1rem;overflow:auto;margin:1rem 0}
+    .meta{color:var(--muted);font-size:.95rem;margin:.2rem 0 1.2rem}
+    .callout{background:var(--callout-bg);color:var(--callout-text);border-left:4px solid var(--callout-border);padding:12px 14px;border-radius:6px;margin:1rem 0}
+    .card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:1rem;margin:1rem 0}
+    .tag{display:inline-block;background:#eef6ff;color:#0b5ad9;border:1px solid #d8e9ff;padding:.05rem .45rem;border-radius:999px;font-size:.8rem;margin-right:.35rem}
+    .byline{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+    .byline .tag{background:#f0fdf4;color:#166534;border-color:#bbf7d0}
+    .hr{height:1px;background:linear-gradient(90deg,transparent, var(--line) 30%, var(--line) 70%, transparent);border:0;margin:1.6rem 0}
+    ul,ol{margin:.7rem 0;padding-left:1.2rem}
+    .refs li{margin-bottom:.5rem}
+    @media (max-width: 480px) {
+      main{padding:20px 16px}
+      .card{padding:.8rem}
+    }
+  </style>
+</head>
+<body>
+<main>
+  <h1>DuckDuckGo: Why It Matters for Privacy</h1>
+  <div class="meta byline">
+    <span class="tag">Privacy Guide</span>
+    <span>Published: Sep 24, 2025</span>
+  </div>
+
+  <div class="callout">
+    <strong>TL;DR:</strong> DDG doesn't save IP addresses or unique identifiers with searches. Features like !bangs, email protection, and Android app tracking protection make it a solid privacy-first search alternative—though past Microsoft tracker controversies remind us to use layered defenses.
+  </div>
+
+  <h2>What DDG Does Differently</h2>
+  <p><strong>Minimizes server-side data.</strong> DuckDuckGo's privacy policy states they don't store your IP address or unique IDs with search queries, and they discard the geo-IP guess used for local results. This reduces long-term data trails tied to you.</p>
+
+  <div class="card">
+    <h3>Private Search + "Bangs" for Precision</h3>
+    <p>DDG's <em>!bangs</em> are shortcuts like <code>!w</code> (Wikipedia) or <code>!gh</code> (GitHub) that route you directly to a site's results page. Time-saver for power users—and a way to avoid leaking your full query to multiple engines while you hop around.</p>
+    
+    <p><strong>Note:</strong> Once you jump with a !bang, you're under that destination site's policies.</p>
+  </div>
+
+  <div class="card">
+    <h3>Email Protection (Tracker Removal)</h3>
+    <p>DDG offers a free forwarding address (e.g., <code>alias@duck.com</code>) that <em>removes hidden trackers</em> from emails before sending to your real inbox, and lets you generate unlimited unique aliases for sign-ups and newsletters.</p>
+  </div>
+
+  <div class="card">
+    <h3>App Tracking Protection (Android)</h3>
+    <p>The DDG Android app includes a feature that blocks known trackers inside other apps using a local VPN-style method—helpful if you're not on iOS's ATT. Independent write-ups find it practical and simple to tune.</p>
+  </div>
+
+  <div class="hr"></div>
+
+  <h2>Real-World Examples</h2>
+
+  <div class="card">
+    <h3>1) "Search as little data as possible" workflow</h3>
+    <ol>
+      <li>Use DDG as your default engine to keep queries off a central personal profile.</li>
+      <li>When you know the destination, jump with a <em>!bang</em> (e.g., <code>!w threat modeling</code>).</li>
+      <li>For sensitive research, combine DDG with Tor or a reputable VPN to further separate identity from activity.</li>
+    </ol>
+  </div>
+
+  <div class="card">
+    <h3>2) Taming inbox surveillance</h3>
+    <p>Create a unique <code>alias@duck.com</code> for each vendor/newsletter. If one leaks or spams, disable that alias without touching your real address. Behind the scenes, DDG strips common tracking pixels and links.</p>
+  </div>
+
+  <div class="card">
+    <h3>3) Android app tracking clamp-down</h3>
+    <p>Install the DDG app and enable App Tracking Protection. You'll see a live counter of blocked attempts from popular apps—eye-opening for users who haven't tried iOS's ATT.</p>
+  </div>
+
+  <div class="hr"></div>
+
+  <h2>Limitations & Lessons Learned</h2>
+  
+  <div class="callout">
+    <strong>About the 2022 Microsoft-tracker controversy:</strong> Researchers found that DDG's browser initially allowed some Microsoft ad trackers. DDG then announced it would block those third-party scripts across its apps and extensions after securing policy changes. Transparency improved, but the episode is a reminder to treat <em>every</em> tool realistically, verify claims, and use layered defenses.
+  </div>
+
+  <ul>
+    <li><strong>Destination sites still matter:</strong> <em>!bangs</em> take you to other sites; you inherit their data practices.</li>
+    <li><strong>No tool makes you invisible:</strong> Pair private search with tracker blockers, hardened browsers, and good OPSEC.</li>
+  </ul>
+
+  <div class="hr"></div>
+
+  <h2>Quick Start Checklist</h2>
+  <ul>
+    <li>Set DDG as default in your browser(s).</li>
+    <li>Learn 5 favorite <em>!bangs</em> (e.g., <code>!w</code>, <code>!gh</code>, <code>!yt</code>, <code>!proton</code>, <code>!torproject</code>).</li>
+    <li>Enable <strong>Email Protection</strong> and start using per-site aliases.</li>
+    <li>On Android, toggle <strong>App Tracking Protection</strong> inside the DDG app.</li>
+    <li>Layer with other privacy practices (uBlock/Privacy Badger, VPN/Tor where appropriate).</li>
+  </ul>
+
+  <div class="hr"></div>
+
+  <h2>Sources & References</h2>
+  <ol class="refs">
+    <li>DuckDuckGo Privacy Policy (IP & identifiers; storage practices)</li>
+    <li>DuckDuckGo Help — Anonymous localized results (geo-IP guess discarded)</li>
+    <li>DuckDuckGo Help — What are Bangs? & How to use them</li>
+    <li>DuckDuckGo Help — Email Protection (tracker removal; unlimited aliases)</li>
+    <li>WIRED — DDG App Tracking Protection for Android (feature overview)</li>
+    <li>Dedoimedo — hands-on review of App Tracking Protection (usability)</li>
+    <li>TechCrunch/The Register — DDG removes Microsoft tracker carve-out after policy changes</li>
+    <li>TechRadar — "Browse the web anonymously" (DDG within broader privacy stack)</li>
+  </ol>
+
+  <p class="meta">Use DDG as one layer of a defense-in-depth approach. No search engine is a silver bullet—pair it with good browser hygiene, tracker blocking, and mindful account practices.</p>
+
+  <p class="meta">© Third Degree Media — zero trackers, all signal.</p>
+</main>
+</body>
+</html>
