@@ -2,6 +2,9 @@
    Third Degree Media — Global CSS
    ================================ */
 
+/* Cryptic/Dark Fonts */
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap');
+
 /* 1) Theme tokens */
 :root {
   color-scheme: light dark;
@@ -23,13 +26,14 @@
 /* Dark theme via media query */
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg: #18181b;
-    --fg: #e9e9ee;
-    --muted: #9aa0a6;
-    --card: #23232a;
-    --border: #22262b;
-    --link: #66ccff;
-    --link-hover: #ffcc00;
+    --bg: #0a0a0a;
+    --fg: #c9c9c9;
+    --muted: #666666;
+    --card: #111111;
+    --border: #1a1a1a;
+    --link: #ff6600;
+    --link-hover: #ffaa00;
+    --accent: #ff6600;
   }
 }
 
@@ -46,14 +50,14 @@
 }
 
 [data-theme="dark"] {
-  --bg: #18181b;
-  --fg: #e9e9ee;
-  --muted: #9aa0a6;
-  --card: #23232a;
-  --border: #22262b;
+  --bg: #0a0a0a;
+  --fg: #c9c9c9;
+  --muted: #666666;
+  --card: #111111;
+  --border: #1a1a1a;
   --accent: #ff6600;
-  --link: #66ccff;
-  --link-hover: #ffcc00;
+  --link: #ff6600;
+  --link-hover: #ffaa00;
 }
 
 /* 2) Base & layout */
@@ -69,14 +73,15 @@ html, body { margin:0; height:100%; }
 body {
   background: var(--bg);
   color: var(--fg);
-  font-family: 'Inter', 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, system-ui, sans-serif;
-  font-size: 1.08rem;
-  line-height: 1.7;
+  font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', 'SF Mono', 'Monaco', 'Inconsolata', 'Consolas', monospace;
+  font-size: 1.05rem;
+  line-height: 1.65;
   max-width: 70ch;
   margin: 0 auto;
   padding: 40px;
   min-height: 100vh;
-  letter-spacing: 0.01em;
+  letter-spacing: 0.02em;
+  font-weight: 400;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -165,22 +170,25 @@ section:hover, .callout:hover, .card:hover, .panel:hover {
 /* 5) Type */
 h1, h2 {
   color: var(--accent);
-  line-height: 1.18;
+  line-height: 1.15;
   margin-top: 0;
   position: relative;
-  font-family: inherit;
-  font-weight: 800;
-  letter-spacing: 0.01em;
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
 }
 h1 {
-  font-size: 2.3rem;
+  font-size: 2.1rem;
   margin-bottom: 0.5em;
-  text-shadow: 0 2px 12px #111, 0 0 2px #ff660055;
+  text-shadow: 0 0 10px #ff6600aa, 0 0 20px #ff660044, 0 0 30px #ff660022;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.8));
 }
 h2 {
-  font-size: 1.3rem;
+  font-size: 1.25rem;
   margin-bottom: 0.7rem;
-  text-shadow: 0 1px 6px #111, 0 0 1px #ff660033;
+  text-shadow: 0 0 8px #ff6600aa, 0 0 15px #ff660033;
+  filter: drop-shadow(0 1px 3px rgba(0,0,0,0.6));
 }
 
 /* 6) Buttons & links */
