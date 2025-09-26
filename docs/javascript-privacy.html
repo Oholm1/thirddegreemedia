@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Why Privacy Folks Are Wary of JavaScript (and Why It's Slowing Down the Web)</title>
+  <meta name="description" content="JavaScript's role in tracking, fingerprinting, and web bloat - why privacy advocates disable it and how it impacts performance on older hardware." />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="canonical" href="https://thirddegreemedia.com/javascript-privacy.html" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Why Privacy Folks Are Wary of JavaScript (and Why It's Slowing Down the Web)" />
+  <meta property="og:description" content="JavaScript's role in tracking, fingerprinting, and web bloat - why privacy advocates disable it and how it impacts performance on older hardware." />
+  <meta property="og:url" content="https://thirddegreemedia.com/javascript-privacy.html" />
+  <link rel="icon" href="/favicon.ico" />
+  
+  <!-- Mobile-friendly dark theme styling -->
+  <style>
+    :root {
+      --bg:#0b0d10; --fg:#e7edf3; --muted:#b7c5d3;
+      --panel:#0f1318; --line:#1e2833; --accent:#7cc7ff;
+      --callout-bg:#fff7e6; --callout-border:#ffb300; --callout-text:#0b0b0b;
+    }
+    body{margin:0;background:var(--bg);color:var(--fg);font-family:'JetBrains Mono','Fira Code','Courier New','SF Mono','Monaco','Inconsolata','Consolas',monospace;line-height:1.65}
+    main{max-width:900px;margin:0 auto;padding:28px 20px}
+    h1{font-size:clamp(1.8rem,3vw,2.1rem);line-height:1.25;margin:.2rem 0 1rem;color:var(--accent);text-shadow:0 0 10px #7cc7ffaa,0 0 20px #7cc7ff44;letter-spacing:0.02em;font-weight:600;text-transform:uppercase}
+    h2{font-size:clamp(1.2rem,2.2vw,1.35rem);line-height:1.25;margin:1.8rem 0 .6rem;color:var(--accent);text-shadow:0 0 8px #7cc7ffaa;letter-spacing:0.02em;font-weight:600;text-transform:uppercase}
+    h3{font-size:clamp(1.05rem,1.8vw,1.1rem);line-height:1.25;margin:1.2rem 0 .4rem;color:var(--fg);letter-spacing:0.01em;text-transform:uppercase}
+    p{margin:.7rem 0}
+    a{color:var(--accent);text-decoration:none;border-bottom:1px dotted var(--accent)}
+    a:hover{background:rgba(124,199,255,0.1)}
+    strong{color:var(--accent)}
+    em{color:var(--muted);font-style:italic}
+    code,kbd,pre{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:.12rem .35rem;font-size:.9em;color:var(--accent)}
+    pre{padding:1rem;overflow:auto;margin:1rem 0}
+    .meta{color:var(--muted);font-size:.95rem;margin:.2rem 0 1.2rem}
+    .callout{background:var(--callout-bg);color:var(--callout-text);border-left:4px solid var(--callout-border);padding:12px 14px;border-radius:6px;margin:1rem 0}
+    .card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:1rem;margin:1rem 0}
+    .tag{display:inline-block;background:#eef6ff;color:#0b5ad9;border:1px solid #d8e9ff;padding:.05rem .45rem;border-radius:999px;font-size:.8rem;margin-right:.35rem}
+    .byline{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+    .byline .tag{background:#f0fdf4;color:#166534;border-color:#bbf7d0}
+    .hr{height:1px;background:linear-gradient(90deg,transparent, var(--line) 30%, var(--line) 70%, transparent);border:0;margin:1.6rem 0}
+    ul,ol{margin:.7rem 0;padding-left:1.2rem}
+    @media (max-width: 480px) {
+      main{padding:20px 16px}
+      .card{padding:.8rem}
+    }
+  </style>
+</head>
+<body>
+<main>
+  <h1>Why Privacy Folks Are Wary of JavaScript (and Why It's Slowing Down the Web)</h1>
+  <div class="meta byline">
+    <span class="tag">Analysis</span>
+    <span>Published: Sep 26, 2025</span>
+  </div>
+
+  <p>
+    JavaScript powers most of the modern web. From interactive menus to entire web apps,
+    it has become the default tool developers reach for. But among privacy advocates and
+    performance-minded users, JavaScript carries a heavy reputation — and not without reason.
+  </p>
+
+  <div class="hr"></div>
+
+  <h2>1. JavaScript as a Privacy Risk</h2>
+  <p>
+    JavaScript is frequently used for <strong>tracking, fingerprinting, and advertising scripts</strong>.
+    Even if a site itself isn't malicious, third-party scripts can harvest device details,
+    monitor clicks, and build detailed user profiles without consent.
+  </p>
+  
+  <div class="card">
+    <p>
+      Privacy groups like the <a href="https://www.eff.org/deeplinks/2010/01/primer-information-theory-and-privacy"
+      target="_blank" rel="noopener">Electronic Frontier Foundation (EFF)</a> have documented how
+      JavaScript is leveraged for browser fingerprinting. Tools such as <a href="https://coveryourtracks.eff.org/"
+      target="_blank" rel="noopener">Cover Your Tracks</a> demonstrate just how much identifying
+      data JavaScript can expose.
+    </p>
+  </div>
+
+  <h2>2. Performance Costs on Users</h2>
+  <p>
+    JavaScript doesn't just impact privacy — it impacts performance. Many modern sites load
+    <strong>megabytes of JavaScript</strong> before a single line of meaningful content appears.
+    This puts unnecessary strain on users' CPUs and GPUs, draining laptops, heating phones,
+    and making older hardware struggle.
+  </p>
+  
+  <div class="callout">
+    <strong>The Bloat Reality:</strong> The irony is that the basic information on a site — text, images, links — could be delivered instantly with simple HTML and CSS. Instead, heavy JavaScript frameworks mean even a blog or news article might run slower than a 3D video game.
+  </div>
+
+  <h2>3. Leaving Older Machines Behind</h2>
+  <p>
+    In the 2000s, even modest PCs could browse most of the web. Today, users with older laptops
+    or budget phones often find that sites are <em>unusable</em> because of bloated JavaScript
+    and poorly optimized code. This isn't about progress — it's about <strong>lazy development
+    practices and reliance on frameworks</strong> that add layers of overhead.
+  </p>
+  
+  <div class="card">
+    <p>
+      A <a href="https://httparchive.org/reports/page-weight" target="_blank" rel="noopener">
+      2024 report from the HTTP Archive</a> shows that the average webpage is now over 2 MB,
+      with JavaScript being the single heaviest component. Older hardware isn't "outdated" —
+      the web is just overweight.
+    </p>
+  </div>
+
+  <h2>4. The Privacy-Performance Intersection</h2>
+  <p>
+    For privacy-minded users, JavaScript represents a double burden: it both <strong>exposes data</strong>
+    and <strong>burns resources</strong>. Disabling it entirely (as in browsers like
+    <a href="https://librewolf.net/" target="_blank" rel="noopener">LibreWolf</a>) often
+    makes the web cleaner, faster, and safer.
+  </p>
+
+  <div class="hr"></div>
+
+  <h2>Conclusion</h2>
+  <p>
+    JavaScript itself isn't "evil" — but its misuse by advertisers, trackers, and developers
+    chasing convenience has created a web that is heavier and less private than ever.
+    Lean, accessible HTML + CSS sites prove that you can deliver content securely and efficiently,
+    without punishing users for wanting privacy or using older devices.
+  </p>
+
+  <div class="card">
+    <h3>Sources</h3>
+    <ul>
+      <li><a href="https://coveryourtracks.eff.org/" target="_blank" rel="noopener">
+        EFF: Cover Your Tracks</a> — Browser fingerprinting demonstration</li>
+      <li><a href="https://httparchive.org/reports/page-weight" target="_blank" rel="noopener">
+        HTTP Archive 2024</a> — Page weight report</li>
+      <li><a href="https://librewolf.net/" target="_blank" rel="noopener">
+        LibreWolf</a> — Privacy-focused browser with strict JS controls</li>
+    </ul>
+  </div>
+
+  <p class="meta">© Third Degree Media — zero trackers, all signal.</p>
+</main>
+</body>
+</html>
