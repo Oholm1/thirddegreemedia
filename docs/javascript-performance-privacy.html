@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Why Heavy JavaScript Hurts Performance and Privacy</title>
+  <meta name="description" content="How excessive JavaScript slows down websites, drains battery life, and enables cross-site tracking - plus how privacy browsers and script blockers help." />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="canonical" href="https://thirddegreemedia.com/javascript-performance-privacy.html" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Why Heavy JavaScript Hurts Performance and Privacy" />
+  <meta property="og:description" content="How excessive JavaScript slows down websites, drains battery life, and enables cross-site tracking - plus how privacy browsers and script blockers help." />
+  <meta property="og:url" content="https://thirddegreemedia.com/javascript-performance-privacy.html" />
+  <link rel="icon" href="/favicon.ico" />
+  
+  <!-- Mobile-friendly dark theme styling -->
+  <style>
+    :root {
+      --bg:#0b0d10; --fg:#e7edf3; --muted:#b7c5d3;
+      --panel:#0f1318; --line:#1e2833; --accent:#7cc7ff;
+      --callout-bg:#fff7e6; --callout-border:#ffb300; --callout-text:#0b0b0b;
+    }
+    body{margin:0;background:var(--bg);color:var(--fg);font-family:'JetBrains Mono','Fira Code','Courier New','SF Mono','Monaco','Inconsolata','Consolas',monospace;line-height:1.65}
+    main{max-width:900px;margin:0 auto;padding:28px 20px}
+    h1{font-size:clamp(1.8rem,3vw,2.1rem);line-height:1.25;margin:.2rem 0 1rem;color:var(--accent);text-shadow:0 0 10px #7cc7ffaa,0 0 20px #7cc7ff44;letter-spacing:0.02em;font-weight:600;text-transform:uppercase}
+    h2{font-size:clamp(1.2rem,2.2vw,1.35rem);line-height:1.25;margin:1.8rem 0 .6rem;color:var(--accent);text-shadow:0 0 8px #7cc7ffaa;letter-spacing:0.02em;font-weight:600;text-transform:uppercase}
+    h3{font-size:clamp(1.05rem,1.8vw,1.1rem);line-height:1.25;margin:1.2rem 0 .4rem;color:var(--fg);letter-spacing:0.01em;text-transform:uppercase}
+    p{margin:.7rem 0}
+    a{color:var(--accent);text-decoration:none;border-bottom:1px dotted var(--accent)}
+    a:hover{background:rgba(124,199,255,0.1)}
+    strong{color:var(--accent)}
+    em{color:var(--muted);font-style:italic}
+    code,kbd{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:.12rem .35rem;font-size:.9em;color:var(--accent)}
+    pre{background:#0f172a;color:#e5e7eb;padding:1rem;border-radius:8px;overflow:auto;margin:1rem 0;border:1px solid var(--line)}
+    .meta{color:var(--muted);font-size:.95rem;margin:.2rem 0 1.2rem}
+    .callout{background:var(--callout-bg);color:var(--callout-text);border-left:4px solid var(--callout-border);padding:12px 14px;border-radius:6px;margin:1rem 0}
+    .card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:1rem;margin:1rem 0}
+    .tag{display:inline-block;background:#eef6ff;color:#0b5ad9;border:1px solid #d8e9ff;padding:.05rem .45rem;border-radius:999px;font-size:.8rem;margin-right:.35rem}
+    .byline{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+    .byline .tag{background:#f0fdf4;color:#166534;border-color:#bbf7d0}
+    .hr{height:1px;background:linear-gradient(90deg,transparent, var(--line) 30%, var(--line) 70%, transparent);border:0;margin:1.6rem 0}
+    ul,ol{margin:.7rem 0;padding-left:1.2rem}
+    @media (max-width: 480px) {
+      main{padding:20px 16px}
+      .card{padding:.8rem}
+    }
+  </style>
+</head>
+<body>
+<main>
+  <h1>Why Heavy JavaScript Hurts Performance and Privacy</h1>
+  <div class="meta byline">
+    <span class="tag">Analysis</span>
+    <span>Published: Sep 26, 2025</span>
+  </div>
+
+  <p>
+    Modern websites often feel slower and more bloated than they should. One of
+    the main reasons is JavaScript. While JavaScript is a powerful tool that
+    enables interactive features, animations, and dynamic content, it has also
+    become a crutch — and in many cases, an <em>abused</em> vector for tracking
+    and profiling users.
+  </p>
+
+  <div class="hr"></div>
+
+  <h2>Performance: When Code Becomes Clutter</h2>
+  <p>
+    In principle, a simple news article, blog post, or product page should load
+    instantly, even on older computers. Instead, many sites force users to load
+    megabytes of JavaScript before a single line of text appears. This not only
+    slows down page rendering but also drains CPU and battery life. Users with
+    older hardware often experience noticeable lag, not because of the content,
+    but because of the excessive code wrapped around it.
+  </p>
+  
+  <div class="card">
+    <p>
+      In 2019, the HTTP Archive reported that the median page weight for JavaScript
+      was already over <strong>400KB per site</strong>, and this number has only
+      grown since. For comparison, the original version of Google's homepage was
+      less than 50KB total. Sites today often ship code bundles larger than early
+      video games.
+    </p>
+  </div>
+
+  <h2>Privacy: JavaScript as a Tracking Vector</h2>
+  <p>
+    Beyond performance, JavaScript is widely used by businesses to track users
+    across the web. Third-party scripts load in the background, connecting to
+    advertising networks, analytics platforms, and data brokers. These scripts
+    can fingerprint your browser by probing fonts, screen resolution, installed
+    plugins, and other seemingly harmless details. Combined, these signals
+    create a <em>unique identifier</em> that follows you across sites.
+  </p>
+  
+  <div class="callout">
+    <strong>The Hidden Reality:</strong> Even well-meaning websites often include third-party code without fully understanding what it collects. Once embedded, that JavaScript can report back to multiple companies and build a detailed profile of your behavior.
+  </div>
+
+  <h2>How Privacy-Respecting Browsers Help</h2>
+  <p>
+    Privacy-focused browsers like <strong>Firefox</strong> (with
+    <a href="https://ublockorigin.com/">uBlock Origin</a>) or
+    <strong>Brave</strong> come with stricter defaults that block or limit
+    invasive scripts. <strong>Tor Browser</strong>, which is built on Firefox,
+    goes even further by normalizing browser fingerprints to make users blend in
+    with the crowd. Chromium-based browsers (like Chrome, Edge, Opera) can be
+    hardened, but they often ship with less privacy-friendly defaults and
+    require extensions to close the gaps.
+  </p>
+
+  <h2>Take Back Control</h2>
+  <p>
+    Blocking or limiting JavaScript doesn't mean breaking the web. In many
+    cases, disabling unnecessary scripts makes sites <em>faster</em> and
+    <em>cleaner</em>. Tools like <a href="https://noscript.net/">NoScript</a> or
+    <a href="https://github.com/gorhill/uBlock">uBlock Origin</a> let you
+    selectively allow only the scripts you trust. This not only reduces lag but
+    also cuts off a major channel of cross-site tracking.
+  </p>
+
+  <div class="card">
+    <h3>Practical Steps</h3>
+    <ul>
+      <li>Install <strong>uBlock Origin</strong> to block tracking scripts automatically</li>
+      <li>Use <strong>NoScript</strong> for granular JavaScript control</li>
+      <li>Switch to a privacy-focused browser like <strong>Firefox</strong> or <strong>Brave</strong></li>
+      <li>Consider <strong>Tor Browser</strong> for maximum anonymity</li>
+      <li>Test websites with JavaScript disabled to see the performance difference</li>
+    </ul>
+  </div>
+
+  <div class="hr"></div>
+
+  <div class="card">
+    <h2>Further Reading</h2>
+    <ul>
+      <li>
+        <a href="https://httparchive.org/reports/page-weight" target="_blank" rel="noopener">
+          HTTP Archive: Page Weight Report
+        </a> — Current statistics on web bloat
+      </li>
+      <li>
+        <a href="https://www.eff.org/deeplinks/2019/12/behind-one-tiny-extension-web-privacy-crisis" target="_blank" rel="noopener">
+          EFF on Browser Fingerprinting
+        </a> — How tracking scripts work
+      </li>
+      <li>
+        <a href="https://privacyguides.org/browsers/" target="_blank" rel="noopener">
+          Privacy Guides: Browsers
+        </a> — Comprehensive browser recommendations
+      </li>
+    </ul>
+  </div>
+
+  <p class="meta">© Third Degree Media — zero trackers, all signal.</p>
+</main>
+</body>
+</html>
