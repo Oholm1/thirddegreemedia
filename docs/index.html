@@ -380,6 +380,7 @@
     <section class="callout mullvad reveal">
       <h2>Codex</h2>
       <p>Documenting infrastructure rituals, domain claims, and glyphic milestones.</p>
+      <p><a href="/mobile-app-permissions.html">📱 How App Permissions Leak You — A mobile privacy guide for Android & iOS</a></p>
       <p><a href="/dma-device-level-threats.html">🔌 Understanding DMA & Device-Level Threats — A privacy-safe primer on hardware security</a></p>
       <p><a href="/stalkerware-commercial-spyware.html">🕵️ Stalkerware & Commercial Spyware — Detection, removal, and safety guidance</a></p>
       <p><a href="/stingrays-minnesota.html">📡 Stingrays in Minnesota: What They Are, What the Law Requires, and What to Watch</a></p>
@@ -1069,6 +1070,73 @@ document.addEventListener('DOMContentLoaded', function() {
 })();
 </script>
 
+<dl>
+  <dt><strong>Microphone</strong></dt>
+  <dd>
+    <p>What it allows: records audio, listens to ambient sounds or voice commands.</p>
+    <p>Privacy risk: audio can contain sensitive conversations, environment info, or even be used to infer presence/absence at home.</p>
+  </dd>
+
+  <dt><strong>Camera</strong></dt>
+  <dd>
+    <p>What it allows: take photos/video, scan QR codes, access camera stream.</p>
+    <p>Privacy risk: direct image capture and potential exfiltration of visual context; also can be used to take covert photos if misused.</p>
+  </dd>
+
+  <dt><strong>Storage / Files / Photos</strong></dt>
+  <dd>
+    <p>What it allows: read and/or write files on device — photos, downloads, documents.</p>
+    <p>Privacy risk: apps can copy private photos, documents, or cached files, exposing sensitive material.</p>
+  </dd>
+
+  <dt><strong>Contacts / Address Book</strong></dt>
+  <dd>
+    <p>What it allows: read contact names, numbers, emails, and sometimes contact groups.</p>
+    <p>Privacy risk: reveals your social graph; used for spam, scraping, or to deanonymize activities.</p>
+  </dd>
+
+  <dt><strong>SMS & Call Logs</strong></dt>
+  <dd>
+    <p>What it allows: read/send messages, access call history.</p>
+    <p>Privacy risk: exposes 2FA messages, sensitive texts, or call metadata used for social engineering.</p>
+  </dd>
+
+  <dt><strong>Notifications access</strong></dt>
+  <dd>
+    <p>What it allows: read notification contents from other apps (e.g., messages, banking alerts).</p>
+    <p>Privacy risk: harvests message previews and tokens that appear in notifications.</p>
+  </dd>
+
+  <dt><strong>Health / Fitness sensors</strong></dt>
+  <dd>
+    <p>What it allows: step counts, heart-rate, activity data.</p>
+    <p>Privacy risk: sensitive medical or behavioural inferences (e.g., when you sleep, exercise, or are sedentary).</p>
+  </dd>
+
+  <dt><strong>Nearby devices / Bluetooth</strong></dt>
+  <dd>
+    <p>What it allows: discover & connect to BLE devices and probe for nearby hardware.</p>
+    <p>Privacy risk: can reveal proximity to beacons, other people, or known devices; used for tracking in some contexts.</p>
+  </dd>
+
+  <dt><strong>Sensors (accelerometer, gyroscope)</strong></dt>
+  <dd>
+    <p>What it allows: motion and orientation data, often used for UX and step counters.</p>
+    <p>Privacy risk: sensor fusion techniques can sometimes infer keystrokes or device activity patterns.</p>
+  </dd>
+
+  <dt><strong>Accessibility services (Android)</strong></dt>
+  <dd>
+    <p>What it allows: powerful access to the screen content and input events for legitimate assistive tech.</p>
+    <p>Privacy risk: abused, accessibility access can read screen text and interact with apps — treat it like full-text access to the device UI.</p>
+  </dd>
+
+  <dt><strong>Install unknown apps / Sideloading</strong></dt>
+  <dd>
+    <p>What it allows: lets an app request the ability to install other apps.</p>
+    <p>Privacy risk: can be abused to cascade installation of malware or trackers; avoid granting unless you understand the exact need.</p>
+  </dd>
+</dl>
 </body>
 </html>
 <!-- DEPLOY-MARKER-20250917-223053 -->
