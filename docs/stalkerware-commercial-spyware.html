@@ -1,0 +1,309 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  
+  <!-- Single, deduped Content Security Policy -->
+  <meta http-equiv="Content-Security-Policy"
+    content="
+      default-src 'self';
+      img-src 'self' data:;
+      style-src 'self' 'nonce-r4nd0m';
+      script-src 'self' 'nonce-r4nd0m';
+      font-src 'self';
+      object-src 'none';
+      base-uri 'none';
+      frame-ancestors 'self'">
+
+  <!-- Primary SEO -->
+  <title>Stalkerware & Commercial Spyware — TL;DR | Third Degree Media</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Commercial surveillance software (stalkerware) detection, removal, and safety guidance. Understanding spyware disguised as parental controls.">
+  <meta name="author" content="Orrin D. Holmbeck" />
+  <meta name="theme-color" content="#111" />
+  <meta name="robots" content="index,follow" />
+  <link rel="canonical" href="https://thirddegreemedia.com/stalkerware-commercial-spyware.html">
+  <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
+  
+  <!-- Favicon -->
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" href="/unicursal-hexagram.svg" type="image/svg+xml">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/favicon-180.png">
+  <link rel="manifest" href="/site.webmanifest">
+  
+  <!-- Theme-aware favicons -->
+  <link rel="icon" type="image/png" href="/favicon-32.png" media="(prefers-color-scheme: light)">
+  <link rel="icon" type="image/png" href="/favicon-white-32.png" media="(prefers-color-scheme: dark)">
+
+  <!-- Security / Privacy -->
+  <meta name="referrer" content="no-referrer" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Third Degree Media">
+  <meta property="og:title" content="Stalkerware & Commercial Spyware — TL;DR">
+  <meta property="og:description" content="Commercial surveillance software detection, removal, and safety guidance.">
+  <meta property="og:url" content="https://thirddegreemedia.com/stalkerware-commercial-spyware.html">
+
+  <!-- Critical CSS -->
+  <style nonce="r4nd0m">
+    body {
+      font-family: ui-monospace,"Courier New",monospace;
+      color: #eee;
+      background: linear-gradient(135deg, #18181b 0%, #23232a 100%);
+      margin: 0;
+      padding: 0;
+      line-height: 1.6;
+    }
+    .container {
+      max-width: 800px;
+      margin: 2rem auto;
+      padding: 0 1.5rem;
+    }
+    .malware-article {
+      background: rgba(20,20,20,0.92);
+      border-radius: 18px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+      padding: 2rem;
+      border: 1px solid #333;
+    }
+    .malware-article header h1 {
+      color: #ff6600;
+      font-size: 2.2rem;
+      margin: 0 0 1rem 0;
+      text-shadow: 0 2px 12px #111;
+    }
+    .meta {
+      color: #999;
+      font-size: 0.9rem;
+      margin-bottom: 2rem;
+      padding: 1rem;
+      background: #111;
+      border-radius: 10px;
+      border-left: 4px solid #ff6600;
+    }
+    h2 {
+      color: #ff6600;
+      font-size: 1.4rem;
+      margin: 2rem 0 1rem 0;
+      border-bottom: 2px solid #333;
+      padding-bottom: 0.5rem;
+    }
+    h3 {
+      color: #ffcc00;
+      font-size: 1.2rem;
+      margin: 1.5rem 0 0.5rem 0;
+    }
+    a {
+      color: #66ccff;
+      text-decoration: none;
+    }
+    a:hover {
+      color: #ffcc00;
+      text-decoration: underline;
+    }
+    ul, ol {
+      margin: 1rem 0;
+      padding-left: 1.5rem;
+    }
+    li {
+      margin: 0.5rem 0;
+    }
+    blockquote {
+      border-left: 4px solid #ff6600;
+      padding: 1rem 1.5rem;
+      margin: 1.5rem 0;
+      background: #111;
+      border-radius: 0 10px 10px 0;
+    }
+    .disclaimer {
+      background: #2d1b1b;
+      color: #ff9999;
+      padding: 1rem;
+      border-radius: 10px;
+      border: 1px solid #ff6600;
+      margin-top: 2rem;
+      font-weight: bold;
+    }
+    .nav-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    .nav-header a {
+      color: #ff6600;
+      font-size: 1.1rem;
+      font-weight: bold;
+    }
+    strong {
+      color: #ffcc00;
+    }
+    em {
+      color: #66ccff;
+    }
+    @media (max-width: 600px) {
+      .container {
+        padding: 0 1rem;
+      }
+      .malware-article {
+        padding: 1.5rem;
+      }
+      .malware-article header h1 {
+        font-size: 1.8rem;
+      }
+    }
+  </style>
+
+  <link rel="stylesheet" href="/style.css?v=6" />
+</head>
+
+<body>
+  <div class="container">
+    <div class="nav-header">
+      <a href="/">← Back to Third Degree Media</a>
+    </div>
+
+    <article class="malware-article">
+      <header>
+        <h1>🕵️ Stalkerware & Commercial Spyware — TL;DR</h1>
+        <p class="meta">Type: Commercial surveillance software (often sold as "parental control") • Affects: Windows, macOS, Android, iOS • Focus: privacy & safety</p>
+      </header>
+
+      <section id="summary">
+        <h2>Summary</h2>
+        <p>Stalkerware (commercial spyware) is software packaged and sold to let a third party monitor an individual's device activity — messages, calls, location, keypresses — often without legitimate consent. It has outsized human impact (domestic abuse, stalking) and is frequently used by bad actors who already have some physical or account access to the victim's device.</p>
+      </section>
+
+      <section id="what-is-it">
+        <h2>What it is (high level)</h2>
+        <p>These are commercial products (or derivatives) marketed as <strong>"employee monitoring"</strong>, <strong>"parental control"</strong>, or <strong>"device tracking"</strong>. They usually offer remote dashboards where the purchaser can view call logs, SMS, app usage, GPS, microphone recordings, screenshots, and file access. Unlike mass malware, stalkerware is often installed with one of:</p>
+        <ul>
+          <li><strong>(a)</strong> Brief physical access to the device</li>
+          <li><strong>(b)</strong> Social engineering to convince the owner to install</li>
+          <li><strong>(c)</strong> Credential compromise</li>
+        </ul>
+      </section>
+
+      <section id="how-they-work">
+        <h2>How they work (mechanisms, non-exploitative)</h2>
+        <ul>
+          <li>Runs as a <em>background service/daemon</em> with elevated privileges and persists across reboots</li>
+          <li>Uses legitimate OS APIs (location, accessibility, device admin) to collect data; may abuse accessibility APIs to read screen content</li>
+          <li>Exfiltrates data by uploading to <em>vendor cloud dashboards</em> or via email/FTP</li>
+          <li>Often bundled with a <strong>remote management portal</strong> tied to an account the purchaser controls</li>
+        </ul>
+      </section>
+
+      <section id="notable-incidents">
+        <h2>Notable context & impact</h2>
+        <p>Numerous vendor-sold products have been used for abuse and have received media and NGO scrutiny. Law enforcement and consumer safety groups have published advisories highlighting how these products are misused. Because of the <strong>human-safety angle</strong>, many security vendors flag stalkerware differently and offer targeted detection/removal guidance with safety resources.</p>
+      </section>
+
+      <section id="detection">
+        <h2>Detection signals (what users may notice)</h2>
+        <ul>
+          <li>Unexplained <strong>new apps or services</strong> listed in Settings / Applications</li>
+          <li><em>Battery drain and CPU spikes</em> when device is idle</li>
+          <li>Unexpected prompts for <strong>"device admin" access</strong> or wide permissions (SMS, location, accessibility)</li>
+          <li>Strange outgoing connections to uncommon domains or repeated uploads at odd hours</li>
+          <li>New user accounts, changed lockscreen PINs, or unknown device profiles (macOS/iOS configuration profiles)</li>
+          <li><strong>On desktop:</strong> background processes with unfamiliar names, removed or suppressed security alerts, or new scheduled tasks/launch agents</li>
+        </ul>
+      </section>
+
+      <section id="forensics">
+        <h2>Forensic artifacts & places to check (non-weaponizing)</h2>
+        <blockquote>
+          <strong>⚠️ Safety First:</strong> Collecting artifacts safely is important — if you suspect ongoing abuse, prioritize personal safety before technical steps.
+        </blockquote>
+        
+        <h3>Android</h3>
+        <ul>
+          <li>Installed package list (<code>adb shell pm list packages</code> if you have consent / admin rights)</li>
+          <li>Device admin apps, apps with <em>Accessibility permission</em></li>
+          <li>Battery usage by app, unusual VPN profiles</li>
+          <li>Unexpected Google account sync entries, and app backup contents</li>
+        </ul>
+
+        <h3>iOS</h3>
+        <ul>
+          <li><strong>Configuration profiles</strong> (Settings → General → VPN & Device Management)</li>
+          <li>Unexpected provisioning profiles</li>
+          <li>Backups (check encrypted backups on a controlled machine for suspicious entries)</li>
+          <li>Jailbreak indicators (unusual daemons, Cydia entries)</li>
+        </ul>
+        <p><em>Note: iOS is harder to inspect safely without trusted tools and physical chain-of-custody.</em></p>
+
+        <h3>Windows / macOS</h3>
+        <ul>
+          <li>Startup items / launch agents, scheduled tasks</li>
+          <li>Unusual services/daemons, newly added admin users</li>
+          <li>Suspicious signed binaries (mismatched publisher names)</li>
+          <li>Browser extensions, network connection logs</li>
+        </ul>
+
+        <h3>Network</h3>
+        <ul>
+          <li>Repeated outbound uploads to a small set of domains</li>
+          <li>DNS queries for vendor dashboards</li>
+          <li>Odd traffic to cloud storage endpoints (S3, Azure blobs) at night</li>
+        </ul>
+      </section>
+
+      <section id="containment-removal">
+        <h2>Containment & safe next steps</h2>
+        <ol>
+          <li><strong>🚨 Safety first:</strong> If your safety is at risk, contact local domestic violence resources or law enforcement first — get help before taking device actions that could escalate harm</li>
+          <li><em>Power off or isolate</em> the device from networks (airplane mode / remove SIM) if safe to do so</li>
+          <li><strong>Do not confront an abuser alone;</strong> seek a trusted support person when taking technical actions</li>
+          <li>From a clean, separate device: change critical passwords (email, banking, cloud) and enable MFA</li>
+          <li><strong>For removal:</strong> use reputable anti-stalkerware / anti-malware tools (vendor guidance is best). If you're unsure, consult a local digital-safety organization or CERT for guided removal</li>
+          <li>Preserve evidence (screenshots of unknown apps/permissions, network logs) if you intend to report abuse; redact personal information before sharing publicly</li>
+        </ol>
+      </section>
+
+      <section id="prevention">
+        <h2>Prevention & hardening</h2>
+        <ul>
+          <li>Require device lock (PIN/biometric) and <strong>avoid sharing lock codes</strong></li>
+          <li>Use strong account passwords and <em>enable MFA everywhere</em></li>
+          <li>Review installed apps & permissions periodically (Accessibility, Device Admin on Android; Profiles on iOS)</li>
+          <li>Don't install unknown "parental control" or remote-monitoring apps without verifying vendor reputation and legal/ethical permissions</li>
+          <li><strong>Educate close contacts</strong> about the legal and ethical implications of monitoring someone without consent</li>
+        </ul>
+      </section>
+
+      <section id="legal-reporting">
+        <h2>Legal, reporting & survivor support</h2>
+        <p>Report suspected stalking/abuse to <strong>local law enforcement</strong>, and to your hosting or cloud provider if you can identify vendor upload endpoints. Domestic violence NGOs and digital-rights orgs (local hotlines, national councils) often have tailored guidance for survivors on safe device cleanup and evidence preservation.</p>
+        
+        <blockquote>
+          <strong>Resources:</strong>
+          <ul>
+            <li><a href="https://www.thehotline.org/" target="_blank" rel="noopener">National Domestic Violence Hotline</a> (US): 1-800-799-7233</li>
+            <li><a href="https://www.aclu.org/issues/privacy-technology/surveillance-technologies/stalkerware" target="_blank" rel="noopener">ACLU Stalkerware Resources</a></li>
+            <li><a href="https://stopstalkerware.org/" target="_blank" rel="noopener">Coalition Against Stalkerware</a></li>
+          </ul>
+        </blockquote>
+      </section>
+
+      <footer>
+        <p class="disclaimer">⚠️ This page is for education. If you or someone else is in immediate danger, call emergency services and seek in-person help.</p>
+      </footer>
+    </article>
+
+    <div style="text-align: center; margin: 2rem 0;">
+      <a href="/" style="color: #ff6600; font-weight: bold;">← Back to Third Degree Media</a>
+    </div>
+  </div>
+
+  <!-- Year updater -->
+  <script nonce="r4nd0m">
+    document.addEventListener('DOMContentLoaded', function() {
+      // Add any specific JavaScript if needed
+    });
+  </script>
+
+</body>
+</html>
