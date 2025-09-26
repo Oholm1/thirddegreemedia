@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Run Powerful AI Locally with Ollama (No Cloud, No Meter)</title>
+  <meta name="description" content="How to run privacy-respecting, local AI models with Ollama on Windows, macOS, and Linux—what to install, which models to pick, and how to keep everything on your own machine." />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="canonical" href="https://thirddegreemedia.com/ollama-local-ai.html" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Run Powerful AI Locally with Ollama (No Cloud, No Meter)" />
+  <meta property="og:description" content="How to run privacy-respecting, local AI models with Ollama on Windows, macOS, and Linux—what to install, which models to pick, and how to keep everything on your own machine." />
+  <meta property="og:url" content="https://thirddegreemedia.com/ollama-local-ai.html" />
+  <link rel="icon" href="/favicon.ico" />
+  
+  <!-- Mobile-friendly dark theme styling -->
+  <style>
+    :root {
+      --bg:#0b0d10; --fg:#e7edf3; --muted:#b7c5d3;
+      --panel:#0f1318; --line:#1e2833; --accent:#7cc7ff;
+      --callout-bg:#fff7e6; --callout-border:#ffb300; --callout-text:#0b0b0b;
+      --tip-bg:#0d2818; --tip-border:#22c55e;
+      --warn-bg:#2d1b0f; --warn-border:#f59e0b;
+    }
+    body{margin:0;background:var(--bg);color:var(--fg);font-family:'JetBrains Mono','Fira Code','Courier New','SF Mono','Monaco','Inconsolata','Consolas',monospace;line-height:1.65}
+    main{max-width:900px;margin:0 auto;padding:28px 20px}
+    h1{font-size:clamp(1.8rem,3vw,2.1rem);line-height:1.25;margin:.2rem 0 1rem;color:var(--accent);text-shadow:0 0 10px #7cc7ffaa,0 0 20px #7cc7ff44;letter-spacing:0.02em;font-weight:600;text-transform:uppercase}
+    h2{font-size:clamp(1.2rem,2.2vw,1.35rem);line-height:1.25;margin:1.8rem 0 .6rem;color:var(--accent);text-shadow:0 0 8px #7cc7ffaa;letter-spacing:0.02em;font-weight:600;text-transform:uppercase}
+    h3{font-size:clamp(1.05rem,1.8vw,1.1rem);line-height:1.25;margin:1.2rem 0 .4rem;color:var(--fg);letter-spacing:0.01em}
+    p{margin:.7rem 0}
+    a{color:var(--accent);text-decoration:none;border-bottom:1px dotted var(--accent)}
+    a:hover{background:rgba(124,199,255,0.1)}
+    strong{color:var(--accent)}
+    em{color:var(--muted);font-style:italic}
+    code,kbd{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:.12rem .35rem;font-size:.9em;color:var(--accent)}
+    pre{background:#0f172a;color:#e5e7eb;padding:1rem;border-radius:8px;overflow:auto;margin:1rem 0;border:1px solid var(--line)}
+    .meta{color:var(--muted);font-size:.95rem;margin:.2rem 0 1.2rem}
+    .tip{background:var(--tip-bg);color:var(--fg);border:2px solid var(--tip-border);padding:12px 14px;border-radius:8px;margin:1rem 0}
+    .warn{background:var(--warn-bg);color:var(--fg);border:2px solid var(--warn-border);padding:12px 14px;border-radius:8px;margin:1rem 0}
+    .callout{background:var(--callout-bg);color:var(--callout-text);border-left:4px solid var(--callout-border);padding:12px 14px;border-radius:6px;margin:1rem 0}
+    .card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:1rem;margin:1rem 0}
+    .tag{display:inline-block;background:#eef6ff;color:#0b5ad9;border:1px solid #d8e9ff;padding:.05rem .45rem;border-radius:999px;font-size:.8rem;margin-right:.35rem}
+    .byline{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+    .byline .tag{background:#f0fdf4;color:#166534;border-color:#bbf7d0}
+    .hr{height:1px;background:linear-gradient(90deg,transparent, var(--line) 30%, var(--line) 70%, transparent);border:0;margin:1.6rem 0}
+    ul,ol{margin:.7rem 0;padding-left:1.2rem}
+    ul.checklist li{margin:.4rem 0}
+    @media (max-width: 480px) {
+      main{padding:20px 16px}
+      .card, .tip, .warn{padding:.8rem}
+      pre{padding:.8rem}
+    }
+  </style>
+</head>
+<body>
+<main>
+  <h1>Run Powerful AI Locally with Ollama (No Cloud, No Meter)</h1>
+  <div class="meta byline">
+    <span class="tag">Guide</span>
+    <span>Published: Sep 26, 2025</span>
+  </div>
+
+  <p>
+    You don't need a subscription—or to ship your prompts to someone else's servers—to get great coding help or a chat assistant. 
+    <strong>Ollama</strong> runs modern open-weight models entirely on your own machine, exposes a local API, and keeps your data on disk you control.
+  </p>
+
+  <div class="callout">
+    <strong>TL;DR:</strong> Install Ollama → pull a model → run it. Everything stays local; you can still add a friendly GUI or connect VS Code later.
+  </div>
+
+  <div class="hr"></div>
+
+  <h2>Why Local Models?</h2>
+  <ul class="checklist">
+    <li><strong>Privacy & sovereignty:</strong> prompts and files never leave your machine; you talk to a local HTTP endpoint at <code>127.0.0.1:11434</code></li>
+    <li><strong>No usage meter:</strong> once weights are downloaded, inference is "free" (you pay in GPU/CPU, not tokens)</li>
+    <li><strong>Choice:</strong> pick models tuned for coding, chat, multilingual, etc., from a community library (Qwen, Llama, Mistral, DeepSeek)</li>
+  </ul>
+
+  <div class="hr"></div>
+
+  <h2>Install Ollama</h2>
+  <p><em>Windows 10+, macOS, or Linux. Use the official downloads.</em></p>
+  
+  <div class="card">
+    <ul>
+      <li><strong>Windows:</strong> download installer (or use <code>winget</code>) from the official page</li>
+      <li><strong>macOS/Linux:</strong> follow the platform instructions; afterwards you can run the local API and pull models the same way</li>
+    </ul>
+  </div>
+
+  <pre># Windows (winget)
+winget install --id Ollama.Ollama -e
+
+# macOS (Homebrew)
+brew install ollama
+
+# Linux (official script)
+curl -fsSL https://ollama.com/install.sh | sh</pre>
+
+  <h2>Pick a Model (Coding & Chat)</h2>
+  <p>
+    For everyday coding + conversation, start with <strong>Qwen2.5-Coder</strong> and choose a size that fits your hardware. 
+    You can always install multiple sizes—only the one you run will occupy VRAM.
+  </p>
+  
+  <div class="card">
+    <ul>
+      <li><strong>7B (light):</strong> great for HTML/CSS/JS/Python help on almost any GPU/CPU<br/>
+        <code>ollama pull qwen2.5-coder:7b-instruct</code></li>
+      <li><strong>14B (balanced):</strong> better reasoning, still multitask-friendly on mainstream GPUs<br/>
+        <code>ollama pull qwen2.5-coder:14b-instruct</code></li>
+      <li><strong>32B (max quality):</strong> strong multi-file coding help; needs more VRAM<br/>
+        <code>ollama pull qwen2.5-coder:32b-instruct</code></li>
+    </ul>
+  </div>
+
+  <p class="meta">
+    Other excellent options: <strong>Llama 3.1 8B</strong> (fast, general chat) and <strong>DeepSeek-Coder</strong> variants (popular code models); check their official pages for details and licenses.
+  </p>
+
+  <h2>Run It (Two Ways)</h2>
+  <ol>
+    <li><strong>Chat in the terminal:</strong> <code>ollama run qwen2.5-coder:14b-instruct</code><br/>
+      You'll see a <code>&gt;&gt;&gt;</code> prompt—type requests and it answers locally.</li>
+    <li><strong>Use the local API:</strong> start the server with <code>ollama serve</code>, then POST to <code>http://127.0.0.1:11434/api/generate</code> from your tools or scripts.</li>
+  </ol>
+
+  <pre># Example: one-off prompt
+ollama run qwen2.5-coder:14b-instruct "Write a Python function to validate an email address."
+
+# Example: bigger context window (nice for code)
+set OLLAMA_NUM_CTX=16384   # Windows (PowerShell: $env:OLLAMA_NUM_CTX=16384)
+ollama run qwen2.5-coder:14b-instruct</pre>
+
+  <h2>Add a Friendly GUI (Optional)</h2>
+  <p>
+    Prefer tabs/history and a browser UI? Point <strong>Open WebUI</strong> at your local Ollama—download/manage models and chat in a clean interface, still fully local.
+  </p>
+
+  <h2>Licenses & "Can I Recommend This?"</h2>
+  <div class="card">
+    <p>
+      You can absolutely write tutorials and link to official model pages. Model licenses vary (e.g., Qwen typically uses Apache-2.0; Meta's Llama uses the Llama license; DeepSeek-Coder models permit commercial use under their model license). 
+      Link to the official repos and avoid redistributing weights yourself unless the license permits it.
+    </p>
+  </div>
+
+  <h2>Why This Matters for Privacy</h2>
+  <p>
+    Local inference keeps prompts and documents on devices you control, which aligns with modern privacy guidance and ongoing standardization work (e.g., NIST's push to make privacy claims—like "differential privacy"—verifiable). 
+    Even if you're not using DP-trained models yet, keeping your workflow local reduces data exposure versus cloud APIs.
+  </p>
+
+  <div class="warn">
+    <strong>Heads-up on hardware:</strong> big models reserve VRAM while loaded (e.g., ~10–12 GB for 14B; ~18–20 GB for 32B quantized). 
+    That's normal—actual GPU utilization spikes only while generating. If you're gaming or editing video, quit the model to free VRAM.
+  </div>
+
+  <div class="hr"></div>
+
+  <h2>Quick Reference</h2>
+  <div class="card">
+    <ul>
+      <li><strong>Download Ollama:</strong> official Windows/macOS/Linux installers</li>
+      <li><strong>Ollama API docs:</strong> endpoints, streaming, examples</li>
+      <li><strong>Qwen2.5-Coder (sizes & tags):</strong> library page</li>
+      <li><strong>Llama 3.1 overview:</strong> Meta's announcement</li>
+      <li><strong>DeepSeek-Coder:</strong> repo & license notes</li>
+      <li><strong>Open WebUI + Ollama:</strong> quick start</li>
+      <li><strong>NIST privacy guidance:</strong> DP guidelines & new registry draft</li>
+    </ul>
+  </div>
+
+  <div class="tip">
+    <strong>Pro tip:</strong> Start with the 7B model to test your hardware, then upgrade to 14B or 32B based on your VRAM capacity and performance needs. You can run multiple models but only load one at a time.
+  </div>
+
+  <p class="meta">© Third Degree Media — zero trackers, all signal.</p>
+</main>
+</body>
+</html>
