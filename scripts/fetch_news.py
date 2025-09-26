@@ -1,171 +1,141 @@
 #!/usr/bin/env python3
-"""
-Fetch privacy/civil-liberty/news RSS feeds → docs/news_feed.json (static).
-- Keeps it private: users fetch only your JSON, not 3rd-party feeds.
-- Safe defaults: dedup by URL, trims very long summaries, sorts by date desc.
-- Add/remove feeds in FEEDS below.
-- Optionally fetches images via Openverse API (use --images flag).
-"""
-import json, re, time, hashlib, os, sys, argparse
-from datetime import datetime, timezone
-from urllib.request import Request, urlopen
-from urllib.error import URLError, HTTPError
+# scripts/fetch_news.py
+import argparse, json, os, sys, time, re
+from urllib.parse import urlparse
 import xml.etree.ElementTree as ET
-from pathlib import Path
+import requests
 
-# ---- Configure here ---------------------------------------------------------
-OUTPUT = Path(__file__).resolve().parents[1] / "docs" / "news_feed.json"
-IMAGE_DIR = Path(__file__).resolve().parents[1] / "docs" / "assets" / "news_images"
-MAX_ITEMS_PER_FEED = 15
-MAX_SUMMARY_CHARS = 260
-USER_AGENT = "ThirdDegreeMedia/1.0 (+https://thirddegreemedia.com)"
-FEEDS = [
-    # Civil liberties / privacy
-    ("EFF", "https://www.eff.org/rss/updates.xml"),
-    # Tor Project
-    ("Tor Project", "https://blog.torproject.org/rss.xml"),
-    # Investigative / tech policy
-    ("ProPublica Nerd/News", "https://www.propublica.org/feeds/nerds"),
-    # VPN / privacy industry
-    ("Mullvad", "https://mullvad.net/en/blog/rss/"),
-    # Mozilla Security/Privacy (broad, but good)
-    ("Mozilla Security Blog", "https://blog.mozilla.org/security/feed/"),
-]
-# ----------------------------------------------------------------------------
+# import the chooser from your sibling script:
+CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, CURRENT_DIR)
+try:
+    from legal_news_image import choose_and_save
+except Exception:
+    choose_and_save = None  # still allow --images off
+
+USER_AGENT = "ThirdDegreeMedia/1.0 (fetch_news.py)"
+MAX_ITEMS_PER_FEED = 20
+NEWS_JSON_PATH = os.path.join(os.path.dirname(CURRENT_DIR), "docs", "news_feed.json")
+IMG_OUTDIR = os.path.join(os.path.dirname(CURRENT_DIR), "docs", "assets", "news_images")
 
 def fetch(url: str) -> bytes:
-    req = Request(url, headers={"User-Agent": USER_AGENT, "Accept": "application/rss+xml, application/atom+xml, */*"})
-    with urlopen(req, timeout=20) as r:
-        return r.read()
+    r = requests.get(url, headers={"User-Agent": USER_AGENT}, timeout=20)
+    r.raise_for_status()
+    return r.content
 
-def strip_html(s: str) -> str:
-    s = re.sub(r"(?is)<script.*?>.*?</script>", "", s or "")
-    s = re.sub(r"(?is)<style.*?>.*?</style>", "", s)
-    s = re.sub(r"(?s)<[^>]+>", "", s)
-    s = re.sub(r"\s+", " ", s).strip()
-    return s
-
-def isoformat(ts_struct) -> str:
-    # ts_struct is time.struct_time (if available)
-    if ts_struct:
-        try:
-            dt = datetime(*ts_struct[:6], tzinfo=timezone.utc)
-            return dt.isoformat().replace("+00:00", "Z")
-        except Exception:
-            pass
-    # fallback: now
-    return datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
-
-def parse_feed_xml(xml_bytes: bytes, fallback_source: str):
-    # Try RSS 2.0 and Atom via ElementTree (no external deps)
-    # We keep this simple and defensive.
+def parse_rss_atom(xml_bytes: bytes, fallback_source: str):
     root = ET.fromstring(xml_bytes)
-    ns = {"atom": "http://www.w3.org/2005/Atom"}
-
+    ns = {
+        "atom": "http://www.w3.org/2005/Atom",
+        "media": "http://search.yahoo.com/mrss/"
+    }
     items = []
+
+    # RSS
     channel = root.find("channel")
     if channel is not None:
-        # RSS
         for item in channel.findall("item")[:MAX_ITEMS_PER_FEED]:
             title = (item.findtext("title") or "").strip()
             link = (item.findtext("link") or "").strip()
-            pub = item.findtext("pubDate")
-            desc = item.findtext("description") or ""
-            summary = strip_html(desc)[:MAX_SUMMARY_CHARS].strip()
-            date_iso = isoformat(time.strptime(pub, "%a, %d %b %Y %H:%M:%S %z").utctimetuple()) if pub else isoformat(None)
-            items.append({"title": title, "url": link, "source": fallback_source, "date": date_iso, "summary": summary})
+            pub = (item.findtext("pubDate") or "").strip()
+            desc = (item.findtext("description") or "").strip()
+            # try media:content
+            media = item.find("media:content", ns)
+            thumb = media.get("url") if media is not None else None
+            items.append(dict(
+                title=title, url=link, summary=strip_tags(desc),
+                published=pub, source=fallback_source, thumb=thumb
+            ))
         return items
 
     # Atom
-    for entry in root.findall("atom:entry", ns)[:MAX_ITEMS_PER_FEED]:
+    for entry in root.findall("atom:entry", ns):
         title = (entry.findtext("atom:title", default="", namespaces=ns) or "").strip()
         link_el = entry.find("atom:link[@rel='alternate']", ns) or entry.find("atom:link", ns)
-        link = (link_el.get("href") if link_el is not None else "").strip()
-        updated = entry.findtext("atom:updated", default="", namespaces=ns) or entry.findtext("atom:published", default="", namespaces=ns)
-        # Try to normalize common Atom date formats
-        try:
-            # 2025-09-21T12:34:56Z
-            ts = time.strptime(updated[:19], "%Y-%m-%dT%H:%M:%S")
-            date_iso = isoformat(ts)
-        except Exception:
-            date_iso = isoformat(None)
-        summary = strip_html(entry.findtext("atom:summary", default="", namespaces=ns) or entry.findtext("atom:content", default="", namespaces=ns))
-        summary = summary[:MAX_SUMMARY_CHARS].strip()
-        items.append({"title": title, "url": link, "source": fallback_source, "date": date_iso, "summary": summary})
+        link = link_el.get("href") if link_el is not None else ""
+        pub = (entry.findtext("atom:published", default="", namespaces=ns) or
+               entry.findtext("atom:updated", default="", namespaces=ns) or "").strip()
+        summ = (entry.findtext("atom:summary", default="", namespaces=ns) or "").strip()
+        # media?
+        media = entry.find(".//media:content", ns)
+        thumb = media.get("url") if media is not None else None
+        items.append(dict(
+            title=title, url=link, summary=strip_tags(summ),
+            published=pub, source=fallback_source, thumb=thumb
+        ))
     return items
 
-def fetch_image_for_story(title, summary, source, outdir):
-    """
-    Try to fetch an image for a news story using the legal_news_image script.
-    Returns relative path to image or None if not found/error.
-    """
+def strip_tags(html: str) -> str:
+    return re.sub(r"<[^>]+>", "", html or "").strip()
+
+def domain_of(url: str) -> str:
     try:
-        # Import legal_news_image functions (if dependencies available)
-        from legal_news_image import choose_and_save
-        
-        # Create tags based on source and content
-        tags = [source.lower(), "privacy", "technology", "news"]
-        
-        # Try to fetch image
-        html, meta = choose_and_save(title, summary, tags, str(outdir))
-        
-        # Return relative path for web use
-        thumb_path = meta.get("thumb_path", "")
-        if thumb_path:
-            # Convert absolute path to relative web path
-            web_path = thumb_path.replace(str(Path(__file__).resolve().parents[1] / "docs"), "").replace("\\", "/")
-            if web_path.startswith("/"):
-                web_path = web_path[1:]
-            return web_path
-    except Exception as e:
-        # Silently fail if image fetch doesn't work (missing deps, API error, etc)
-        pass
-    
-    return None
+        return urlparse(url).netloc
+    except Exception:
+        return ""
 
 def main():
-    parser = argparse.ArgumentParser(description="Fetch RSS news feeds with optional image integration")
-    parser.add_argument("--images", action="store_true", help="Fetch images for news stories (requires additional deps)")
-    args = parser.parse_args()
-    all_items = {}
-    
-    for source, url in FEEDS:
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--feed", action="append", required=True,
+                    help="RSS/Atom feed URL (repeatable)")
+    ap.add_argument("--images", action="store_true",
+                    help="Pick safe, licensed images via Openverse")
+    ap.add_argument("--max", type=int, default=40, help="Max total items")
+    args = ap.parse_args()
+
+    all_items = []
+    for url in args.feed:
         try:
-            xml_bytes = fetch(url)
-            items = parse_feed_xml(xml_bytes, source)
-            for it in items:
-                if not it["title"] or not it["url"]:
-                    continue
-                
-                # Try to fetch image if requested
-                if args.images:
-                    image_path = fetch_image_for_story(it["title"], it["summary"], source, IMAGE_DIR)
-                    if image_path:
-                        it["image"] = image_path
-                
-                # Dedup by URL hash
-                key = hashlib.sha1(it["url"].encode("utf-8")).hexdigest()
-                # Keep newest if collision
-                if key in all_items:
-                    if it["date"] > all_items[key]["date"]:
-                        all_items[key] = it
-                else:
-                    all_items[key] = it
-        except (HTTPError, URLError, ET.ParseError) as e:
-            # You could log to syslog here if desired
-            continue
+            xml = fetch(url)
+            items = parse_rss_atom(xml, fallback_source=domain_of(url))
+            all_items.extend(items)
+        except Exception as e:
+            print(f"[warn] feed failed: {url} -> {e}", file=sys.stderr)
 
-    # Sort by date desc
-    data = sorted(all_items.values(), key=lambda x: x["date"], reverse=True)
+    # dedupe by URL
+    seen = set()
+    unique = []
+    for it in all_items:
+        u = it.get("url", "")
+        if u and u not in seen:
+            seen.add(u)
+            unique.append(it)
 
-    # Add a "last_updated" header object at the top (helpful for UI)
-    payload = {
-        "last_updated": datetime.now(timezone.utc).isoformat().replace("+00:00", "Z"),
-        "items": data
+    unique = unique[:args.max]
+
+    # IMAGES: enrich each item with a local, licensed image
+    if args.images and choose_and_save:
+        os.makedirs(IMG_OUTDIR, exist_ok=True)
+        for it in unique:
+            try:
+                title = it.get("title") or ""
+                summary = it.get("summary") or ""
+                tags = [it.get("source") or ""]
+                html, meta = choose_and_save(title, summary, tags, IMG_OUTDIR)
+                # Store structured fields your JS can use
+                it["image"] = {
+                    "src": meta.get("thumb_path") or meta.get("file_path"),
+                    "alt": title,
+                    "caption": f'{meta.get("title","Image")} by {meta.get("creator","Unknown")} · {meta.get("license","").upper()}',
+                    "license": meta.get("license"),
+                    "license_url": meta.get("license_url"),
+                    "source_url": meta.get("source_url")
+                }
+            except SystemExit:
+                # no results; silently continue
+                pass
+            except Exception as e:
+                print(f"[img] {title[:60]}... -> {e}", file=sys.stderr)
+
+    # write news.json
+    out = {
+        "generated_at": int(time.time()),
+        "items": unique
     }
-    OUTPUT.parent.mkdir(parents=True, exist_ok=True)
-    with OUTPUT.open("w", encoding="utf-8") as f:
-        json.dump(payload, f, ensure_ascii=False, indent=2)
+    os.makedirs(os.path.dirname(NEWS_JSON_PATH), exist_ok=True)
+    with open(NEWS_JSON_PATH, "w", encoding="utf-8") as f:
+        json.dump(out, f, ensure_ascii=False, indent=2)
+    print(f"[ok] wrote {NEWS_JSON_PATH} with {len(unique)} items")
 
 if __name__ == "__main__":
     main()
