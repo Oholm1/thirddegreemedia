@@ -3,6 +3,25 @@
 <head>
   <meta charset="utf-8" />
 
+<!-- Add to <head> of docs/index.html (or site layout) -->
+<script defer src="/js/minisearch.min.js"></script>
+<script defer src="/js/search.js"></script>
+
+<style>
+#site-search { width: 100%; max-width: 520px; padding: .6rem .8rem; border: 1px solid #2a3550; border-radius: 12px; background:#0f1522; color:#e9eef5; }
+#search-results { list-style: none; padding-left: 0; margin-top: .5rem; }
+#search-results li { padding: .3rem 0; }
+#search-results a { color: #74c0fc; text-decoration: none; }
+#search-results a:hover { text-decoration: underline; }
+.badge { font-size: .75rem; padding: 2px 8px; border-radius:999px; background:#08121d; color:#9cc9ff; border:1px solid #17365a }
+.muted { color:#a8b3c7 }
+</style>
+
+<div class="search">
+  <input id="site-search" type="search" placeholder="Search the codex…" autocomplete="off" />
+  <ul id="search-results"></ul>
+</div>
+
   <!-- Single, deduped Content Security Policy -->
   <meta http-equiv="Content-Security-Policy"
     content="
