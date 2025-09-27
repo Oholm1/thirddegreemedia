@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>The Conrad Rockenhaus Case — What We Know, What’s Alleged, What’s Unclear</title>
+  <meta name="description" content="A careful, sourced explainer about the federal cases touching Tor exit operator Conrad Rockenhaus: public records, allegations, technical context, and a living timeline." />
+  <style>
+    :root {
+      --bg: #0b0f14;
+      --fg: #e9eef5;
+      --muted: #a8b3c7;
+      --accent: #74c0fc;
+      --accent-2: #94f0c4;
+      --card: #121826;
+      --chip: #1b2233;
+      --danger: #ff6b6b;
+      --warning: #ffd166;
+    }
+    html, body { background: var(--bg); color: var(--fg); font-family: system-ui, -apple-system, Segoe UI, Roboto, Inter, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji"; line-height: 1.6; }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .wrap { max-width: 1000px; margin: 0 auto; padding: 28px 16px 120px; }
+    header { margin-bottom: 28px; }
+    h1 { font-size: clamp(1.9rem, 2.5vw + 1rem, 3rem); line-height: 1.15; margin: 0 0 8px; }
+    .dek { color: var(--muted); font-size: 1.05rem; }
+    .meta { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 14px; color: var(--muted); font-size: .95rem; }
+    .chip { background: var(--chip); padding: 2px 10px; border-radius: 999px; font-size: .85rem; }
+    .lede { font-size: 1.25rem; background: linear-gradient(180deg, rgba(148,240,196,.1), rgba(148,240,196,0)); border: 1px solid rgba(148,240,196,.35); padding: 16px; border-radius: 14px; }
+    .grid { display: grid; grid-template-columns: 1fr; gap: 18px; }
+    @media (min-width: 880px) { .grid { grid-template-columns: 2.2fr 1fr; } }
+    .card { background: var(--card); border: 1px solid rgba(148,240,196,.15); border-radius: 16px; padding: 16px; }
+    h2 { margin: 10px 0 8px; font-size: 1.35rem; }
+    h3 { margin: 10px 0 6px; font-size: 1.05rem; color: var(--muted); }
+    .warn { border-left: 4px solid var(--warning); padding-left: 12px; }
+    .danger { border-left: 4px solid var(--danger); padding-left: 12px; }
+    .list-tight li { margin: .35rem 0; }
+    .timeline { border-left: 2px dashed rgba(116,192,252,.4); padding-left: 14px; }
+    .timeline .t { margin: 12px 0; }
+    .timeline .date { color: var(--muted); font-weight: 600; font-variant-numeric: tabular-nums; }
+    .kbd { background: #0f1522; border: 1px solid #2a3550; border-bottom-width: 2px; padding: 2px 6px; border-radius: 6px; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+    code, pre { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+    .footnotes { font-size: .95rem; color: var(--muted); }
+    .footnotes li { margin: .4rem 0; }
+    .tag { display:inline-block; font-size:.78rem; padding:2px 8px; border-radius:999px; background:#08121d; color:#9cc9ff; border:1px solid #17365a }
+    .cols-2 { columns: 2; column-gap: 24px; }
+    @media (max-width: 640px) { .cols-2 { columns: 1; } }
+    .small { font-size: .92rem; color: var(--muted); }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <h1>The Conrad Rockenhaus Case: Facts, Allegations, and the Tor Context</h1>
+      <p class="dek">This is a living explainer about the federal proceedings touching Tor exit operator <strong>Conrad Rockenhaus</strong>. It separates <strong>public record</strong> from <strong>allegations</strong>, adds <strong>technical context</strong> (Tor, SPICE), and maintains a <strong>timeline</strong> with links to primary sources.</p>
+      <div class="meta">
+        <span class="chip">Last updated: <time datetime="2025-09-27">September 27, 2025</time></span>
+        <span class="chip">Jurisdictions: U.S. federal (E.D. Tex · W.D. Tex · E.D. Mich)</span>
+        <span class="chip">Status: <em>ongoing</em></span>
+      </div>
+    </header>
+
+    <section class="lede card warn">
+      <p><strong>Read me first:</strong> This article cites <em>public dockets</em> and <em>community posts</em>. Claims from family/community are clearly labeled <strong>allegations</strong> until matched to filings/transcripts. Nothing here is legal advice. If you spot an error, reach out: <span class="kbd">editor@thirddegreemedia.com</span>.</p>
+    </section>
+
+    <div class="grid">
+      <article class="card">
+        <h2>TL;DR</h2>
+        <ul class="list-tight">
+          <li><strong>There are real federal dockets involving Conrad Rockenhaus</strong> in Texas and Michigan (see <a href="#sources">Sources</a>). These establish case numbers, judges, and filing dates—not the truth of any allegation by themselves.</li>
+          <li><strong>His family alleges</strong> that after he ran high-bandwidth <em>Tor exit relays</em>, U.S. authorities pressured him to provide decryption/access; when he refused, they pursued him via other charges and later supervised-release proceedings. These are <em>allegations</em> pending verification in transcripts and orders.</li>
+          <li><strong>Tor 101:</strong> Exit operators <em>cannot</em> decrypt HTTPS or onion service traffic by design. Exits can see <em>unencrypted</em> streams (e.g., plain HTTP) like any internet intermediary; that’s not “breaking Tor.”</li>
+          <li><strong>SPICE ≠ an operating system.</strong> SPICE is a remote-display protocol/graphics stack used with virtualization (KVM/QEMU). Misstating it as an “OS” can mislead non-technical audiences.</li>
+        </ul>
+
+        <h2>Who is Conrad Rockenhaus?</h2>
+        <p>Conrad Rockenhaus is described in public and community records as a long-time systems engineer and Tor relay/exit operator. Mailing list archives from 2018–2019 discuss his high-bandwidth exit relays, including several ranked among Canada’s top exits by bandwidth.</p>
+        <ul>
+          <li>Tor-relays threads referencing his Canadian exit capacity (2018): <a href="https://lists.torproject.org/mailman3/hyperkitty/list/tor-relays%40lists.torproject.org/2018/8/" rel="noopener">lists.torproject.org</a> and <a href="https://tor-relays.torproject.narkive.com/bR1Sp5hb/4-of-conrad-rockenhaus-trial-servers-are-in-the-top-ten-exit-relays-for-canada" rel="noopener">Narkive mirror</a>.</li>
+        </ul>
+
+        <h2>What the <em>public record</em> shows</h2>
+        <p>Multiple federal dockets exist that involve Rockenhaus. Key entries include:</p>
+        <ul>
+          <li><strong>E.D. Texas (Sherman)</strong> criminal matter <span class="kbd">4:19-cr-00181</span> — entries available via <a href="https://www.govinfo.gov/app/details/USCOURTS-txed-4_19-cr-00181" rel="noopener">govinfo.gov</a> (orders incl. competency/R&amp;R adoption).</li>
+          <li><strong>W.D. Texas</strong> magistrate case <span class="kbd">6:20-mj-00002</span> — docket summary at <a href="https://www.courtlistener.com/docket/58292399/united-states-v-rockenhaus/" rel="noopener">CourtListener</a> (filed Jan 7, 2020).</li>
+          <li><strong>E.D. Michigan (Detroit)</strong> <span class="kbd">2:23-cr-20701</span> — docket page at <a href="https://www.courtlistener.com/docket/69848942/united-states-v-rockenhaus/" rel="noopener">CourtListener</a> (admin. open/close on Dec 27, 2023; later updates in 2025).</li>
+          <li><strong>E.D. Michigan (civil)</strong> <span class="kbd">2:25-cv-12736</span> — <em>Rockenhaus v. Agapiou</em> docket at <a href="https://www.courtlistener.com/docket/71231250/rockenhaus-v-agapiou/" rel="noopener">CourtListener</a> (Aug 28, 2025).</li>
+        </ul>
+        <p>These links provide dates, judges, and filings, but you must read the <em>actual documents</em> (e.g., violation petitions, orders, transcripts) to confirm specific claims.</p>
+
+        <h2>What his family <em>alleges</em></h2>
+        <p>Posts by his spouse, <strong>Adrienne Rockenhaus</strong>, and updates on <a href="https://rockenhaus.com/" rel="noopener">rockenhaus.com</a> assert (among other things):</p>
+        <ul>
+          <li>That federal agents sought the ability to <em>decrypt or access</em> Tor traffic from his exit nodes; he refused, citing impossibility/ethics.</li>
+          <li>That a probation officer mischaracterized a <strong>SPICE graphics driver</strong> as a “Linux OS used to access the dark web,” and this influenced court decisions.</li>
+          <li>That he endured extended pretrial detention, was re-arrested in September 2025, suffered a seizure in court, and faced periods without counsel; a hearing was postponed to <strong>Sept. 30, 2025</strong> by Judge Stephen J. Murphy III.</li>
+        </ul>
+        <p>See the family’s public statements: <a href="https://www.reddit.com/r/TOR/comments/1ni5drm/the_fbi_couldnt_get_my_husband_to_decrypt_his_tor/" rel="noopener">Reddit thread on r/TOR</a> and the <a href="https://rockenhaus.com/press-kit/" rel="noopener">Press Kit</a> (with running updates).</p>
+        <p><em>Editorial note:</em> These are <strong>allegations</strong>. Where possible, match them to docketed transcripts (e.g., to verify the SPICE testimony) and orders/minutes (e.g., continuances, counsel status).</p>
+
+        <h2>Counter‑narrative</h2>
+        <p>Community commentary suggests the government actions relate to <em>earlier workplace/CFAA conduct</em> and <em>supervised‑release violations</em>, not Tor. If you cover this angle, cite the violation petition(s) and prior judgments: charges, plea, restitution, and conditions of supervision.</p>
+
+        <h2>Technical Sidebar: Tor Exit Operators & “Decryption” Claims</h2>
+        <div class="card" style="background:#0f1422;border-color:#263552">
+          <h3>What can an exit see?</h3>
+          <p>By design, Tor’s <em>exit relay</em> is the last hop before traffic reaches the wider internet. It can observe <strong>unencrypted</strong> traffic (e.g., <code>http://</code>), but <strong>cannot decrypt</strong> end‑to‑end encrypted sessions like HTTPS or onion services. Tor’s design rotates keys and does not allow past traffic to be decrypted if a node is later compromised.</p>
+          <ul>
+            <li>Design docs: <a href="https://spec.torproject.org/tor-design" rel="noopener">Tor Design</a>; operator resources: <a href="https://community.torproject.org/relay/community-resources/" rel="noopener">Tor Community & Legal</a>, <a href="https://www.eff.org/pages/legal-faq-tor-relay-operators" rel="noopener">EFF Legal FAQ</a>.</li>
+          </ul>
+          <h3>So what is SPICE?</h3>
+          <p><strong>SPICE</strong> (Simple Protocol for Independent Computing Environments) is a <em>remote display protocol/graphics stack</em> typically used with <strong>KVM/QEMU</strong> virtualization. It is <em>not an operating system</em>. Treat any courtroom references to SPICE accordingly and consult an expert if needed.</p>
+          <ul>
+            <li>Docs: <a href="https://spice-space.org/spice-user-manual.html" rel="noopener">spice‑space.org user manual</a>, <a href="https://www.linux-kvm.org/page/SPICE" rel="noopener">linux‑kvm.org</a>, <a href="https://en.wikipedia.org/wiki/Simple_Protocol_for_Independent_Computing_Environments" rel="noopener">Wikipedia overview</a>.</li>
+          </ul>
+        </div>
+
+        <h2>Living Timeline</h2>
+        <div class="timeline">
+          <div class="t"><span class="date">2018–2019</span> — Tor-relays list discussions reflect high-bandwidth exit operations, including Canadian exits placed in top‑10 by bandwidth. <span class="tag">community</span></div>
+          <div class="t"><span class="date">Jan 7–8, 2020</span> — W.D. Texas magistrate case <span class="kbd">6:20-mj-00002</span> opens and terminates (see CourtListener docket page). <span class="tag">docket</span></div>
+          <div class="t"><span class="date">2019–2022</span> — E.D. Texas criminal matter <span class="kbd">4:19-cr-00181</span>; public orders include competency/R&amp;R adoption (see govinfo link). <span class="tag">docket</span></div>
+          <div class="t"><span class="date">Dec 27, 2023</span> — E.D. Michigan <span class="kbd">2:23-cr-20701</span> shows administrative open/close; later updates appear in 2025. <span class="tag">docket</span></div>
+          <div class="t"><span class="date">Aug–Sept 2025</span> — Family posts allege re‑arrest, seizure in court (Sept 4–5), and postponed hearing to Sept 30, 2025 (Judge Stephen J. Murphy III). <span class="tag">allegation</span></div>
+        </div>
+
+        <h2>Open Questions (What We’re Actively Verifying)</h2>
+        <ol class="list-tight">
+          <li><strong>SPICE testimony:</strong> Obtain the official transcript or exhibit with page:line cites that mention SPICE, and verify how it was characterized in court.</li>
+          <li><strong>Violation details:</strong> Pull the supervised‑release violation petition(s) from E.D. Michigan to quote the alleged violations verbatim.</li>
+          <li><strong>Medical/counsel claims:</strong> Cross‑check arrest reports, minute entries, and detention orders for Sept 4–5 events, counsel status, and any medical notes.</li>
+          <li><strong>Earlier CFAA facts:</strong> From E.D. Texas filings, summarize the precise counts, disposition, and restitution conditions; avoid relying on secondary commentary.</li>
+        </ol>
+
+        <h2>How Readers Can Evaluate Claims</h2>
+        <ul class="list-tight">
+          <li><strong>Read the dockets</strong> (CourtListener/govinfo) and follow links to PDFs where available. Transcripts are gold.</li>
+          <li><strong>Attribute precisely:</strong> When repeating a claim, note whether it’s from a <em>court document</em>, a <em>family statement</em>, or <em>community discussion</em>.</li>
+          <li><strong>Mind the tech/legal split:</strong> “Decrypting Tor traffic” is often a misconception; be precise about what an exit can/can’t see.</li>
+        </ul>
+
+        <h2 id="sources">Sources & Primary Links</h2>
+        <div class="cols-2 footnotes">
+          <ol>
+            <li>E.D. Michigan criminal docket: <a href="https://www.courtlistener.com/docket/69848942/united-states-v-rockenhaus/" rel="noopener">2:23‑cr‑20701</a> (docket page)</li>
+            <li>W.D. Texas magistrate docket: <a href="https://www.courtlistener.com/docket/58292399/united-states-v-rockenhaus/" rel="noopener">6:20‑mj‑00002</a> (docket page)</li>
+            <li>E.D. Texas criminal matter: <a href="https://www.govinfo.gov/app/details/USCOURTS-txed-4_19-cr-00181" rel="noopener">4:19‑cr‑00181</a> (orders via govinfo)</li>
+            <li>Civil docket (E.D. Mich.): <a href="https://www.courtlistener.com/docket/71231250/rockenhaus-v-agapiou/" rel="noopener">2:25‑cv‑12736</a></li>
+            <li>Family site (updates/press kit): <a href="https://rockenhaus.com/" rel="noopener">rockenhaus.com</a> · <a href="https://rockenhaus.com/press-kit/" rel="noopener">Press Kit</a></li>
+            <li>r/TOR statement by spouse: <a href="https://www.reddit.com/r/TOR/comments/1ni5drm/the_fbi_couldnt_get_my_husband_to_decrypt_his_tor/" rel="noopener">Reddit</a></li>
+            <li>Tor‑relays threads referencing his exits: <a href="https://lists.torproject.org/mailman3/hyperkitty/list/tor-relays%40lists.torproject.org/2018/8/" rel="noopener">Aug 2018 (lists.torproject.org)</a> · <a href="https://tor-relays.torproject.narkive.com/bR1Sp5hb/4-of-conrad-rockenhaus-trial-servers-are-in-the-top-ten-exit-relays-for-canada" rel="noopener">Narkive mirror</a></li>
+            <li>Tor design/ops/legal context: <a href="https://spec.torproject.org/tor-design" rel="noopener">Tor Design</a> · <a href="https://community.torproject.org/relay/community-resources/eff-tor-legal-faq/" rel="noopener">Tor Legal FAQ (EFF)</a></li>
+            <li>SPICE docs: <a href="https://www.linux-kvm.org/page/SPICE" rel="noopener">linux‑kvm.org</a> · <a href="https://spice-space.org/spice-user-manual.html" rel="noopener">spice‑space.org</a> · <a href="https://en.wikipedia.org/wiki/Simple_Protocol_for_Independent_Computing_Environments" rel="noopener">Wikipedia (overview)</a></li>
+          </ol>
+        </div>
+
+        <p class="small">If you are a lawyer, technologist, or witness with first-hand documents (orders, transcripts, exhibits) and are willing to be cited, please contact us. We will update this page as primary records are obtained.</p>
+      </article>
+
+      <aside class="card">
+        <h2>Quick Reference</h2>
+        <ul class="list-tight">
+          <li><strong>Subject:</strong> Conrad Rockenhaus</li>
+          <li><strong>Role:</strong> Tor exit relay operator (historical)</li>
+          <li><strong>Key judges:</strong> E.D. Mich — Hon. Stephen J. Murphy III (per family site updates)</li>
+          <li><strong>Key case #s:</strong> 4:19‑cr‑00181 (E.D. Tex); 6:20‑mj‑00002 (W.D. Tex); 2:23‑cr‑20701 (E.D. Mich); 2:25‑cv‑12736 (E.D. Mich civil)</li>
+        </ul>
+
+        <h2>Fact‑Check Checklist</h2>
+        <ol class="list-tight">
+          <li>Quote the supervised‑release violation petition verbatim (MI docket).</li>
+          <li>Confirm the SPICE reference via official transcript (page:line).</li>
+          <li>Confirm any “no counsel” period via orders/minutes.</li>
+          <li>Map any medical incidents to record entries (detention notes/medical logs).</li>
+          <li>Summarize the E.D. Texas case counts/disposition from filings.</li>
+        </ol>
+
+        <h2>Editorial Standards</h2>
+        <p class="small">We label <strong>allegations</strong> vs. <strong>docketed facts</strong>. We avoid technical overreach and consult primary sources. We correct errors promptly.</p>
+      </aside>
+    </div>
+  </div>
+</body>
+</html>
